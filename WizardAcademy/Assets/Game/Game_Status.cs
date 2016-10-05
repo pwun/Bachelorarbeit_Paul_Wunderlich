@@ -3,8 +3,11 @@ using System.Collections;
 
 public class Game_Status : MonoBehaviour {
 
+    //Fill with Data from Server
     protected string player_id = "hanswurst";
     protected int level = 1;
+    protected int math_level = 1;
+    protected int english_level = 1;
     protected int xp = 0;
     protected int neededXp = 100;
 
@@ -15,6 +18,7 @@ public class Game_Status : MonoBehaviour {
         if (status!= null)
         {
             Destroy(this.gameObject);
+            Debug.Log("Duplicate Game_Status destroyed itself.");
             return;
         }
         status = this;

@@ -12,7 +12,7 @@ public class Header_Script : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        status = GameObject.Find("EventSystem").GetComponent<Game_Status>();
+        status = GameObject.Find("Game_Status").GetComponent<Game_Status>();
 
         name_label = GameObject.Find("PlayerName").GetComponent<Text>();
         xp_label = GameObject.Find("PlayerLevel").GetComponent<Text>();
