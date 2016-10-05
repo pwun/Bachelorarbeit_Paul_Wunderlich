@@ -21,19 +21,19 @@ public class Data_Loader : MonoBehaviour {
         return value;
     }
     
-    public bool CheckLogin(string user, string password)
+    public int CheckLogin(string user, string password)
     {
         print("Checking " + user + ", " + password);
         for (int i = 0; i < items.Length-1; i++)
         {
             if (GetDataValue(items[i], "Name").Equals(user) && GetDataValue(items[i], "Password").Equals(password))
             {
-                print("Success");
-                return true;
+                print("Success! Loading Player Data From Id: " + GetDataValue(items[i], "Id"));
+                return System.Int32.Parse(GetDataValue(items[i], "Id"));
             }
         }
         print("No Match");
-        return false;
+        return 0;
     }
 	
 	// Update is called once per frame

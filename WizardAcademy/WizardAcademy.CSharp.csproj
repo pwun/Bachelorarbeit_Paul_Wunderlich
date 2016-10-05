@@ -65,7 +65,9 @@
   <ItemGroup>
     <Compile Include="Assets\Data_Loader.cs" />
     <Compile Include="Assets\Game\Game_Status.cs" />
+    <Compile Include="Assets\Game\Main\Game_Main_Script.cs" />
     <Compile Include="Assets\Game\Train\Training_Script.cs" />
+    <Compile Include="Assets\Game\User_Data_Loader.cs" />
     <Compile Include="Assets\Header_Script.cs" />
     <Compile Include="Assets\Menu\MenuScript.cs" />
   </ItemGroup>
