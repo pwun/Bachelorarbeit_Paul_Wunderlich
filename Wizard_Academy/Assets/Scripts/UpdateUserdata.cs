@@ -33,7 +33,6 @@ public class UpdateUserdata : MonoBehaviour {
 
     int GetIntValue(string data, string index)
     {
-        //PROBLEM: XP, MAX_XP, M_XP, E_XP
         string value = data.Substring(data.IndexOf(index) + index.Length +1);
         if (value.Contains("|"))
         {
@@ -44,8 +43,12 @@ public class UpdateUserdata : MonoBehaviour {
 
     void updateData(string result)
     {
-        data.initNeededXp(GetIntValue(result, "max_xp"));
-        data.initXp(GetIntValue(result, "xp"));
-        data.initLevel(GetIntValue(result, "lvl"));
+        data.initId(GetIntValue(result, "'id'"));
+        data.initNeededXp(GetIntValue(result, "'max_xp'"));
+        data.initXp(GetIntValue(result, "'xp'"));
+        data.initLevel(GetIntValue(result, "'lvl'"));
+        data.initMathXp(GetIntValue(result, "'m_xp'"));
+        data.initEnglishXp(GetIntValue(result, "'e_xp'"));
+        data.initLifes(GetIntValue(result, "'lifes'"));
     }
 }

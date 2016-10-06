@@ -52,11 +52,37 @@ public class UserData : MonoBehaviour {
     public int getXp() { return xp; }
     public int getNeededXp() { return xp_needed; }
     public int getLevel() { return level; }
+    public int getMathXp() { return xp_math; }
+    public int getEnglishXp() { return xp_english; }
+    public int getLifes() { return lifes; }
     //tbc
     public void initId(int newId) { id = newId; }
     public void initLevel(int newLevel) { level = newLevel; }
     public void initXp(int newXp) { xp = newXp; }
     public void initNeededXp(int newNeededXp) { xp_needed = newNeededXp; }
+    public void initMathXp(int newMathXp) { xp_math = newMathXp; }
+    public void initEnglishXp( int newEnglishXp) { xp_english = newEnglishXp; }
+    public void initLifes(int newLifes) { lifes = newLifes; }
 
-
+    public void addXpMath(int addXp) {
+        xp += addXp;
+        xp_math += addXp;
+        checkLevelUp();
+    }
+    public void addXpEnglish(int addXp)
+    {
+        xp += addXp;
+        xp_english += addXp;
+        checkLevelUp();
+    }
+    public void addLifes(int nrLifes)
+    {
+        Debug.Log("Lifes before: " + lifes);
+        lifes += nrLifes;
+        Debug.Log("Lifes now: " + lifes);
+    }
+    public void subLifes(int nrLifes)
+    {
+        lifes -= nrLifes;
+    }
 }

@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\BackButton.cs" />
     <Compile Include="Assets\Scripts\Login.cs" />
     <Compile Include="Assets\Scripts\Main.cs" />
+    <Compile Include="Assets\Scripts\Save.cs" />
     <Compile Include="Assets\Scripts\Signup.cs" />
     <Compile Include="Assets\Scripts\Startmenu.cs" />
     <Compile Include="Assets\Scripts\UpdateUserdata.cs" />
