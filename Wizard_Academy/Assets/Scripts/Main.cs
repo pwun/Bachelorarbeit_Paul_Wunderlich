@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Main : MonoBehaviour {
 
@@ -26,6 +27,11 @@ public class Main : MonoBehaviour {
 	void Update () {
         initUi();
 	}
+
+    public void Train()
+    {
+        SceneManager.LoadScene("Train");
+    }
 
     void initUiElements()
     {

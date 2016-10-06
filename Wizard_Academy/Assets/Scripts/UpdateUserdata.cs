@@ -4,7 +4,7 @@ using System.Collections;
 public class UpdateUserdata : MonoBehaviour {
 
     UserData data;
-    string LoginURL = "localhost/wizard_academy/UserInfo.php";
+    string LoginURL = "http://wizard-academy.netne.net/UserInfo.php";
     // Use this for initialization
     void Start () {
         refresh();
@@ -43,6 +43,7 @@ public class UpdateUserdata : MonoBehaviour {
 
     void updateData(string result)
     {
+        result = result.Split('<')[0];
         data.initId(GetIntValue(result, "'id'"));
         data.initNeededXp(GetIntValue(result, "'max_xp'"));
         data.initXp(GetIntValue(result, "'xp'"));

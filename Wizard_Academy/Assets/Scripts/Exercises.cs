@@ -4,14 +4,16 @@ using UnityEngine.UI;
 
 public class Exercises : MonoBehaviour {
 
-    string FetchURL = "localhost/wizard_academy/ExerciseInfo.php";
+    string FetchURL = "http://wizard-academy.netne.net/ExerciseInfo.php";
     public string[] items;
     public int nrExercise;
+    public Text nrCounter;
     public Text questionText;
     public InputField answerInput;
     // Use this for initialization
     void Start()
     {
+
         fetchExercises();
     }
 
@@ -34,7 +36,7 @@ public class Exercises : MonoBehaviour {
         WWW www = new WWW(FetchURL);
         yield return www;
         Debug.Log("Answer from Server:" + www.text);
-        string DataString = www.text;
+        string DataString = www.text.Split('<')[0];
         items = DataString.Split(';');
         startExercises();
     }
@@ -43,6 +45,7 @@ public class Exercises : MonoBehaviour {
     {
         questionText = GameObject.Find("Question").GetComponent<Text>();
         answerInput = GameObject.Find("AnswerInput").GetComponent<InputField>();
+        nrCounter = GameObject.Find("ExerciseCounter").GetComponent<Text>();
         nrExercise = 0;
 
         LoadQuestion(nrExercise);
@@ -51,6 +54,8 @@ public class Exercises : MonoBehaviour {
     void LoadQuestion(int i)
     {
         questionText.text = GetDataValue(items[i], "'question'");
+        nrCounter.text = (i+1) + "/" + items.Length;
+        answerInput.text = "";
         answerInput.Select();
     }
 

@@ -77,9 +77,7 @@ public class UserData : MonoBehaviour {
     }
     public void addLifes(int nrLifes)
     {
-        Debug.Log("Lifes before: " + lifes);
         lifes += nrLifes;
-        Debug.Log("Lifes now: " + lifes);
     }
     public void subLifes(int nrLifes)
     {

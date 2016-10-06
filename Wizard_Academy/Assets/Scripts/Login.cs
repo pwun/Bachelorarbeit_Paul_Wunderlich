@@ -8,7 +8,7 @@ public class Login : MonoBehaviour {
     public string inputUsername;
     public string inputPassword;
 
-    string LoginURL = "localhost/wizard_academy/Login.php";
+    string LoginURL = "http://wizard-academy.netne.net/Login.php";
 
     void Start()
     {
@@ -55,7 +55,7 @@ public class Login : MonoBehaviour {
         WWW www = new WWW(LoginURL, form);
         yield return www;
         Debug.Log(www.text);
-        if(www.text.Equals("login success"))
+        if(www.text.Contains("login success"))
         {
             //Update Persistant Game Data
             GameObject.Find("User_Data").GetComponent<UserData>().setName(inputUsername);

@@ -10,7 +10,7 @@ public class Signup : MonoBehaviour {
     public string inputPassword2;
     public int inputClass;
 
-    string SignupURL = "localhost/wizard_academy/Signup.php";
+    string SignupURL = "http://wizard-academy.netne.net/Signup.php";
 
     // Use this for initialization
     void Start () {
@@ -23,7 +23,7 @@ public class Signup : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Tab)) switchFocus();
     }
 
-    void SubmitRegister()
+    public void SubmitRegister()
     {
         //Update inputUsername;
         inputUsername = GameObject.Find("Username_Input").GetComponent<InputField>().text;
@@ -54,7 +54,7 @@ public class Signup : MonoBehaviour {
         WWW www = new WWW(SignupURL, form);
         yield return www;
         Debug.Log(www.text);
-        if (www.text.Equals("registration success."))
+        if (www.text.Contains("registration success."))
         {
             //Load Game
             SceneManager.LoadScene("Login");

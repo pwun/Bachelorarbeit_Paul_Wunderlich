@@ -13,7 +13,7 @@ public class Save : MonoBehaviour {
     int e_xp;
     int lifes;
 
-    string UpdateURL = "localhost/wizard_academy/Update.php";
+    string UpdateURL = "http://wizard-academy.netne.net/Update.php";
 
     // Use this for initialization
     void Start()
@@ -57,7 +57,7 @@ public class Save : MonoBehaviour {
         WWW www = new WWW(UpdateURL, form);
         yield return www;
         Debug.Log(www.text);
-        if (www.text.Equals("update success."))
+        if (www.text.Contains("update success."))
         {
             Debug.Log("Succesfully saved Data");
             //Load Game
