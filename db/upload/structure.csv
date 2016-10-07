@@ -1,0 +1,3 @@
+id;subject;class;lvl_min;lvl_max;dif;nr_answers;answers;question;answer_type;answer;suitable_for
+0;e;6,8;1;40;1;3;{been,was,being};past tense of be?;string;was;1,2,3
+1;m;8;5;10;2;1;;4*4?;int;16;1,4

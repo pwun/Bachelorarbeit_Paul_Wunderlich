@@ -6,12 +6,14 @@ public class UserData : MonoBehaviour {
     string name = "test";
     int id = 0;
     int class_level = 0;
-    int level = 0;
+    int level = 1;
     int xp = 0;
     int xp_math = 0;
     int xp_english = 0;
     int xp_needed = 100;
     int lifes = 0;
+    public int current_dif = 1;
+    public string current_subject = "m";
 
     static UserData current;
 
@@ -55,8 +57,10 @@ public class UserData : MonoBehaviour {
     public int getMathXp() { return xp_math; }
     public int getEnglishXp() { return xp_english; }
     public int getLifes() { return lifes; }
+    public int getClass() { return class_level; }
     //tbc
     public void initId(int newId) { id = newId; }
+    public void initClass(int newClass) { class_level = newClass; }
     public void initLevel(int newLevel) { level = newLevel; }
     public void initXp(int newXp) { xp = newXp; }
     public void initNeededXp(int newNeededXp) { xp_needed = newNeededXp; }
@@ -82,5 +86,15 @@ public class UserData : MonoBehaviour {
     public void subLifes(int nrLifes)
     {
         lifes -= nrLifes;
+    }
+
+    public void wipe()
+    {
+        level = 1;
+        xp = 0;
+        xp_math = 0;
+        xp_english = 0;
+        xp_needed = 100;
+        lifes = 0;
     }
 }

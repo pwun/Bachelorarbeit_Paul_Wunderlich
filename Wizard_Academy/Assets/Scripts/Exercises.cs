@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Exercises : MonoBehaviour {
 
-    string FetchURL = "http://wizard-academy.netne.net/ExerciseInfo.php";
+    string FetchURL = "http://wizard-academy.netne.net/ExerciseInfo2.php";
     public string[] items;
     public int nrExercise;
     public Text nrCounter;
@@ -13,8 +13,6 @@ public class Exercises : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-
-        fetchExercises();
     }
 
     // Update is called once per frame
@@ -23,17 +21,28 @@ public class Exercises : MonoBehaviour {
 
     }
 
-    public void fetchExercises()
+    
+    //data.getLevel(), data.current_dif, data.current_subject, "%1%", data.getClass()
+
+    public void fetchExercises(int lvl, int dif, string sub, string mode, int classLevel)
     {
-        StartCoroutine(ReadFromDB());
+        StartCoroutine(ReadFromDB(lvl, dif, sub, mode, classLevel));
     }
 
-    IEnumerator ReadFromDB()
+    IEnumerator ReadFromDB(int lvl, int dif, string sub, string mode, int classLevel)
     {
-        //WWWForm form = new WWWForm();
-        //form.AddField("usernamePost", username);
-        //WWW www = new WWW(LoginURL, form);
-        WWW www = new WWW(FetchURL);
+        //$sql = "SELECT * FROM `exercises2` WHERE `suitable_for` LIKE '%1%' AND `class` LIKE '%6%' AND `lvl_min` <= 2 AND `lvl_max` >= 2 AND `dif` = 1 AND `subject` = 'e'"
+
+        //sub = "'" + sub + "'";
+        string classString = "%" + classLevel + "%";
+
+        WWWForm form = new WWWForm();
+        form.AddField("lvl_Post", lvl);
+        form.AddField("dif_Post", dif);
+        form.AddField("sub_Post", sub);
+        form.AddField("suitable_Post", mode);
+        form.AddField("class_Post", classString);
+        WWW www = new WWW(FetchURL, form);
         yield return www;
         Debug.Log("Answer from Server:" + www.text);
         string DataString = www.text.Split('<')[0];
@@ -54,7 +63,7 @@ public class Exercises : MonoBehaviour {
     void LoadQuestion(int i)
     {
         questionText.text = GetDataValue(items[i], "'question'");
-        nrCounter.text = (i+1) + "/" + items.Length;
+        nrCounter.text = (i+1) + "/" + (items.Length-1);
         answerInput.text = "";
         answerInput.Select();
     }
@@ -70,8 +79,15 @@ public class Exercises : MonoBehaviour {
         {
             Debug.Log("Falsche Antwort");
         }
-        nrExercise++;
-        LoadQuestion(nrExercise);
+        if (nrExercise+1 >= items.Length - 1)
+        {
+            //Last Exercise
+        }
+        else
+        {
+            nrExercise++;
+            LoadQuestion(nrExercise);
+        }
     }
 
     string GetDataValue(string data, string index)

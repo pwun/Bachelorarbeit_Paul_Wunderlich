@@ -30,7 +30,7 @@ public class Main : MonoBehaviour {
 
     public void Train()
     {
-        SceneManager.LoadScene("Train");
+        SceneManager.LoadScene("TrainSetup");
     }
 
     void initUiElements()
@@ -56,4 +56,5 @@ public class Main : MonoBehaviour {
     public void addXpEnglish(int addXp){data.addXpEnglish(addXp);}
     public void addLifes(int nrLifes){data.addLifes(nrLifes);}
     public void subLifes(int nrLifes){data.subLifes(nrLifes);}
+    public void resetStats() { data.wipe();  }
 }

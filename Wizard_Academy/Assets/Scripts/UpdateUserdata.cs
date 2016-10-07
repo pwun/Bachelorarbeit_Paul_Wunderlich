@@ -44,6 +44,7 @@ public class UpdateUserdata : MonoBehaviour {
     void updateData(string result)
     {
         result = result.Split('<')[0];
+        data.initClass(GetIntValue(result, "'class'"));
         data.initId(GetIntValue(result, "'id'"));
         data.initNeededXp(GetIntValue(result, "'max_xp'"));
         data.initXp(GetIntValue(result, "'xp'"));

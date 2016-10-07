@@ -11,10 +11,11 @@ public class Train : MonoBehaviour {
         data = GameObject.Find("User_Data").GetComponent<UserData>();
         GameObject.Find("NameDisplay").GetComponent<Text>().text = data.getName();
         e = GetComponent<Exercises>();
+        e.fetchExercises(data.getLevel(), data.current_dif, data.current_subject, "%1%", data.getClass() );
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
         if (Input.GetKeyDown(KeyCode.Return)) AnswerQuestion();
     }
 

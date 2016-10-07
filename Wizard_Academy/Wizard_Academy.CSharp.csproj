@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\Signup.cs" />
     <Compile Include="Assets\Scripts\Startmenu.cs" />
     <Compile Include="Assets\Scripts\Train.cs" />
+    <Compile Include="Assets\Scripts\TrainSettings.cs" />
     <Compile Include="Assets\Scripts\UpdateUserdata.cs" />
     <Compile Include="Assets\Scripts\UserData.cs" />
   </ItemGroup>
