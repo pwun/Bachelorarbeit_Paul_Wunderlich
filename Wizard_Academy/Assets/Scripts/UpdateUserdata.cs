@@ -4,7 +4,7 @@ using System.Collections;
 public class UpdateUserdata : MonoBehaviour {
 
     UserData data;
-    string LoginURL = "http://wizard-academy.netne.net/UserInfo.php";
+    string LoginURL = "http://wunderlich-paul.de/wizard/UserInfo.php";
     // Use this for initialization
     void Start () {
         refresh();

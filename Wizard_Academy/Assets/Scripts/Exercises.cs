@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Exercises : MonoBehaviour {
 
-    string FetchURL = "http://wizard-academy.netne.net/ExerciseInfo2.php";
+    string FetchURL = "http://wunderlich-paul.de/wizard/ExerciseInfo.php";
     public string[] items;
     public int nrExercise;
     public Text nrCounter;

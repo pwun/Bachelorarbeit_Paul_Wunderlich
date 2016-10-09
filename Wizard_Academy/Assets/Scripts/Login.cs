@@ -8,7 +8,7 @@ public class Login : MonoBehaviour {
     public string inputUsername;
     public string inputPassword;
 
-    string LoginURL = "http://wizard-academy.netne.net/Login.php";
+    string LoginURL = "http://wunderlich-paul.de/wizard/Login.php";
 
     void Start()
     {

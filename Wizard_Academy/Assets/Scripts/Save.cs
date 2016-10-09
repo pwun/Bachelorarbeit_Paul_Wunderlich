@@ -13,7 +13,7 @@ public class Save : MonoBehaviour {
     int e_xp;
     int lifes;
 
-    string UpdateURL = "http://wizard-academy.netne.net/Update.php";
+    string UpdateURL = "http://wunderlich-paul.de/wizard/Update.php";
 
     // Use this for initialization
     void Start()

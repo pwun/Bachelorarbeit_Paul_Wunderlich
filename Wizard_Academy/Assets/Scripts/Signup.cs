@@ -10,7 +10,7 @@ public class Signup : MonoBehaviour {
     public string inputPassword2;
     public int inputClass;
 
-    string SignupURL = "http://wizard-academy.netne.net/Signup.php";
+    string SignupURL = "http://wunderlich-paul.de/wizard/Signup.php";
 
     // Use this for initialization
     void Start () {
