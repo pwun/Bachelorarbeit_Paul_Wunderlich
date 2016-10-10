@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Exercises : MonoBehaviour {
 
@@ -68,25 +69,35 @@ public class Exercises : MonoBehaviour {
         answerInput.Select();
     }
 
-    public void SubmitQuestion()
+    public string SubmitQuestion()
     {
+        string return_statement;
         string answer = answerInput.text;
         if (answer.Equals(GetDataValue(items[nrExercise], "'answer'")))
         {
             Debug.Log("Richtige Antwort, nächste Frage");
+            return_statement = "Richtig!<br>" + GetDataValue(items[nrExercise], "'answer'");
         }
         else
         {
             Debug.Log("Falsche Antwort");
+            return_statement = "Falsch!<br>Richtige Antwort:" + GetDataValue(items[nrExercise], "'answer'");
         }
-        if (nrExercise+1 >= items.Length - 1)
+        return return_statement;
+    }
+
+    public void next()
+    {
+        nrExercise++;
+        if (nrExercise < items.Length - 1)
         {
-            //Last Exercise
+            LoadQuestion(nrExercise);
         }
         else
         {
-            nrExercise++;
-            LoadQuestion(nrExercise);
+            Debug.Log("Last Question");
+            //Save XP
+            SceneManager.LoadScene("Main");
         }
     }
 

@@ -19,7 +19,19 @@ public class Train : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Return)) AnswerQuestion();
     }
 
-    void AnswerQuestion() {
-        e.SubmitQuestion();
+    public void AnswerQuestion() {
+        string answer = e.SubmitQuestion();
+        GameObject.Find("Answer_Text").GetComponent<Text>().text = answer;
+        GameObject.Find("Submit_Question").GetComponent<Button>().enabled = false;
+        GameObject.Find("Submit_Question").transform.localScale = new Vector3(0, 0, 0);
+        GameObject.Find("Next_Question").GetComponent<Button>().enabled = true;
+    }
+    public void NextQuestion()
+    {
+        GameObject.Find("Answer_Text").GetComponent<Text>().text = "";
+        GameObject.Find("Submit_Question").GetComponent<Button>().enabled = true;
+        GameObject.Find("Submit_Question").transform.localScale = new Vector3(1, 1, 1);
+        GameObject.Find("Next_Question").GetComponent<Button>().enabled = false;
+        e.next();
     }
 }
