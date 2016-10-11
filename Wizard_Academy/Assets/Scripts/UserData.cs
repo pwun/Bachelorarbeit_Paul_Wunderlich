@@ -41,8 +41,9 @@ public class UserData : MonoBehaviour {
         if (xp >= xp_needed)
         {
             xp = xp - xp_needed;
-            xp_needed *= 2;
+            xp_needed += 25;
             level++;
+            lifes++;
             //Upload to DB
         }
     }
@@ -95,6 +96,6 @@ public class UserData : MonoBehaviour {
         xp_math = 0;
         xp_english = 0;
         xp_needed = 100;
-        lifes = 0;
+        lifes = 3;
     }
 }

@@ -16,7 +16,17 @@ public class Train : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (Input.GetKeyDown(KeyCode.Return)) AnswerQuestion();
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            if (GameObject.Find("Submit_Question").GetComponent<Button>().enabled)
+            {
+                AnswerQuestion();
+            }
+            else
+            {
+                NextQuestion();
+            }
+        }
     }
 
     public void AnswerQuestion() {
