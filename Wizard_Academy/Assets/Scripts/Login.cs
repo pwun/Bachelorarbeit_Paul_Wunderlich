@@ -10,9 +10,12 @@ public class Login : MonoBehaviour {
 
     string LoginURL = "http://wunderlich-paul.de/wizard/Login.php";
 
+    Log log;
+
     void Start()
     {
         GameObject.Find("Username_Input").GetComponent<InputField>().Select();
+        log = GameObject.Find("Log").GetComponent<Log>();
     }
 
     //Update is called once per frame
@@ -55,8 +58,11 @@ public class Login : MonoBehaviour {
         WWW www = new WWW(LoginURL, form);
         yield return www;
         Debug.Log(www.text);
-        if(www.text.Contains("login success"))
+        if(www.text.Contains("id"))
         {
+            string id = www.text.Substring(www.text.IndexOf(':')+1);
+            Debug.Log("Id:" + id);
+            log.LogEntry("login", id);
             //Update Persistant Game Data
             GameObject.Find("User_Data").GetComponent<UserData>().setName(inputUsername);
             //Load Game
