@@ -39,6 +39,7 @@ public class Train : MonoBehaviour {
     public void NextQuestion()
     {
         GameObject.Find("Answer_Text").GetComponent<Text>().text = "";
+        //GameObject.Find("Answer_Text").GetComponent<InputField>().Select();
         GameObject.Find("Submit_Question").GetComponent<Button>().enabled = true;
         GameObject.Find("Submit_Question").transform.localScale = new Vector3(1, 1, 1);
         GameObject.Find("Next_Question").GetComponent<Button>().enabled = false;

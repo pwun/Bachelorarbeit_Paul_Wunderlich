@@ -48,10 +48,10 @@ public class Exercises : MonoBehaviour {
         Debug.Log("Answer from Server:" + www.text);
         string DataString = www.text.Split('<')[0];
         items = DataString.Split(';');
-        startExercises();
+        startTrainExercises();
     }
 
-    void startExercises()
+    void startTrainExercises()
     {
         questionText = GameObject.Find("Question").GetComponent<Text>();
         answerInput = GameObject.Find("AnswerInput").GetComponent<InputField>();
