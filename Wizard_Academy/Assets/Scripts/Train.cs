@@ -6,16 +6,18 @@ public class Train : MonoBehaviour {
 
     Exercises e;
     UserData data;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         data = GameObject.Find("User_Data").GetComponent<UserData>();
         GameObject.Find("NameDisplay").GetComponent<Text>().text = data.getName();
         e = GetComponent<Exercises>();
-        e.fetchExercises(data.getLevel(), data.current_dif, data.current_subject, "%1%", data.getClass() );
+        e.getTrainExercises(data.current_subject, data.getClass(), 1, 1);//Replace with Lvl
     }
-
+/*
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         if (Input.GetKeyDown(KeyCode.Return))
         {
             if (GameObject.Find("Submit_Question").GetComponent<Button>().enabled)
@@ -29,7 +31,8 @@ public class Train : MonoBehaviour {
         }
     }
 
-    public void AnswerQuestion() {
+    public void AnswerQuestion()
+    {
         string answer = e.SubmitQuestion();
         GameObject.Find("Answer_Text").GetComponent<Text>().text = answer;
         GameObject.Find("Submit_Question").GetComponent<Button>().enabled = false;
@@ -44,5 +47,6 @@ public class Train : MonoBehaviour {
         GameObject.Find("Submit_Question").transform.localScale = new Vector3(1, 1, 1);
         GameObject.Find("Next_Question").GetComponent<Button>().enabled = false;
         e.next();
-    }
+    }*/
 }
+

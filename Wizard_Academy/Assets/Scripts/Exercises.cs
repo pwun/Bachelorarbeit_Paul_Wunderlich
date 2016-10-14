@@ -2,113 +2,137 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class Exercises : MonoBehaviour {
 
     string FetchURL = "http://wunderlich-paul.de/wizard/ExerciseInfo.php";
     public string[] items;
-    public int nrExercise;
-    public Text nrCounter;
-    public Text questionText;
-    public InputField answerInput;
-    // Use this for initialization
-    void Start()
+
+    void fetchExercises(string Sub, int Class, int Suits, int Key)
     {
+        StartCoroutine(ReadFromDB(Sub, Class, Suits, Key));
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator ReadFromDB(string Sub, int Class, int Suits, int Key)
     {
-
-    }
-
-    
-    //data.getLevel(), data.current_dif, data.current_subject, "%1%", data.getClass()
-
-    public void fetchExercises(int lvl, int dif, string sub, string mode, int classLevel)
-    {
-        StartCoroutine(ReadFromDB(lvl, dif, sub, mode, classLevel));
-    }
-
-    IEnumerator ReadFromDB(int lvl, int dif, string sub, string mode, int classLevel)
-    {
-        //$sql = "SELECT * FROM `exercises2` WHERE `suitable_for` LIKE '%1%' AND `class` LIKE '%6%' AND `lvl_min` <= 2 AND `lvl_max` >= 2 AND `dif` = 1 AND `subject` = 'e'"
-
-        //sub = "'" + sub + "'";
-        string classString = "%" + classLevel + "%";
-
         WWWForm form = new WWWForm();
-        form.AddField("lvl_Post", lvl);
-        form.AddField("dif_Post", dif);
-        form.AddField("sub_Post", sub);
-        form.AddField("suitable_Post", mode);
-        form.AddField("class_Post", classString);
+        form.AddField("subPost", Sub);
+        form.AddField("classPost", Class);
+        form.AddField("suitablePost", Suits);
+        form.AddField("keyPost", Key);
         WWW www = new WWW(FetchURL, form);
         yield return www;
         Debug.Log("Answer from Server:" + www.text);
-        string DataString = www.text.Split('<')[0];
+        string DataString = www.text;//.Split('<')[0];
         items = DataString.Split(';');
-        startTrainExercises();
     }
 
-    void startTrainExercises()
+    public void getTrainExercises(string Sub, int Class, int Suits, int Lvl)
     {
-        questionText = GameObject.Find("Question").GetComponent<Text>();
-        answerInput = GameObject.Find("AnswerInput").GetComponent<InputField>();
-        nrCounter = GameObject.Find("ExerciseCounter").GetComponent<Text>();
-        nrExercise = 0;
-
-        LoadQuestion(nrExercise);
+        switch (Class)
+        {
+            case 6:
+                switch (Lvl)
+                {
+                    case 1:
+                    case 2:
+                    case 3:
+                        //3x1 4x2 3x3 1x12 1x13
+                        StartCoroutine(LoadClass6_1_3(Sub,Class,Suits));
+                        break;
+                    case 4:
+                    case 5:
+                    case 6:
+                        //do sth
+                        break;
+                    case 7:
+                    case 8:
+                    case 9:
+                        //do sth
+                        break;
+                    case 10:
+                    case 11:
+                    case 12:
+                        //do sth
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case 8:
+                switch (Lvl)
+                {
+                    case 1:
+                    case 2:
+                    case 3:
+                        //
+                        break;
+                    case 4:
+                    case 5:
+                    case 6:
+                        //do sth
+                        break;
+                    case 7:
+                    case 8:
+                    case 9:
+                        //do sth
+                        break;
+                    case 10:
+                    case 11:
+                    case 12:
+                        //do sth
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            default:
+                break;
+        }
     }
-
-    void LoadQuestion(int i)
+    IEnumerator LoadClass6_1_3(string Sub, int Class, int Suits)
     {
-        questionText.text = GetDataValue(items[i], "'question'");
-        nrCounter.text = (i+1) + "/" + (items.Length-1);
-        answerInput.text = "";
-        answerInput.Select();
+        yield return StartCoroutine(ReadFromDB(Sub, Class, Suits, 1));
+        string[] items1 = items;
+        yield return StartCoroutine(ReadFromDB(Sub, Class, Suits, 2));
+        string[] items2 = items;
+        yield return StartCoroutine(ReadFromDB(Sub, Class, Suits, 3));
+        string[] items3 = items;
+        yield return StartCoroutine(ReadFromDB(Sub, Class, Suits, 12));
+        string[] items12 = items;
+        yield return StartCoroutine(ReadFromDB(Sub, Class, Suits, 13));
+        string[] items13 = items;
+
+        List<string> result = PickRandom(items1, 3);
+        result.AddRange(PickRandom(items2, 4));
+        result.AddRange(PickRandom(items3, 3));
+        result.AddRange(PickRandom(items12, 1));
+        result.AddRange(PickRandom(items13, 1));
+
+        items = result.ToArray();
+        Debug.Log("Fertige Liste:");
+        for(int i = 0; i < items.Length; i++)
+        {
+            Debug.Log("Fertig" + i + ": " + items[i]);
+        }
     }
 
-    public string SubmitQuestion()
+    List<string> PickRandom(string[] data, int nr)
     {
-        string return_statement;
-        string answer = answerInput.text;
-        if (answer.Equals(GetDataValue(items[nrExercise], "'answer'")))
+        List<string> result = new List<string>();
+        //if (nr > data.Length) return result;
+        List<int> indexes = new List<int>();
+        for (int i = 0; i < nr; i++)
         {
-            Debug.Log("Richtige Antwort, nächste Frage");
-            return_statement = "Richtig!<br>" + GetDataValue(items[nrExercise], "'answer'");
+            int index = Random.Range(0, data.Length);
+            while (indexes.Contains(index))
+            {
+                index = Random.Range(0, data.Length);
+            }
+            indexes.Add(index);
+            result.Add(data[index]);
         }
-        else
-        {
-            Debug.Log("Falsche Antwort");
-            return_statement = "Falsch!<br>Richtige Antwort:" + GetDataValue(items[nrExercise], "'answer'");
-        }
-        return return_statement;
+        return result;
     }
-
-    public void next()
-    {
-        nrExercise++;
-        if (nrExercise < items.Length - 1)
-        {
-            LoadQuestion(nrExercise);
-        }
-        else
-        {
-            Debug.Log("Last Question");
-            //Save XP
-            SceneManager.LoadScene("Main");
-        }
-    }
-
-    string GetDataValue(string data, string index)
-    {
-        string value = data.Substring(data.IndexOf(index) + index.Length + 1);
-        if (value.Contains("|"))
-        {
-            value = value.Remove(value.IndexOf("|"));
-        }
-        return value;
-    }
-
 }
