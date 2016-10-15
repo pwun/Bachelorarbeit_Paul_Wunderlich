@@ -15,7 +15,7 @@ public class Mini1 : MonoBehaviour {
     Rigidbody2D Answers;
 
     Vector3 left;
-    float speed = 80.0f;
+    float speed = 120.0f;
 
     Rigidbody2D Player;
     float player_x;
@@ -25,9 +25,10 @@ public class Mini1 : MonoBehaviour {
     int CorrectCounter;
     int IncorrectCounter;
 
-    int min_x = -300;
+    int min_x = 0;
     int max_x = 400;
-    int spawn_x = 400;
+    int spawn_x = 1500;
+	int spawn_y = 350;
     int player_start_x = -350;
 
     // Use this for initialization
@@ -45,6 +46,7 @@ public class Mini1 : MonoBehaviour {
         Answer2 = GameObject.Find("Answer2").GetComponent<Text>();
         Answer3 = GameObject.Find("Answer3").GetComponent<Text>();
         Answers = GameObject.Find("Answers").GetComponent<Rigidbody2D>();
+		Answers.transform.position =  new Vector3(spawn_x, spawn_y, 0);
 
         CorrectCounter = 0;
         IncorrectCounter = 0;
@@ -60,7 +62,9 @@ public class Mini1 : MonoBehaviour {
         if(Answers.transform.position.x < min_x)
         {
             Debug.Log("Nächste Frage bitte!");
-            Answers.transform.position.Set(spawn_x, 0, 0);
+			e.NextQuestion ();
+			updateUi ();
+			Answers.transform.position =  new Vector3(spawn_x, spawn_y, 0);
         }
     }
 
@@ -102,6 +106,7 @@ public class Mini1 : MonoBehaviour {
         if (e.current_answer.Equals(text))
         {
             Debug.Log("Richtige Antwort!");
+			CorrectCounter++;
         }
         else
         {
