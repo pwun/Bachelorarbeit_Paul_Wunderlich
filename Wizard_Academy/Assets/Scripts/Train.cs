@@ -113,7 +113,7 @@ public class Train : MonoBehaviour {
             }
             else
             {
-                StartCoroutine(Close());
+                Close();
             }
         }
         else {
@@ -121,21 +121,19 @@ public class Train : MonoBehaviour {
         }
     }
 
-    IEnumerator Close()
+    void Close()
     {
         int xp = 50 + CorrectCounter * 5;
         string answer = "";
         if (data.current_subject.Equals("e"))
         {
             data.addXpEnglish(xp);
-            GetComponent<Save>().UpdateDB();
             Debug.Log("Added EnglishXp:" + xp);
             answer = "e:" + xp;
         }
         else if (data.current_subject.Equals("m"))
         {
             data.addXpMath(xp);
-            GetComponent<Save>().UpdateDB();
             Debug.Log("Added MathXp:" + xp);
             answer = "m:" + xp;
         }
@@ -144,9 +142,7 @@ public class Train : MonoBehaviour {
             Debug.Log("Error giving XP: Subject:" + data.current_subject + " not found");
             answer = "error";
         }
-        GameObject.Find("Log").GetComponent<Log>().LogEntry("train");
-        yield return answer;
-        SceneManager.LoadScene("Main");
+        StartCoroutine(data.QuitTrain());
     }
 }
 

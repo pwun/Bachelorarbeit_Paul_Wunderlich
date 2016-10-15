@@ -30,7 +30,17 @@ public class Main : MonoBehaviour {
 
     public void Train()
     {
-        SceneManager.LoadScene("TrainSetup");
+        StartCoroutine(data.Train());
+    }
+
+    public void Save()
+    {
+        data.Save();
+    }
+
+    public void Quit()
+    {
+        StartCoroutine(data.Logout());
     }
 
     void initUiElements()

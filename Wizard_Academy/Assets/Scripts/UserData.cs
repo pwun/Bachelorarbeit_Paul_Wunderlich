@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class UserData : MonoBehaviour {
+
+    string LogURL = "http://wunderlich-paul.de/wizard/Log.php";
+    string UpdateURL = "http://wunderlich-paul.de/wizard/Update.php";
 
     string name = "test";
     int id = 0;
@@ -28,6 +32,92 @@ public class UserData : MonoBehaviour {
         }
         current = this;
         GameObject.DontDestroyOnLoad(this.gameObject);
+    }
+
+    public IEnumerator Train()
+    {
+        bool finished = LogEntry("train start", false);
+        yield return finished;
+        SceneManager.LoadScene("TrainSetup");
+    }
+
+    public IEnumerator Logout()
+    {
+        Debug.Log("Logout..............");
+        Save();
+        bool finished = LogEntry("logout", false);
+        yield return finished;
+        SceneManager.LoadScene("Login");
+        Debug.Log("........done");
+    }
+
+    bool LogEntry(string action, bool feedback)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("useridPost", id);
+        form.AddField("actionPost", action);
+        WWW www = new WWW(LogURL, form);
+        Debug.Log("Logged: " + action);
+        return true;
+    }
+
+    public void LogEntry(string action)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("useridPost", id);
+        form.AddField("actionPost", action);
+        WWW www = new WWW(LogURL, form);
+        Debug.Log("Logged: " + action);
+    }
+
+    public void LogEntry(string action, string id)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("useridPost", id);
+        form.AddField("actionPost", action);
+        WWW www = new WWW(LogURL, form);
+        Debug.Log("Logged: " + action);
+    }
+
+    public void Save()
+    {
+        StartCoroutine(SendToDB());
+    }
+
+    public IEnumerator QuitTrain()
+    {
+        Save();
+        bool finished = LogEntry("train end", false);
+        yield return finished;
+        SceneManager.LoadScene("Main");
+    }
+
+    IEnumerator SendToDB()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("idPost", id);
+        form.AddField("lvlPost", level);
+        form.AddField("xpPost", xp);
+        form.AddField("max_xpPost", xp_needed);
+        form.AddField("m_xpPost", xp_math);
+        form.AddField("e_xpPost", xp_english);
+        form.AddField("lifesPost", lifes);
+
+        WWW www = new WWW(UpdateURL, form);
+        yield return www;
+        Debug.Log(www.text);
+        if (www.text.Contains("update success."))
+        {
+            Debug.Log("Succesfully saved Data");
+            //Load Game
+        }
+        else
+        {
+            Debug.Log("Error: Couldn't Save Data");
+            //Send Error-Feedback
+            //Username already exists?
+            //Clear Fields
+        }
     }
 
     // Update is called once per frame

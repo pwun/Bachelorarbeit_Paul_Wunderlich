@@ -61,10 +61,11 @@ public class Login : MonoBehaviour {
         if(www.text.Contains("id"))
         {
             string id = www.text.Substring(www.text.IndexOf(':')+1);
-            Debug.Log("Id:" + id);
-            log.LogEntry("login", id);
+            //Debug.Log("Id:" + id);
+            //log.LogEntry("login", id);
             //Update Persistant Game Data
             UserData data = GameObject.Find("User_Data").GetComponent<UserData>();
+            data.LogEntry("login",id);
             data.setName(inputUsername);
             yield return data;
             //Load Game
@@ -72,6 +73,7 @@ public class Login : MonoBehaviour {
         }
         else
         {
+            Debug.Log("Error: no id found");
             //Send Error-Feedback
             //Clear Fields
         }
