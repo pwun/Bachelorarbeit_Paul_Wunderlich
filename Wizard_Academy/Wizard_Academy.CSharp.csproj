@@ -68,7 +68,7 @@
     <Compile Include="Assets\Scripts\Log.cs" />
     <Compile Include="Assets\Scripts\Login.cs" />
     <Compile Include="Assets\Scripts\Main.cs" />
-    <Compile Include="Assets\Scripts\Mini1_Exercises.cs" />
+    <Compile Include="Assets\Scripts\Mini1.cs" />
     <Compile Include="Assets\Scripts\Mini1_Player.cs" />
     <Compile Include="Assets\Scripts\Save.cs" />
     <Compile Include="Assets\Scripts\Signup.cs" />

@@ -13,6 +13,10 @@ public class Exercises : MonoBehaviour {
     public string current_answer = "Antwort";
     bool ready = false;
 
+    public string current_answer1;
+    public string current_answer2;
+    public string current_answer3;
+
 
     string FetchURL = "http://wunderlich-paul.de/wizard/ExerciseInfo.php";
     public string[] items;
@@ -55,6 +59,10 @@ public class Exercises : MonoBehaviour {
         current_question = GetDataValue(exercises[i-1], "question");
         current_task = GetDataValue(exercises[i-1], "task");
         current_answer = GetDataValue(exercises[i-1], "answer");
+        string[] answer_pos = GetDataValue(exercises[i - 1], "answer_pos").Split(',');
+        current_answer1 = answer_pos[0].Replace('{',' ').Replace("  ", "");
+        current_answer2 = answer_pos[1].Replace("  ", "");
+        current_answer3 = answer_pos[2].Replace('}', ' ').Replace("  ", "");
     }
     
     /*
@@ -110,88 +118,104 @@ public class Exercises : MonoBehaviour {
 
     public void GetTrainExercises(string Sub, int Class, int Suits, int Lvl)
     {
-        switch (Sub)
+        switch (Suits)
         {
-            case "e":
-                switch (Class)
+            case 1:
+                switch (Sub)
                 {
-                    case 6:
-                        switch (Lvl)
+                    case "e":
+                        switch (Class)
                         {
-                            case 1:
-                            case 2:
-                            case 3:
-                                //3x1 4x2 3x3 1x12 1x13
-                                StartCoroutine(LoadClass6_1_3(Sub, Class, Suits));
-                                break;
-                            case 4:
-                            case 5:
                             case 6:
-                                //2x1 2x2 2x3 4x4 1x12 1x13
-                                StartCoroutine(LoadClass6_4_6(Sub, Class, Suits));
+                                switch (Lvl)
+                                {
+                                    case 1:
+                                    case 2:
+                                    case 3:
+                                        //3x1 4x2 3x3 1x12 1x13
+                                        StartCoroutine(LoadClass6_1_3(Sub, Class, Suits));
+                                        break;
+                                    case 4:
+                                    case 5:
+                                    case 6:
+                                        //2x1 2x2 2x3 4x4 1x12 1x13
+                                        StartCoroutine(LoadClass6_4_6(Sub, Class, Suits));
+                                        break;
+                                    case 7:
+                                    case 8:
+                                    case 9:
+                                        //1x1 3x4 3x5 3x6 2x14
+                                        StartCoroutine(LoadClass6_7_9(Sub, Class, Suits));
+                                        break;
+                                    case 10:
+                                    case 11:
+                                    case 12:
+                                        //1x1 4x4 4x7 3x14
+                                        StartCoroutine(LoadClass6_10_12(Sub, Class, Suits));
+                                        break;
+                                    default:
+                                        Debug.Log("Error generating questions: Level:" + Lvl + " not found");
+                                        break;
+                                }
                                 break;
-                            case 7:
                             case 8:
-                            case 9:
-                                //1x1 3x4 3x5 3x6 2x14
-                                StartCoroutine(LoadClass6_7_9(Sub, Class, Suits));
-                                break;
-                            case 10:
-                            case 11:
-                            case 12:
-                                //1x1 4x4 4x7 3x14
-                                StartCoroutine(LoadClass6_10_12(Sub, Class, Suits));
+                                switch (Lvl)
+                                {
+                                    case 1:
+                                    case 2:
+                                    case 3:
+                                        //1x1 1x2 1x3 2x4 1x5 1x6 2x7 1x12 1x13 1x14
+                                        StartCoroutine(LoadClass8_1_3(Sub, Class, Suits));
+                                        break;
+                                    case 4:
+                                    case 5:
+                                    case 6:
+                                        //1x1 2x4 2x7 1x14 1x8 1x9 2x10 2x11
+                                        StartCoroutine(LoadClass8_4_6(Sub, Class, Suits));
+                                        break;
+                                    case 7:
+                                    case 8:
+                                    case 9:
+                                        //1x1 1x4 1x7 1x10 3x11 3x15 2x17
+                                        StartCoroutine(LoadClass8_7_9(Sub, Class, Suits));
+                                        break;
+                                    case 10:
+                                    case 11:
+                                    case 12:
+                                        //1x1 1x4 1x7 1x10 2x11 3x16 3x17
+                                        StartCoroutine(LoadClass8_10_12(Sub, Class, Suits));
+                                        break;
+                                    default:
+                                        Debug.Log("Error generating questions: Level:" + Lvl + " not found");
+                                        break;
+                                }
                                 break;
                             default:
-                                Debug.Log("Error generating questions: Level:"+Lvl+" not found");
+                                Debug.Log("Error generating questions: Class:" + Class + " not found");
                                 break;
                         }
                         break;
-                    case 8:
-                        switch (Lvl)
-                        {
-                            case 1:
-                            case 2:
-                            case 3:
-                                //1x1 1x2 1x3 2x4 1x5 1x6 2x7 1x12 1x13 1x14
-                                StartCoroutine(LoadClass8_1_3(Sub, Class, Suits));
-                                break;
-                            case 4:
-                            case 5:
-                            case 6:
-                                //1x1 2x4 2x7 1x14 1x8 1x9 2x10 2x11
-                                StartCoroutine(LoadClass8_4_6(Sub, Class, Suits));
-                                break;
-                            case 7:
-                            case 8:
-                            case 9:
-                                //1x1 1x4 1x7 1x10 3x11 3x15 2x17
-                                StartCoroutine(LoadClass8_7_9(Sub, Class, Suits));
-                                break;
-                            case 10:
-                            case 11:
-                            case 12:
-                                //1x1 1x4 1x7 1x10 2x11 3x16 3x17
-                                StartCoroutine(LoadClass8_10_12(Sub, Class, Suits));
-                                break;
-                            default:
-                                Debug.Log("Error generating questions: Level:" + Lvl + " not found");
-                                break;
-                        }
+                    case "m":
+                        //Fill with Math Exercise-Coroutines
                         break;
                     default:
-                        Debug.Log("Error generating questions: Class:" + Class + " not found");
+                        Debug.Log("Error generating questions: Subject:" + Sub + " not found");
                         break;
                 }
                 break;
-            case "m":
-                //Fill with Math Exercise-Coroutines
-                break;
-            default:
-                Debug.Log("Error generating questions: Subject:" + Sub + " not found");
+            case 2:
+                //Vorläufige Methode holt 10 Verbformen für MiniGame1
+                StartCoroutine(LoadMini1Test(Sub, Class, Suits));
                 break;
         }
-        
+    }
+
+    IEnumerator LoadMini1Test(string Sub, int Class, int Suits)
+    {
+        yield return StartCoroutine(ReadFromDB(Sub, Class, Suits, 1));
+        string[] items1 = items;
+        List<string> result = PickRandom(items1, 10);
+        exercises = result.ToArray();
     }
     
     //Class 6 English

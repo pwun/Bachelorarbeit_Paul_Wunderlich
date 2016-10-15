@@ -32,6 +32,7 @@ public class Mini1_Player : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
+            //slash()
         }
         if (Input.GetKeyDown(KeyCode.W)||Input.GetKeyDown(KeyCode.UpArrow))
         {
@@ -54,6 +55,11 @@ public class Mini1_Player : MonoBehaviour {
             //Wait 2 Seconds, fall back to ground
             jumping = false;*/
         }
+    }
+
+    public int GetRowNumber()
+    {
+        return rowNr;
     }
 
     void RowUp()
