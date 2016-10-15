@@ -60,9 +60,9 @@ public class Exercises : MonoBehaviour {
         current_task = GetDataValue(exercises[i-1], "task");
         current_answer = GetDataValue(exercises[i-1], "answer");
         string[] answer_pos = GetDataValue(exercises[i - 1], "answer_pos").Split(',');
-        current_answer1 = answer_pos[0].Replace('{',' ').Replace("  ", "");
-        current_answer2 = answer_pos[1].Replace("  ", "");
-        current_answer3 = answer_pos[2].Replace('}', ' ').Replace("  ", "");
+        current_answer1 = answer_pos[0].Replace('{',' ').Replace(" ", "");
+        current_answer2 = answer_pos[1].Replace(" ", "");
+        current_answer3 = answer_pos[2].Replace('}', ' ').Replace(" ", "");
     }
     
     /*

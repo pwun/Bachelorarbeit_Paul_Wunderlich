@@ -13,6 +13,7 @@ public class Mini1_Player : MonoBehaviour {
     Rigidbody2D Player;
 
     UserData data;
+    Mini1 game;
 
 
 	// Use this for initialization
@@ -22,7 +23,7 @@ public class Mini1_Player : MonoBehaviour {
         GameObject.Find("Name_Display").GetComponent<Text>().text = data.getName();
         //Fetch Questions
         //Set first Question
-
+        game = GameObject.Find("EventSystem").GetComponent<Mini1>();
         Player = GameObject.Find("Player").GetComponent<Rigidbody2D>();
 	}
 	
@@ -82,5 +83,15 @@ public class Mini1_Player : MonoBehaviour {
             position.y -= rowGap;
             this.transform.position = position;
         }
+    }
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        game.HitQuestion(rowNr);
+    }
+
+    public void Kill()
+    {
+        Debug.Log("I was Killed!");
+        Destroy(gameObject);
     }
 }
