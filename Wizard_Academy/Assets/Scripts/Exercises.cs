@@ -11,32 +11,50 @@ public class Exercises : MonoBehaviour {
     public string current_question = "Frage";
     public string current_task = "Task";
     public string current_answer = "Antwort";
+    bool ready = false;
 
 
     string FetchURL = "http://wunderlich-paul.de/wizard/ExerciseInfo.php";
     public string[] items;
+    public string[] exercises;
+
+    public void Start()
+    {
+        exercises = new string[0];
+        ready = false;
+    }
+
+    public bool Ready()
+    {
+        return ready;
+    }
 
     public void StartExercise()
     {
-        nrExerciseMax = items.Length;
+        nrExerciseMax = exercises.Length;
         nrExercise = 1;
         LoadQuestion(1);
     }
 
-    public void NextQuestion()
+    public bool NextQuestion()
     {
         if (nrExercise < nrExerciseMax)
         {
             nrExercise++;
             LoadQuestion(nrExercise);
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
     private void LoadQuestion(int i)
     {
-        current_question = GetDataValue(items[i], "question");
-        current_task = GetDataValue(items[i], "task");
-        current_answer = GetDataValue(items[i], "answer");
+        current_question = GetDataValue(exercises[i-1], "question");
+        current_task = GetDataValue(exercises[i-1], "task");
+        current_answer = GetDataValue(exercises[i-1], "answer");
     }
     
     /*
@@ -65,7 +83,10 @@ public class Exercises : MonoBehaviour {
                 index = Random.Range(0, data.Length - 1);
             }
             indexes.Add(index);
-            result.Add(data[index]);
+            //if clause to prevent empty list entries
+            //if (data[index] != null) {
+                result.Add(data[index]);
+            //}
         }
         return result;
     }
@@ -194,11 +215,12 @@ public class Exercises : MonoBehaviour {
         result.AddRange(PickRandom(items12, 1));
         result.AddRange(PickRandom(items13, 1));
 
-        items = result.ToArray();
+        exercises = result.ToArray();
+        ready = true;
         Debug.Log("Fertige Liste:");
-        for(int i = 0; i < items.Length; i++)
+        for(int i = 0; i < exercises.Length; i++)
         {
-            Debug.Log("Fertig" + i + ": " + items[i]);
+            Debug.Log("Fertig" + i + ": " + exercises[i]);
         }
     }
     //2x1 2x2 2x3 4x4 1x12 1x13
@@ -224,11 +246,12 @@ public class Exercises : MonoBehaviour {
         result.AddRange(PickRandom(items12, 1));
         result.AddRange(PickRandom(items13, 1));
 
-        items = result.ToArray();
+        exercises = result.ToArray();
+        ready = true;
         Debug.Log("Fertige Liste:");
-        for (int i = 0; i < items.Length; i++)
+        for (int i = 0; i < exercises.Length; i++)
         {
-            Debug.Log("Fertig" + i + ": " + items[i]);
+            Debug.Log("Fertig" + i + ": " + exercises[i]);
         }
     }
     //1x1 3x4 3x5 3x6 2x14
@@ -251,11 +274,12 @@ public class Exercises : MonoBehaviour {
         result.AddRange(PickRandom(items6, 3));
         result.AddRange(PickRandom(items14, 2));
 
-        items = result.ToArray();
+        exercises = result.ToArray();
+        ready = true;
         Debug.Log("Fertige Liste:");
-        for (int i = 0; i < items.Length; i++)
+        for (int i = 0; i < exercises.Length; i++)
         {
-            Debug.Log("Fertig" + i + ": " + items[i]);
+            Debug.Log("Fertig" + i + ": " + exercises[i]);
         }
     }
     //1x1 4x4 4x7 3x14
@@ -275,11 +299,12 @@ public class Exercises : MonoBehaviour {
         result.AddRange(PickRandom(items7, 4));
         result.AddRange(PickRandom(items14, 3));
 
-        items = result.ToArray();
+        exercises = result.ToArray();
+        ready = true;
         Debug.Log("Fertige Liste:");
-        for (int i = 0; i < items.Length; i++)
+        for (int i = 0; i < exercises.Length; i++)
         {
-            Debug.Log("Fertig" + i + ": " + items[i]);
+            Debug.Log("Fertig" + i + ": " + exercises[i]);
         }
     }
     //Class 8 English
@@ -318,11 +343,12 @@ public class Exercises : MonoBehaviour {
         result.AddRange(PickRandom(items13, 1));
         result.AddRange(PickRandom(items14, 1));
 
-        items = result.ToArray();
+        exercises = result.ToArray();
+        ready = true;
         Debug.Log("Fertige Liste:");
-        for (int i = 0; i < items.Length; i++)
+        for (int i = 0; i < exercises.Length; i++)
         {
-            Debug.Log("Fertig" + i + ": " + items[i]);
+            Debug.Log("Fertig" + i + ": " + exercises[i]);
         }
     }
     //1x1 2x4 2x7 1x8 1x9 2x10 2x11 1x14
@@ -354,11 +380,12 @@ public class Exercises : MonoBehaviour {
         result.AddRange(PickRandom(items11, 2));
         result.AddRange(PickRandom(items14, 1));
 
-        items = result.ToArray();
+        exercises = result.ToArray();
+        ready = true;
         Debug.Log("Fertige Liste:");
-        for (int i = 0; i < items.Length; i++)
+        for (int i = 0; i < exercises.Length; i++)
         {
-            Debug.Log("Fertig" + i + ": " + items[i]);
+            Debug.Log("Fertig" + i + ": " + exercises[i]);
         }
     }
     //1x1 1x4 1x7 1x10 3x11 3x15 2x17
@@ -388,11 +415,12 @@ public class Exercises : MonoBehaviour {
         result.AddRange(PickRandom(items17, 2));
 
 
-        items = result.ToArray();
+        exercises = result.ToArray();
+        ready = true;
         Debug.Log("Fertige Liste:");
-        for (int i = 0; i < items.Length; i++)
+        for (int i = 0; i < exercises.Length; i++)
         {
-            Debug.Log("Fertig" + i + ": " + items[i]);
+            Debug.Log("Fertig" + i + ": " + exercises[i]);
         }
     }
     //1x1 1x4 1x7 1x10 2x11 3x16 3x17
@@ -421,11 +449,12 @@ public class Exercises : MonoBehaviour {
         result.AddRange(PickRandom(items16, 3));
         result.AddRange(PickRandom(items17, 3));
 
-        items = result.ToArray();
+        exercises = result.ToArray();
+
         Debug.Log("Fertige Liste:");
-        for (int i = 0; i < items.Length; i++)
+        for (int i = 0; i < exercises.Length; i++)
         {
-            Debug.Log("Fertig" + i + ": " + items[i]);
+            Debug.Log("Fertig" + i + ": " + exercises[i]);
         }
     }
 }

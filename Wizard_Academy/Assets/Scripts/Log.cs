@@ -24,6 +24,7 @@ public class Log : MonoBehaviour {
         form.AddField("useridPost", id);
         form.AddField("actionPost", action);
         WWW www = new WWW(LogURL, form);
+        Debug.Log("Logged: " + action);
     }
 
     public void LogEntry(string action, string id)
@@ -32,5 +33,6 @@ public class Log : MonoBehaviour {
         form.AddField("useridPost", id);
         form.AddField("actionPost", action);
         WWW www = new WWW(LogURL, form);
+        Debug.Log("Logged: " + action);
     }
 }

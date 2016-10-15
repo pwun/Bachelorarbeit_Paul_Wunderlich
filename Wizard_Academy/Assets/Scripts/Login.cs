@@ -64,7 +64,9 @@ public class Login : MonoBehaviour {
             Debug.Log("Id:" + id);
             log.LogEntry("login", id);
             //Update Persistant Game Data
-            GameObject.Find("User_Data").GetComponent<UserData>().setName(inputUsername);
+            UserData data = GameObject.Find("User_Data").GetComponent<UserData>();
+            data.setName(inputUsername);
+            yield return data;
             //Load Game
             SceneManager.LoadScene("Main");
         }
