@@ -87,6 +87,7 @@ public class Mini1 : MonoBehaviour {
         GameObject.Find("Start").GetComponent<Button>().enabled = false;
         GameObject.Find("Start").transform.localScale = new Vector3(0, 0, 0);
         updateUi();
+        PlayerScript.StartAnimation();
         Answers.velocity = left * speed;
         Bg.velocity = left * slow;
     }
@@ -122,38 +123,59 @@ public class Mini1 : MonoBehaviour {
         {
             Debug.Log("Richtige Antwort!");
             PlayerScript.Attack();
-			CorrectCounter++;
-            Answer1.enabled = false;
-            Answer2.enabled = false;
-            Answer3.enabled = false;
+            StartCoroutine(DeactivateAnswer());
         }
         else
         {
             Debug.Log("Falsche Antwort!");
-            Answer1.color = Color.red;
-            Answer2.color = Color.red;
-            Answer3.color = Color.red;
             switch (Lifes)
             {
                 case 1:
                     PlayerScript.Kill();
-                    GameObject.Find("Life1").GetComponent<SpriteRenderer>().sprite = hearts_inactive;
-                    Answers.velocity = Vector2.zero;
-                    Bg.velocity = Vector2.zero;
+                    StartCoroutine(KillHearts());
                     //Pause Game, Game Over
                     break;
                 case 2:
                     Lifes--;
                     PlayerScript.LoseLife();
-                    GameObject.Find("Life2").GetComponent<SpriteRenderer>().sprite = hearts_inactive;
+                    StartCoroutine(DeactivateHearts("Life2"));
                     break;
                 case 3:
                     Lifes--;
                     PlayerScript.LoseLife();
-                    GameObject.Find("Life3").GetComponent<SpriteRenderer>().sprite = hearts_inactive;
+                    StartCoroutine(DeactivateHearts("Life3"));
                     break;
             }
         }
+    }
+
+    IEnumerator DeactivateHearts(string heartName)
+    {
+        yield return new WaitForSeconds(1);
+        GameObject.Find(heartName).GetComponent<SpriteRenderer>().sprite = hearts_inactive;
+        Answer1.color = Color.red;
+        Answer2.color = Color.red;
+        Answer3.color = Color.red;
+    }
+
+    IEnumerator KillHearts()
+    {
+        yield return new WaitForSeconds(1);
+        GameObject.Find("Life1").GetComponent<SpriteRenderer>().sprite = hearts_inactive;
+        Answer1.color = Color.red;
+        Answer2.color = Color.red;
+        Answer3.color = Color.red;
+        Answers.velocity = Vector2.zero;
+        Bg.velocity = Vector2.zero;
+    }
+
+    IEnumerator DeactivateAnswer()
+    {
+        yield return new WaitForSeconds(1);
+        CorrectCounter++;
+        Answer1.enabled = false;
+        Answer2.enabled = false;
+        Answer3.enabled = false;
     }
 
     /*

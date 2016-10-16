@@ -48,8 +48,8 @@ public class Main : MonoBehaviour {
         name_display = GameObject.Find("UsernameDisplay").GetComponent<Text>();
         level_display = GameObject.Find("LevelDisplay").GetComponent<Text>();
         xp_display = GameObject.Find("XpDisplay").GetComponent<Text>();
-        xp_e_display = GameObject.Find("XpDisplayEnglish").GetComponent<Text>();
-        xp_m_display = GameObject.Find("XpDisplayMath").GetComponent<Text>();
+        //xp_e_display = GameObject.Find("XpDisplayEnglish").GetComponent<Text>();
+        //xp_m_display = GameObject.Find("XpDisplayMath").GetComponent<Text>();
         life_display = GameObject.Find("LifeDisplay").GetComponent<Text>();
     }
 
@@ -57,9 +57,9 @@ public class Main : MonoBehaviour {
         name_display.text = data.getName();
         level_display.text = "Lvl.:  "+data.getLevel();
         xp_display.text = data.getXp() + "/" + data.getNeededXp() + " XP";
-        xp_e_display.text = "Englisch: "+data.getEnglishXp()+" XP";
-        xp_m_display.text = "Mathe: " + data.getMathXp()+" XP";
-        life_display.text = data.getLifes() + " Leben";
+        //xp_e_display.text = "Englisch: "+data.getEnglishXp()+" XP";
+        //xp_m_display.text = "Mathe: " + data.getMathXp()+" XP";
+        life_display.text = data.getLifes() + " Münzen";
     }
 
     public void addXpMath(int addXp){data.addXpMath(addXp);}

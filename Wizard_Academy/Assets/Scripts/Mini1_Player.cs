@@ -10,6 +10,7 @@ public class Mini1_Player : MonoBehaviour {
     int jumpHeight = 70;
     int jumpLength = 150;
     bool jumping = false;
+    public bool running = false;
     Rigidbody2D Player;
 
     UserData data;
@@ -45,6 +46,11 @@ public class Mini1_Player : MonoBehaviour {
         {
             RowDown();
         }
+    }
+
+    public void StartAnimation()
+    {
+        anim.SetBool("running", true);
     }
 
     void Jump()
