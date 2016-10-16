@@ -9,7 +9,7 @@ public class Mini1_Player : MonoBehaviour {
     int rowGap = 100;
     int jumpHeight = 70;
     int jumpLength = 150;
-    bool jumping = false;
+    bool attacking = false;
     public bool running = false;
     Rigidbody2D Player;
 
@@ -35,8 +35,7 @@ public class Mini1_Player : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Jump();
-            //slash()
+            Attack();
         }
         if (Input.GetKeyDown(KeyCode.W)||Input.GetKeyDown(KeyCode.UpArrow))
         {
@@ -51,19 +50,6 @@ public class Mini1_Player : MonoBehaviour {
     public void StartAnimation()
     {
         anim.SetBool("running", true);
-    }
-
-    void Jump()
-    {
-        if (!jumping)
-        {
-            /*jumping = true;
-            Vector3 position = this.transform.position;
-            position.y += jumpHeight;
-            this.transform.position = position;
-            //Wait 2 Seconds, fall back to ground
-            jumping = false;*/
-        }
     }
 
     public int GetRowNumber()
@@ -97,6 +83,15 @@ public class Mini1_Player : MonoBehaviour {
         if (coll.gameObject.name.Contains("Answer")) {
             game.HitQuestion(rowNr);
         }
+        else if (coll.gameObject.name.Contains("Enemy"))
+        {
+            Debug.Log("ENEMY!");
+            if (attacking)
+            {
+                Debug.Log("ATTACK");
+                Destroy(coll.gameObject);
+            }
+        }
         else
         {
             game.LoseLife();
@@ -116,6 +111,14 @@ public class Mini1_Player : MonoBehaviour {
 
     public void Attack()
     {
+        attacking = true;
         anim.SetTrigger("Attack");
+        StartCoroutine(wait());
+    }
+
+    IEnumerator wait()
+    {
+        yield return new WaitForSeconds(1);
+        attacking = false;
     }
 }
