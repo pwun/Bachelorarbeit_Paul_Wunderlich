@@ -94,7 +94,13 @@ public class Mini1_Player : MonoBehaviour {
     }
     void OnTriggerEnter2D(Collider2D coll)
     {
-        game.HitQuestion(rowNr);
+        if (coll.gameObject.name.Contains("Answer")) {
+            game.HitQuestion(rowNr);
+        }
+        else
+        {
+            game.LoseLife();
+        }
     }
 
     public void LoseLife()

@@ -14,6 +14,7 @@ public class Mini1 : MonoBehaviour {
     Text Answer3;
     Rigidbody2D Answers;
     Rigidbody2D Bg;
+    public GameObject Enemy;
 
     Vector3 left;
     float speed = 120.0f;
@@ -32,6 +33,7 @@ public class Mini1 : MonoBehaviour {
     int max_x = 400;
     int spawn_x = 1500;
 	int spawn_y = 350;
+    int row_gap = 100;
     int player_start_x = -350;
     int Lifes;
     public Sprite hearts_inactive;
@@ -59,6 +61,18 @@ public class Mini1 : MonoBehaviour {
         Lifes = 3;
         left = new Vector3(-1, 0, 0);
     }
+
+    public void EnemySpawn()
+    {
+        int noEnemies = Random.RandomRange(1, 4);
+        for(int i = 0; i < noEnemies; i++)
+        {
+            Debug.Log("Create new Enemy");
+            int spawnRow = Random.RandomRange(0, 3);
+            Vector3 EnemySpawnPos = new Vector3(1000 + i*200, spawn_y - row_gap * spawnRow, 0);
+            GameObject e = (GameObject)Instantiate(Enemy, EnemySpawnPos, transform.rotation);
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -69,6 +83,22 @@ public class Mini1 : MonoBehaviour {
 			updateUi ();
             ResetAnswer();
         }
+    }
+
+    public void LoseLife()
+    {
+        if(Lifes > 1)
+        {
+            Lifes--;
+            PlayerScript.LoseLife();
+            StartCoroutine(DeactivateHeart());
+        }
+        else
+        {
+            PlayerScript.Kill();
+            StartCoroutine(KillHearts());
+        }
+        
     }
 
     void ResetAnswer()
@@ -117,6 +147,7 @@ public class Mini1 : MonoBehaviour {
 
     void CheckAnswer(string text)
     {
+        EnemySpawn();
         Debug.Log("Correct answer:" + e.current_answer);
         Debug.Log("Submitted answer:" + text);
         if (e.current_answer.Equals(text))
@@ -135,30 +166,31 @@ public class Mini1 : MonoBehaviour {
                     StartCoroutine(KillHearts());
                     //Pause Game, Game Over
                     break;
-                case 2:
+                default :
                     Lifes--;
                     PlayerScript.LoseLife();
-                    StartCoroutine(DeactivateHearts("Life2"));
-                    break;
-                case 3:
-                    Lifes--;
-                    PlayerScript.LoseLife();
-                    StartCoroutine(DeactivateHearts("Life3"));
+                    StartCoroutine(DeactivateHeart());
+                    StartCoroutine(ColorAnswers());
                     break;
             }
         }
     }
 
-    IEnumerator DeactivateHearts(string heartName)
+    IEnumerator DeactivateHeart()
     {
+        string heartName = "Life" + (Lifes+1);
         yield return new WaitForSeconds(1);
         GameObject.Find(heartName).GetComponent<SpriteRenderer>().sprite = hearts_inactive;
+    }
+    IEnumerator ColorAnswers()
+    {
+        yield return new WaitForSeconds(1);
         Answer1.color = Color.red;
         Answer2.color = Color.red;
         Answer3.color = Color.red;
     }
 
-    IEnumerator KillHearts()
+    public IEnumerator KillHearts()
     {
         yield return new WaitForSeconds(1);
         GameObject.Find("Life1").GetComponent<SpriteRenderer>().sprite = hearts_inactive;
