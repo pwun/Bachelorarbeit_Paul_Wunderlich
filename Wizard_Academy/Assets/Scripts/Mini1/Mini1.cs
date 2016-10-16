@@ -7,6 +7,7 @@ public class Mini1 : MonoBehaviour {
 
     Exercises e;
     UserData data;
+    Log log;
 
     Text Question;
     Text Answer1;
@@ -38,10 +39,12 @@ public class Mini1 : MonoBehaviour {
     int Lifes;
     public Sprite hearts_inactive;
     public Sprite hearts_active;
+    int xp = 0;
 
     // Use this for initialization
     void Start () {
         data = GameObject.Find("User_Data").GetComponent<UserData>();
+        log = GameObject.Find("Log").GetComponent<Log>();
         e = GetComponent<Exercises>();
         e.GetTrainExercises("e", data.getClass(), 2, data.getLevel());
 
@@ -73,6 +76,15 @@ public class Mini1 : MonoBehaviour {
             GameObject e = (GameObject)Instantiate(Enemy, EnemySpawnPos, transform.rotation);
         }
     }
+
+    public void SafeAndQuit()
+    {
+        //ACHTUNG!! FÜR MATHE ANPASSEN!
+        log.LogEntry("mini1end");
+        data.addXpEnglish(xp);
+        data.Save();
+        SceneManager.LoadScene("Main");
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -87,9 +99,9 @@ public class Mini1 : MonoBehaviour {
 
     public void LoseLife()
     {
-        if(Lifes > 1)
+        Lifes--;
+        if(Lifes > 0)
         {
-            Lifes--;
             PlayerScript.LoseLife();
             StartCoroutine(DeactivateHeart());
         }
@@ -162,6 +174,7 @@ public class Mini1 : MonoBehaviour {
             switch (Lifes)
             {
                 case 1:
+                    Lifes--;
                     PlayerScript.Kill();
                     StartCoroutine(KillHearts());
                     //Pause Game, Game Over
@@ -199,6 +212,17 @@ public class Mini1 : MonoBehaviour {
         Answer3.color = Color.red;
         Answers.velocity = Vector2.zero;
         Bg.velocity = Vector2.zero;
+        EndGame();
+    }
+
+    void EndGame()
+    {
+        xp = CorrectCounter*(Lifes+1);
+        GameObject.Find("RewardText").GetComponent<Text>().text = "Du hast " + CorrectCounter + " Antworten richtig beantwortet" + System.Environment.NewLine +
+            "und " + Lifes + " Leben übrig." + System.Environment.NewLine + "Dafür erhältst du " + xp + "XP";
+        GameObject.Find("SaveAndQuitButton").GetComponent<Button>().enabled = true;
+        GameObject.Find("SaveAndQuitButton").GetComponent<Button>().interactable = true;
+        GameObject.Find("Endscreen").transform.localScale= new Vector3(1, 1, 1);
     }
 
     IEnumerator DeactivateAnswer()
