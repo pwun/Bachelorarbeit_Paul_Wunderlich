@@ -33,13 +33,12 @@ public class Mini1 : MonoBehaviour {
     int spawn_x = 1500;
 	int spawn_y = 350;
     int player_start_x = -350;
+    int Lifes;
+    public Sprite hearts_inactive;
+    public Sprite hearts_active;
 
     // Use this for initialization
     void Start () {
-
-        
-        left = new Vector3(-1, 0, 0);
-
         data = GameObject.Find("User_Data").GetComponent<UserData>();
         e = GetComponent<Exercises>();
         e.GetTrainExercises("e", data.getClass(), 2, data.getLevel());
@@ -48,18 +47,17 @@ public class Mini1 : MonoBehaviour {
         Answer1 = GameObject.Find("Answer1").GetComponent<Text>();
         Answer2 = GameObject.Find("Answer2").GetComponent<Text>();
         Answer3 = GameObject.Find("Answer3").GetComponent<Text>();
+
         Answers = GameObject.Find("Answers").GetComponent<Rigidbody2D>();
 		Answers.transform.position =  new Vector3(spawn_x, spawn_y, 0);
         Bg = GameObject.Find("Bg").GetComponent<Rigidbody2D>();
+        Player = GameObject.Find("Player").GetComponent<Rigidbody2D>();
+        PlayerScript = Player.GetComponent<Mini1_Player>();
 
         CorrectCounter = 0;
         IncorrectCounter = 0;
-
-        Player = GameObject.Find("Player").GetComponent<Rigidbody2D>();
-        PlayerScript = Player.GetComponent<Mini1_Player>();
-        //player_x = Player.transform.position.x;
-        //answers_x = Answers.transform.position.x;
-        //Player.transform.position.Set(-350, Player.transform.position.y, 0);
+        Lifes = 3;
+        left = new Vector3(-1, 0, 0);
     }
 	
 	// Update is called once per frame
@@ -69,8 +67,19 @@ public class Mini1 : MonoBehaviour {
             Debug.Log("Nächste Frage bitte!");
 			e.NextQuestion ();
 			updateUi ();
-			Answers.transform.position =  new Vector3(spawn_x, spawn_y, 0);
+            ResetAnswer();
         }
+    }
+
+    void ResetAnswer()
+    {
+        Answers.transform.position = new Vector3(spawn_x, spawn_y, 0);
+        Answer1.enabled = true;
+        Answer2.enabled = true;
+        Answer3.enabled = true;
+        Answer1.color = Color.white;
+        Answer2.color = Color.white;
+        Answer3.color = Color.white;
     }
 
     public void Begin() {
@@ -114,11 +123,36 @@ public class Mini1 : MonoBehaviour {
             Debug.Log("Richtige Antwort!");
             PlayerScript.Attack();
 			CorrectCounter++;
+            Answer1.enabled = false;
+            Answer2.enabled = false;
+            Answer3.enabled = false;
         }
         else
         {
             Debug.Log("Falsche Antwort!");
-            PlayerScript.LoseLife();
+            Answer1.color = Color.red;
+            Answer2.color = Color.red;
+            Answer3.color = Color.red;
+            switch (Lifes)
+            {
+                case 1:
+                    PlayerScript.Kill();
+                    GameObject.Find("Life1").GetComponent<SpriteRenderer>().sprite = hearts_inactive;
+                    Answers.velocity = Vector2.zero;
+                    Bg.velocity = Vector2.zero;
+                    //Pause Game, Game Over
+                    break;
+                case 2:
+                    Lifes--;
+                    PlayerScript.LoseLife();
+                    GameObject.Find("Life2").GetComponent<SpriteRenderer>().sprite = hearts_inactive;
+                    break;
+                case 3:
+                    Lifes--;
+                    PlayerScript.LoseLife();
+                    GameObject.Find("Life3").GetComponent<SpriteRenderer>().sprite = hearts_inactive;
+                    break;
+            }
         }
     }
 
