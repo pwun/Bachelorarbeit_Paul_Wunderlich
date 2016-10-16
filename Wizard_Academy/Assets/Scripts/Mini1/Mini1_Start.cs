@@ -6,20 +6,31 @@ using UnityEngine.SceneManagement;
 public class Mini1_Start : MonoBehaviour {
     UserData data;
     Text Coins;
-    Log log;
 	// Use this for initialization
 	void Start () {
         data = GameObject.Find("User_Data").GetComponent<UserData>();
-        log = GameObject.Find("Log").GetComponent<Log>();
         Coins = GameObject.Find("Coins").GetComponent<Text>();
-        Coins.text = "Aktuelle Münzen: "+data.getLifes();
-	}
-	
+        if(data.getLifes() < 1)
+        {
+            Coins.color = Color.red;
+            GameObject.Find("Start").GetComponent<Button>().interactable = false;
+            GameObject.Find("Reminder").transform.localScale= new Vector3(1, 1, 1);
+        }
+        /* else
+         {
+             Coins.color = Color.green;
+             GameObject.Find("Start").GetComponent<Button>().interactable = true;
+             GameObject.Find("Reminder").transform.localScale = new Vector3(0, 0, 0);
+         }*/
+        Coins.text = "Aktuelle Münzen: " + data.getLifes();
+
+    }
+
     public void LoadGame()
     {
         data.subLifes(1);
         data.Save();
-        log.LogEntry("mini1start");
+        data.LogEntry("mini1start");
         SceneManager.LoadScene("Mini1");
     }
 }

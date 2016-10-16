@@ -14,8 +14,13 @@ public class Train : MonoBehaviour {
     Text Result;
     InputField AnswerInput;
 
+    Button SubmitButton;
+    Button NextButton;
+
     int CorrectCounter;
     int IncorrectCounter;
+
+    bool running = false;
 
     string question = "";
     // Use this for initialization
@@ -42,6 +47,7 @@ public class Train : MonoBehaviour {
         initUi();
         GameObject.Find("Start").GetComponent<Button>().enabled = false;
         GameObject.Find("Start").transform.localScale = new Vector3(0, 0, 0);
+        running = true;
     }
 
     void initUi()
@@ -51,6 +57,8 @@ public class Train : MonoBehaviour {
         Task = GameObject.Find("Task").GetComponent<Text>();
         Result = GameObject.Find("Result").GetComponent<Text>();
         AnswerInput = GameObject.Find("AnswerInput").GetComponent<InputField>();
+        SubmitButton = GameObject.Find("Submit_Question").GetComponent<Button>();
+        NextButton = GameObject.Find("Next_Question").GetComponent<Button>();
         AnswerInput.Select();
 
         refreshUi();
@@ -66,7 +74,7 @@ public class Train : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        //refreshUi();
+        if (running) { refreshUi(); }
         if (Input.GetKeyDown(KeyCode.Return))
         {
             if (GameObject.Find("Submit_Question").GetComponent<Button>().enabled){AnswerQuestion();}
@@ -88,22 +96,22 @@ public class Train : MonoBehaviour {
             IncorrectCounter++;
         }
         //switch button
-        GameObject.Find("Next_Question").GetComponent<Button>().enabled = true;
-        GameObject.Find("Next_Question").transform.localScale = new Vector3(1, 1, 1);
-        GameObject.Find("Submit_Question").GetComponent<Button>().enabled = false;
-        GameObject.Find("Submit_Question").transform.localScale = new Vector3(0, 0, 0);
+        NextButton.enabled = true;
+        //GameObject.Find("Next_Question").transform.localScale = new Vector3(1, 1, 1);
+        SubmitButton.enabled = false;
+        //GameObject.Find("Submit_Question").transform.localScale = new Vector3(0, 0, 0);
         refreshUi();
     }
 
     public void NextQuestion()
     {
+        SubmitButton.enabled = true;
+        //GameObject.Find("Submit_Question").transform.localScale = new Vector3(1, 1, 1);
+        NextButton.enabled = false;
+        //GameObject.Find("Next_Question").transform.localScale = new Vector3(0, 0, 0);
         Result.text = "";
         AnswerInput.text = "";
         AnswerInput.Select();
-        GameObject.Find("Submit_Question").GetComponent<Button>().enabled = true;
-        GameObject.Find("Submit_Question").transform.localScale = new Vector3(1, 1, 1);
-        GameObject.Find("Next_Question").GetComponent<Button>().enabled = false;
-        GameObject.Find("Next_Question").transform.localScale = new Vector3(0, 0, 0);
         if (!e.NextQuestion())
         {
             //End of Test
@@ -123,7 +131,7 @@ public class Train : MonoBehaviour {
 
     void Close()
     {
-        int xp = 50 + CorrectCounter * 5;
+        int xp = GetLeveledXp();
         string answer = "";
         if (data.current_subject.Equals("e"))
         {
@@ -143,6 +151,38 @@ public class Train : MonoBehaviour {
             answer = "error";
         }
         StartCoroutine(data.QuitTrain());
+    }
+
+    int GetLeveledXp()
+    {
+        int xp = 0;
+        switch (data.getLevel())
+        {
+            case 1:
+            case 2:
+            case 3:
+                xp = 50 + CorrectCounter * 5;
+                break;
+            case 4:
+            case 5:
+            case 6:
+                xp = 50 + CorrectCounter * 15;
+                break;
+            case 7:
+            case 8:
+            case 9:
+                xp = 50 + CorrectCounter * 25;
+                break;
+            case 10:
+            case 11:
+            case 12:
+                xp = 50 + CorrectCounter * 30;
+                break;
+            default:
+                Debug.Log("Error XP konnten nicht ermittelt werden: Level nicht gefunden");
+                break;
+        }
+        return xp;
     }
 }
 

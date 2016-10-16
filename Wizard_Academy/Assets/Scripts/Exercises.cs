@@ -56,8 +56,8 @@ public class Exercises : MonoBehaviour {
 
     private void LoadQuestion(int i)
     {
-        current_question = GetDataValue(exercises[i-1], "question");
         current_task = GetDataValue(exercises[i-1], "task");
+        current_question = GetDataValue(exercises[i - 1], "question");
         current_answer = GetDataValue(exercises[i-1], "answer");
         string[] answer_pos = GetDataValue(exercises[i - 1], "answer_pos").Split(',');
         current_answer1 = answer_pos[0].Replace('{',' ').Replace(" ", "");
@@ -214,7 +214,7 @@ public class Exercises : MonoBehaviour {
     {
         yield return StartCoroutine(ReadFromDB(Sub, Class, Suits, 1));
         string[] items1 = items;
-        List<string> result = PickRandom(items1, 10);
+        List<string> result = PickRandom(items1, 20);
         exercises = result.ToArray();
     }
     

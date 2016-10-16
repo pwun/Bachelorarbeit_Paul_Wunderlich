@@ -14,7 +14,7 @@ public class UserData : MonoBehaviour {
     int xp = 0;
     int xp_math = 0;
     int xp_english = 0;
-    int xp_needed = 100;
+    int xp_needed = 200;
     int lifes = 0;
     public int current_dif = 1;
     public string current_subject = "m";
@@ -131,9 +131,9 @@ public class UserData : MonoBehaviour {
         if (xp >= xp_needed)
         {
             xp = xp - xp_needed;
-            xp_needed += 25;
             level++;
-            lifes++;
+            xp_needed = GetNewXpNeeded(level);
+            lifes+=3;
             //Upload to DB
         }
     }
@@ -185,7 +185,52 @@ public class UserData : MonoBehaviour {
         xp = 0;
         xp_math = 0;
         xp_english = 0;
-        xp_needed = 100;
+        xp_needed = 200;
         lifes = 3;
+    }
+
+    int GetNewXpNeeded(int level)
+    {
+        int xp = 0;
+        switch (level)
+        {
+            case 2:
+                xp = 400;
+                break;
+            case 3:
+                xp = 600;
+                break;
+            case 4:
+                xp = 1000;
+                break;
+            case 5:
+                xp = 1200;
+                break;
+            case 6:
+                xp = 1400;
+                break;
+            case 7:
+                xp = 1800;
+                break;
+            case 8:
+                xp = 2100;
+                break;
+            case 9:
+                xp = 2400;
+                break;
+            case 10:
+                xp = 2800;
+                break;
+            case 11:
+                xp = 3200;
+                break;
+            case 12:
+                xp = 3600;
+                break;
+            default:
+                xp = 5000;
+                break;
+        }
+        return xp;
     }
 }

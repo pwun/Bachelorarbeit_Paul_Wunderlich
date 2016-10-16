@@ -4,10 +4,16 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Mini1 : MonoBehaviour {
-
     Exercises e;
     UserData data;
-    Log log;
+
+    Vector3 left = new Vector3(-1, 0, 0);
+
+    Vector3 spawnBg = new Vector3(1050, 384, 0);
+    int Bg_minx = -50;
+    float Bg_speed = 20.0f;
+
+    float speed = 120.0f;
 
     Text Question;
     Text Answer1;
@@ -16,16 +22,8 @@ public class Mini1 : MonoBehaviour {
     Rigidbody2D Answers;
     Rigidbody2D Bg;
     public GameObject Enemy;
-
-    Vector3 left;
-    float speed = 120.0f;
-    float slow = 15.0f;
-
     Rigidbody2D Player;
     Mini1_Player PlayerScript;
-    float player_x;
-    float answers_x;
-
 
     int CorrectCounter;
     int IncorrectCounter;
@@ -44,7 +42,6 @@ public class Mini1 : MonoBehaviour {
     // Use this for initialization
     void Start () {
         data = GameObject.Find("User_Data").GetComponent<UserData>();
-        log = GameObject.Find("Log").GetComponent<Log>();
         e = GetComponent<Exercises>();
         e.GetTrainExercises("e", data.getClass(), 2, data.getLevel());
 
@@ -62,7 +59,6 @@ public class Mini1 : MonoBehaviour {
         CorrectCounter = 0;
         IncorrectCounter = 0;
         Lifes = 3;
-        left = new Vector3(-1, 0, 0);
     }
 
     public void EnemySpawn()
@@ -80,7 +76,7 @@ public class Mini1 : MonoBehaviour {
     public void SafeAndQuit()
     {
         //ACHTUNG!! FÜR MATHE ANPASSEN!
-        log.LogEntry("mini1end");
+        data.LogEntry("mini1end");
         data.addXpEnglish(xp);
         data.Save();
         SceneManager.LoadScene("Main");
@@ -91,9 +87,16 @@ public class Mini1 : MonoBehaviour {
         if(Answers.transform.position.x < min_x)
         {
             Debug.Log("Nächste Frage bitte!");
-			e.NextQuestion ();
+			if(!e.NextQuestion())
+            {
+                EndGame();
+            }
 			updateUi ();
             ResetAnswer();
+        }
+        if (Bg.transform.position.x < Bg_minx)
+        {
+            Bg.transform.position = spawnBg;
         }
     }
 
@@ -131,7 +134,7 @@ public class Mini1 : MonoBehaviour {
         updateUi();
         PlayerScript.StartAnimation();
         Answers.velocity = left * speed;
-        Bg.velocity = left * slow;
+        Bg.velocity = left * Bg_speed;
     }
 
     void updateUi()
@@ -141,6 +144,7 @@ public class Mini1 : MonoBehaviour {
         Answer2.text = e.current_answer2;
         Answer3.text = e.current_answer3;
     }
+
     public void HitQuestion(int rowNr)
     {
         switch (rowNr)
@@ -195,6 +199,7 @@ public class Mini1 : MonoBehaviour {
         yield return new WaitForSeconds(1);
         GameObject.Find(heartName).GetComponent<SpriteRenderer>().sprite = hearts_inactive;
     }
+
     IEnumerator ColorAnswers()
     {
         yield return new WaitForSeconds(1);
@@ -219,7 +224,7 @@ public class Mini1 : MonoBehaviour {
     {
         xp = CorrectCounter*(Lifes+1);
         GameObject.Find("RewardText").GetComponent<Text>().text = "Du hast " + CorrectCounter + " Antworten richtig beantwortet" + System.Environment.NewLine +
-            "und " + Lifes + " Leben übrig." + System.Environment.NewLine + "Dafür erhältst du " + xp + "XP";
+            "und " + (Lifes+1) + " Leben übrig." + System.Environment.NewLine + "Dafür erhältst du " + xp + "XP";
         GameObject.Find("SaveAndQuitButton").GetComponent<Button>().enabled = true;
         GameObject.Find("SaveAndQuitButton").GetComponent<Button>().interactable = true;
         GameObject.Find("Endscreen").transform.localScale= new Vector3(1, 1, 1);
@@ -234,26 +239,4 @@ public class Mini1 : MonoBehaviour {
         Answer3.enabled = false;
     }
 
-    /*
-        // Require the rocket to be a rigidbody.
-        // This way we the user can not assign a prefab without rigidbody
-        public Rigidbody rocket;
-        public float speed = 10f;
-
-        void FireRocket () {
-            Rigidbody rocketClone = (Rigidbody) Instantiate(rocket, transform.position, transform.rotation);
-            rocketClone.velocity = transform.forward * speed;
-    
-            // You can also acccess other components / scripts of the clone
-            rocketClone.GetComponent<MyRocketScript>().DoSomething();
-        }
-
-        // Calls the fire method when holding down ctrl or mouse
-        void Update () {
-            if (Input.GetButtonDown("Fire1")) {
-                FireRocket();
-            }
-        }
-
-     */
 }
