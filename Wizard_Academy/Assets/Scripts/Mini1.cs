@@ -18,6 +18,7 @@ public class Mini1 : MonoBehaviour {
     float speed = 120.0f;
 
     Rigidbody2D Player;
+    Mini1_Player PlayerScript;
     float player_x;
     float answers_x;
 
@@ -52,6 +53,7 @@ public class Mini1 : MonoBehaviour {
         IncorrectCounter = 0;
 
         Player = GameObject.Find("Player").GetComponent<Rigidbody2D>();
+        PlayerScript = Player.GetComponent<Mini1_Player>();
         //player_x = Player.transform.position.x;
         //answers_x = Answers.transform.position.x;
         //Player.transform.position.Set(-350, Player.transform.position.y, 0);
@@ -106,12 +108,13 @@ public class Mini1 : MonoBehaviour {
         if (e.current_answer.Equals(text))
         {
             Debug.Log("Richtige Antwort!");
+            PlayerScript.Attack();
 			CorrectCounter++;
         }
         else
         {
             Debug.Log("Falsche Antwort!");
-            Player.GetComponent<Mini1_Player>().Kill();
+            PlayerScript.LoseLife();
         }
     }
 

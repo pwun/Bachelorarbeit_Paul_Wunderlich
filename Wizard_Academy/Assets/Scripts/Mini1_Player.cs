@@ -14,6 +14,7 @@ public class Mini1_Player : MonoBehaviour {
 
     UserData data;
     Mini1 game;
+    Animator anim;
 
 
 	// Use this for initialization
@@ -25,6 +26,7 @@ public class Mini1_Player : MonoBehaviour {
         //Set first Question
         game = GameObject.Find("EventSystem").GetComponent<Mini1>();
         Player = GameObject.Find("Player").GetComponent<Rigidbody2D>();
+        anim = GameObject.Find("Player Rig").GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -89,9 +91,19 @@ public class Mini1_Player : MonoBehaviour {
         game.HitQuestion(rowNr);
     }
 
+    public void LoseLife()
+    {
+        anim.SetTrigger("LooseLife");
+    }
+
     public void Kill()
     {
         Debug.Log("I was Killed!");
-        Destroy(gameObject);
+        anim.SetTrigger("Die");
+    }
+
+    public void Attack()
+    {
+        anim.SetTrigger("Attack");
     }
 }
