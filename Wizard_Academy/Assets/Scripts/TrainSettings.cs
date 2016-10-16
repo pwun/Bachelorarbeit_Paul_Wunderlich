@@ -27,7 +27,6 @@ public class TrainSettings : MonoBehaviour {
         {
             data.current_subject = "m";
         }
-        data.current_dif = GameObject.Find("Dif_Dropdown").GetComponent<Dropdown>().value+1;
         //Change Scene
         SceneManager.LoadScene("Train");
     }

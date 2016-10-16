@@ -222,6 +222,7 @@ public class Mini1 : MonoBehaviour {
 
     void EndGame()
     {
+        Question.text = "";
         xp = CorrectCounter*(Lifes+1);
         GameObject.Find("RewardText").GetComponent<Text>().text = "Du hast " + CorrectCounter + " Antworten richtig beantwortet" + System.Environment.NewLine +
             "und " + (Lifes+1) + " Leben übrig." + System.Environment.NewLine + "Dafür erhältst du " + xp + "XP";
