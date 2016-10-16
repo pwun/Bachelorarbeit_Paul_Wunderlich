@@ -13,9 +13,11 @@ public class Mini1 : MonoBehaviour {
     Text Answer2;
     Text Answer3;
     Rigidbody2D Answers;
+    Rigidbody2D Bg;
 
     Vector3 left;
     float speed = 120.0f;
+    float slow = 15.0f;
 
     Rigidbody2D Player;
     Mini1_Player PlayerScript;
@@ -48,6 +50,7 @@ public class Mini1 : MonoBehaviour {
         Answer3 = GameObject.Find("Answer3").GetComponent<Text>();
         Answers = GameObject.Find("Answers").GetComponent<Rigidbody2D>();
 		Answers.transform.position =  new Vector3(spawn_x, spawn_y, 0);
+        Bg = GameObject.Find("Bg").GetComponent<Rigidbody2D>();
 
         CorrectCounter = 0;
         IncorrectCounter = 0;
@@ -76,6 +79,7 @@ public class Mini1 : MonoBehaviour {
         GameObject.Find("Start").transform.localScale = new Vector3(0, 0, 0);
         updateUi();
         Answers.velocity = left * speed;
+        Bg.velocity = left * slow;
     }
 
     void updateUi()
