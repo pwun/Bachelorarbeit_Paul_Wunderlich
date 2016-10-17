@@ -4,9 +4,11 @@ using System.Collections;
 public class UpdateUserdata : MonoBehaviour {
 
     UserData data;
+    Main main;
     string LoginURL = "http://wunderlich-paul.de/wizard/UserInfo.php";
     // Use this for initialization
     void Start () {
+        main = GetComponent<Main>();
         refresh();
 	}
 	
@@ -29,6 +31,7 @@ public class UpdateUserdata : MonoBehaviour {
         yield return www;
         Debug.Log("Answer from Server:"+www.text);
         updateData(www.text);
+        main.continueUpdating();
     }
 
     int GetIntValue(string data, string index)
@@ -52,5 +55,7 @@ public class UpdateUserdata : MonoBehaviour {
         data.initMathXp(GetIntValue(result, "'m_xp'"));
         data.initEnglishXp(GetIntValue(result, "'e_xp'"));
         data.initLifes(GetIntValue(result, "'lifes'"));
+        data.armor_nr = GetIntValue(result, "'armor'");
+        data.head_nr = GetIntValue(result, "'head'");
     }
 }

@@ -19,6 +19,11 @@ public class UserData : MonoBehaviour {
     public int current_dif = 1;
     public string current_subject = "m";
 
+    public int armor_nr = 0;
+    public int[] armor_pos = { 0,1,2,3 };
+    public int head_nr = 0;
+    public int[] head_pos = { 0, 1, 2, 3, 4 };
+
     static UserData current;
 
     // Use this for initialization
@@ -102,6 +107,8 @@ public class UserData : MonoBehaviour {
         form.AddField("m_xpPost", xp_math);
         form.AddField("e_xpPost", xp_english);
         form.AddField("lifesPost", lifes);
+        form.AddField("armorPost", armor_nr);
+        form.AddField("headPost", head_nr);
 
         WWW www = new WWW(UpdateURL, form);
         yield return www;
@@ -187,7 +194,11 @@ public class UserData : MonoBehaviour {
         xp_english = 0;
         xp_needed = 200;
         lifes = 3;
-    }
+        armor_nr = 0;
+        armor_pos = new int[] { 0,1,2,3 };
+        head_nr = 0;
+        head_pos = new int[]{ 0, 1, 2, 3, 4 };
+}
 
     int GetNewXpNeeded(int level)
     {

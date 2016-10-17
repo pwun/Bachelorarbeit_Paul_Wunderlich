@@ -15,8 +15,7 @@ public class Mini1_Player : MonoBehaviour {
 
     UserData data;
     Mini1 game;
-    Animator anim_player;
-    Animator anim_head;
+    PlayerCreation anim;
 
     // Use this for initialization
     void Start () {
@@ -27,8 +26,9 @@ public class Mini1_Player : MonoBehaviour {
         //Set first Question
         game = GameObject.Find("EventSystem").GetComponent<Mini1>();
         Player = GameObject.Find("Player").GetComponent<Rigidbody2D>();
-        anim_player = GameObject.Find("Player Rig").GetComponent<Animator>();
-        anim_head = GameObject.Find("Head").GetComponent<Animator>();
+        anim = GetComponent<PlayerCreation>();
+        //Get Item Types
+        //anim.SetArmor(), Head
     }
 	
 	// Update is called once per frame
@@ -50,8 +50,7 @@ public class Mini1_Player : MonoBehaviour {
 
     public void StartAnimation()
     {
-        anim_player.SetBool("Idle", false);
-        anim_head.SetBool("Idle", false);
+        anim.SwitchIdle();
         Debug.Log("Idle OFF");
     }
 
@@ -68,7 +67,6 @@ public class Mini1_Player : MonoBehaviour {
             Vector3 position = this.transform.position;
             position.y+=rowGap;
             this.transform.position = position;
-            anim_head.SetInteger("Head", 1);
             Debug.Log("Head ON");
         }
     }
@@ -81,7 +79,6 @@ public class Mini1_Player : MonoBehaviour {
             Vector3 position = this.transform.position;
             position.y -= rowGap;
             this.transform.position = position;
-            anim_head.SetInteger("Head", 0);
             Debug.Log("Head OFF");
         }
     }
@@ -112,23 +109,21 @@ public class Mini1_Player : MonoBehaviour {
     {
         Debug.Log("I was Killed!");
         //anim.SetTrigger("Die");
-        anim_player.SetBool("Idle", true);
-        anim_head.SetBool("Idle", true);
+        anim.SwitchIdle();
         Debug.Log("Head ON");
     }
 
     public void Attack()
     {
         attacking = true;
-        anim_player.SetTrigger("Attack");
-        anim_head.SetTrigger("Attack");
+        anim.AllsetTrigger("Attack");
         Debug.Log("ATTACK");
         StartCoroutine(wait());
     }
 
     IEnumerator wait()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.7f);
         attacking = false;
     }
 }

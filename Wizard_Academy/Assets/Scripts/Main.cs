@@ -7,6 +7,7 @@ public class Main : MonoBehaviour {
 
     UserData data;
     UpdateUserdata updater;
+    PlayerCreation player;
 
     Text name_display;
     Text level_display;
@@ -16,12 +17,19 @@ public class Main : MonoBehaviour {
     Text life_display;
 	// Use this for initialization
 	void Start () {
-        //updater = GetComponent<UpdateUserdata>();
-        //updater.refresh();
         data = GameObject.Find("User_Data").GetComponent<UserData>();
         initUiElements();
+        updater = GameObject.Find("EventSystem").GetComponent<UpdateUserdata>();
+        updater.refresh();
+    }
+
+    public void continueUpdating()
+    {
         initUi();
-	}
+        player.SetArmor(data.armor_nr);
+        player.SetHead(data.head_nr);
+        player.refresh();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -51,6 +59,7 @@ public class Main : MonoBehaviour {
         //xp_e_display = GameObject.Find("XpDisplayEnglish").GetComponent<Text>();
         //xp_m_display = GameObject.Find("XpDisplayMath").GetComponent<Text>();
         life_display = GameObject.Find("LifeDisplay").GetComponent<Text>();
+        player = GameObject.Find("Player").GetComponent<PlayerCreation>();
     }
 
     void initUi() {
