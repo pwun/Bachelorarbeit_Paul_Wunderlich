@@ -15,11 +15,11 @@ public class Mini1_Player : MonoBehaviour {
 
     UserData data;
     Mini1 game;
-    Animator anim;
+    Animator anim_player;
+    Animator anim_head;
 
-
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         //Animator start running animation
         data = GameObject.Find("User_Data").GetComponent<UserData>();
         GameObject.Find("Name_Display").GetComponent<Text>().text = data.getName();
@@ -27,8 +27,9 @@ public class Mini1_Player : MonoBehaviour {
         //Set first Question
         game = GameObject.Find("EventSystem").GetComponent<Mini1>();
         Player = GameObject.Find("Player").GetComponent<Rigidbody2D>();
-        anim = GameObject.Find("Player Rig").GetComponent<Animator>();
-	}
+        anim_player = GameObject.Find("Player Rig").GetComponent<Animator>();
+        anim_head = GameObject.Find("Head").GetComponent<Animator>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -49,7 +50,9 @@ public class Mini1_Player : MonoBehaviour {
 
     public void StartAnimation()
     {
-        anim.SetBool("running", true);
+        anim_player.SetBool("Idle", false);
+        anim_head.SetBool("Idle", false);
+        Debug.Log("Idle OFF");
     }
 
     public int GetRowNumber()
@@ -65,6 +68,8 @@ public class Mini1_Player : MonoBehaviour {
             Vector3 position = this.transform.position;
             position.y+=rowGap;
             this.transform.position = position;
+            anim_head.SetInteger("Head", 1);
+            Debug.Log("Head ON");
         }
     }
 
@@ -76,6 +81,8 @@ public class Mini1_Player : MonoBehaviour {
             Vector3 position = this.transform.position;
             position.y -= rowGap;
             this.transform.position = position;
+            anim_head.SetInteger("Head", 0);
+            Debug.Log("Head OFF");
         }
     }
     void OnTriggerEnter2D(Collider2D coll)
@@ -85,10 +92,8 @@ public class Mini1_Player : MonoBehaviour {
         }
         else if (coll.gameObject.name.Contains("Enemy"))
         {
-            Debug.Log("ENEMY!");
             if (attacking)
             {
-                Debug.Log("ATTACK");
                 Destroy(coll.gameObject);
             }
         }
@@ -100,19 +105,24 @@ public class Mini1_Player : MonoBehaviour {
 
     public void LoseLife()
     {
-        anim.SetTrigger("LooseLife");
+        //anim_player.SetTrigger("LooseLife");
     }
 
     public void Kill()
     {
         Debug.Log("I was Killed!");
-        anim.SetTrigger("Die");
+        //anim.SetTrigger("Die");
+        anim_player.SetBool("Idle", true);
+        anim_head.SetBool("Idle", true);
+        Debug.Log("Head ON");
     }
 
     public void Attack()
     {
         attacking = true;
-        anim.SetTrigger("Attack");
+        anim_player.SetTrigger("Attack");
+        anim_head.SetTrigger("Attack");
+        Debug.Log("ATTACK");
         StartCoroutine(wait());
     }
 

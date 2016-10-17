@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\Mini1\Mini1_Obstacle.cs" />
     <Compile Include="Assets\Scripts\Mini1\Mini1_Player.cs" />
     <Compile Include="Assets\Scripts\Mini1\Mini1_Start.cs" />
+    <Compile Include="Assets\Scripts\PlayerCreation.cs" />
     <Compile Include="Assets\Scripts\Save.cs" />
     <Compile Include="Assets\Scripts\Signup.cs" />
     <Compile Include="Assets\Scripts\Startmenu.cs" />
