@@ -32,7 +32,15 @@ public class Signup : MonoBehaviour {
         inputPassword2 = GameObject.Find("Password2_Input").GetComponent<InputField>().text;
 
         //Update Class
-        inputClass = 6;
+        switch (GameObject.Find("Dropdown").GetComponent<Dropdown>().value)
+        {
+            case 0:
+                inputClass = 6;
+                break;
+            case 1:
+                inputClass = 8;
+                break;
+        }
 
         if (inputPassword.Equals(inputPassword2))
         {
@@ -40,7 +48,7 @@ public class Signup : MonoBehaviour {
         }
         else
         {
-            //Passwörter stimmen nicht überein
+            GameObject.Find("Warning").GetComponent<Text>().text = "Passwörter stimmen nicht überein.";
         }
     }
 
@@ -61,9 +69,7 @@ public class Signup : MonoBehaviour {
         }
         else
         {
-            //Send Error-Feedback
-            //Username already exists?
-            //Clear Fields
+            GameObject.Find("Warning").GetComponent<Text>().text = "Nutzername bereits vergeben.";
         }
     }
 

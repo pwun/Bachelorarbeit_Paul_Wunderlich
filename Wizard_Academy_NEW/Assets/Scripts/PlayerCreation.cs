@@ -10,11 +10,13 @@ public class PlayerCreation : MonoBehaviour {
 
     bool Idle = true;
 
-    int Head = 0;
-    int nrHeads = 6;
+    public int Head = 0;
+    int HeadNr = 0;
+    int nrHeads = 5;
 
-    int Armor = 0;
-    int nrArmors = 5;
+    public int Armor = 0;
+    int ArmorNr = 0;
+    int nrArmors = 4;
 
     void Start()
     {
@@ -22,17 +24,22 @@ public class PlayerCreation : MonoBehaviour {
         player = GameObject.Find("Player Rig").GetComponent<Animator>();
         head = GameObject.Find("Head").GetComponent<Animator>();
         armor = GameObject.Find("Armor").GetComponent<Animator>();
-        Head = data.head_nr;
-        Armor = data.armor_nr;
+        if (data.head_nr < 0) Head = 0;
+        else Head = data.head_nr;
+        if (data.armor_nr < 0) Armor = 0;
+        else Armor = data.armor_nr;
         //nr head_pos & armor_pos
         SetArmor(Armor);
         SetHead(Head);
+        nrArmors = data.armor_pos.Length;
+        nrHeads = data.head_pos.Length;
     }
 
-    public void refresh()
+    public void Save()
     {
-        Head = data.head_nr;
-        Armor = data.armor_nr;
+        data.armor_nr = Armor;
+        data.head_nr = Head;
+        data.Save("Main");
     }
 
     public void SetItems(int armor_nr, int head_nr)
@@ -64,43 +71,53 @@ public class PlayerCreation : MonoBehaviour {
     public void SetHead(int i)
     {
         Debug.Log("Kopf einkleiden:" + i + ".....");
-        head.SetInteger("Head", i);
+        Head = i;
+        head.SetInteger("Head", Head);
     }
 
     public void SetArmor(int i)
     {
         Debug.Log("Rüstung einkleiden:" + i + ".....");
-        armor.SetInteger("Armor", i);
+        Armor = i;
+        armor.SetInteger("Armor", Armor);
+    }
+
+    public void SetDead(bool val)
+    {
+        player.SetBool("Dead", val);
+        head.SetBool("Dead", val);
+        armor.SetBool("Dead", val);
     }
 
     public void AddHead(int Value)
     {
-        Idle = false;
-        SwitchIdle();
-        head.SetInteger("Head", 0);
-        if (Value == 1 && Head < nrHeads)
+        Idle = true;
+        if (Value == 1 && HeadNr < nrHeads)
         {
-            Head++;
+            HeadNr++;
+            Head = System.Int32.Parse(""+data.head_pos[HeadNr-1]);
         }
-        else if (Value == 0 && Head > 0)
+        else if (Value == 0 && HeadNr > 1)
         {
-            Head--;
+            HeadNr--;
+            Head = System.Int32.Parse(""+data.head_pos[HeadNr-1]);
+
         }
         head.SetInteger("Head", Head);
     }
 
     public void AddArmor(int Value)
     {
-        Idle = false;
-        SwitchIdle();
-        armor.SetInteger("Armor", 0);
-        if (Value == 1 && Armor < nrArmors)
+        Idle = true;
+        if (Value == 1 && ArmorNr < nrArmors)
         {
-            Armor++;
+            ArmorNr++;
+            Armor = System.Int32.Parse("" + data.armor_pos[ArmorNr - 1]);
         }
-        else if (Value == 0 && Armor > 0)
+        else if (Value == 0 && ArmorNr > 1)
         {
-            Armor--;
+            ArmorNr--;
+            Armor = System.Int32.Parse("" + data.armor_pos[ArmorNr - 1]);
         }
         armor.SetInteger("Armor", Armor);
     }

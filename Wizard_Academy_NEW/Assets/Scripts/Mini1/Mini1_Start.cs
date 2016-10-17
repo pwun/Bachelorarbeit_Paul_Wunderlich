@@ -17,7 +17,7 @@ public class Mini1_Start : MonoBehaviour {
             GameObject.Find("Reminder").transform.localScale= new Vector3(1, 1, 1);
         }
         Coins.text = "Aktuelle Münzen: " + data.lifes;
-        GameObject.Find("Start").GetComponent<Button>().onClick.AddListener(() => { data.Save("Mini1"); });
+        GameObject.Find("Start").GetComponent<Button>().onClick.AddListener(() => { data.lifes--;  data.Save("Mini1"); });
     }
 
     public void LoadGame()

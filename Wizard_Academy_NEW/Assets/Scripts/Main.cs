@@ -20,6 +20,9 @@ public class Main : MonoBehaviour {
         initUiElements();
         GameObject.Find("Save_Button").GetComponent<Button>().onClick.AddListener(() => { data.Save("Login"); });
         GameObject.Find("Train_Button").GetComponent<Button>().onClick.AddListener(() => { data.Save("TrainSetup"); });
+        GameObject.Find("Mini1_Button").GetComponent<Button>().onClick.AddListener(() => { data.Save("Mini1_Start"); });
+        GameObject.Find("Test_Cheat_Button").GetComponent<Button>().onClick.AddListener(() => { data.addXp(100); });
+        GameObject.Find("Test_Reset_Button").GetComponent<Button>().onClick.AddListener(() => { data.wipe(); });
     }
 
     public void continueUpdating()
@@ -27,7 +30,6 @@ public class Main : MonoBehaviour {
         initUi();
         player.SetArmor(data.armor_nr);
         player.SetHead(data.head_nr);
-        player.refresh();
     }
 	
 	// Update is called once per frame

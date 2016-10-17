@@ -19,6 +19,7 @@ public class Login : MonoBehaviour {
         UsernameInput = GameObject.Find("Username_Input").GetComponent<InputField>();
         PwInput = GameObject.Find("Password_Input").GetComponent<InputField>();
         Warning =  GameObject.Find("Warning").GetComponent<Text>();
+        GameObject.Find("Submit_Button").GetComponent<Button>().onClick.AddListener(() => { SubmitLogin(); });
     }
 
     public void SubmitLogin(){
@@ -47,7 +48,12 @@ public class Login : MonoBehaviour {
         yield return www;
         updateData(www.text);
         Debug.Log("Answer from Server:"+www.text);
-        SceneManager.LoadScene("Main");
+        if(data.armor_nr == -1 && data.head_nr == -1)
+        {
+            SceneManager.LoadScene("PlayerCreation");
+        }
+        else { SceneManager.LoadScene("Main");}
+        
     }
 
     void updateData(string result)
@@ -64,6 +70,8 @@ public class Login : MonoBehaviour {
         data.lifes = GetIntValue(result, "'lifes'");
         data.armor_nr = GetIntValue(result, "'armor'");
         data.head_nr = GetIntValue(result, "'helmet'");
+        data.armor_pos = GetStringValue(result, "'armor_pos'");
+        data.head_pos = GetStringValue(result, "'helmet_pos'");
     }
 
     void Update()
@@ -86,6 +94,16 @@ public class Login : MonoBehaviour {
             value = value.Remove(value.IndexOf("|"));
         }
         return System.Int32.Parse(value);
+    }
+
+    string GetStringValue(string data, string index)
+    {
+        string value = data.Substring(data.IndexOf(index) + index.Length + 1);
+        if (value.Contains("|"))
+        {
+            value = value.Remove(value.IndexOf("|"));
+        }
+        return value;
     }
 
 }

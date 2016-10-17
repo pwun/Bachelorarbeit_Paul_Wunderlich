@@ -87,11 +87,15 @@ public class Mini1_Player : MonoBehaviour {
         if (coll.gameObject.name.Contains("Answer")) {
             game.HitQuestion(rowNr);
         }
-        else if (coll.gameObject.name.Contains("Enemy"))
+        else if (coll.gameObject.tag == "Enemy")
         {
             if (attacking)
             {
                 Destroy(coll.gameObject);
+            }
+            else
+            {
+                game.LoseLife();
             }
         }
         else
@@ -102,22 +106,26 @@ public class Mini1_Player : MonoBehaviour {
 
     public void LoseLife()
     {
-        //anim_player.SetTrigger("LooseLife");
+        anim.AllsetTrigger("Hurt");
     }
 
     public void Kill()
     {
         Debug.Log("I was Killed!");
-        //anim.SetTrigger("Die");
-        anim.SwitchIdle();
-        Debug.Log("Head ON");
+        anim.AllsetTrigger("Die");
+        StartCoroutine(BeDead());
+    }
+
+    IEnumerator BeDead()
+    {
+        yield return new WaitForSeconds(0.5f);
+        anim.SetDead(true);
     }
 
     public void Attack()
     {
         attacking = true;
         anim.AllsetTrigger("Attack");
-        Debug.Log("ATTACK");
         StartCoroutine(wait());
     }
 

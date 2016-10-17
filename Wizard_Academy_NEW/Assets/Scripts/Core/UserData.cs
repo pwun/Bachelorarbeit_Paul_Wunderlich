@@ -17,9 +17,9 @@ public class UserData : MonoBehaviour {
     public int current_dif = 1;
     public string current_subject = "m";
     public int armor_nr = 0;
-    public int[] armor_pos = { 0,1,2,3 };
+    public string armor_pos = "";
     public int head_nr = 0;
-    public int[] head_pos = { 0, 1, 2, 3, 4 };
+    public string head_pos = "";
 
     void Start()
     {
@@ -49,6 +49,8 @@ public class UserData : MonoBehaviour {
         form.AddField("lifesPost", lifes);
         form.AddField("armorPost", armor_nr);
         form.AddField("headPost", head_nr);
+        form.AddField("armorposPost", armor_pos);
+        form.AddField("headposPost", head_pos);
         WWW www = new WWW(UpdateURL, form);
         yield return www;
         Debug.Log(www.text);
@@ -101,9 +103,9 @@ public class UserData : MonoBehaviour {
         xp_needed = 200;
         lifes = 3;
         armor_nr = 0;
-        armor_pos = new int[] { 0, 1, 2, 3 };
+        armor_pos = "12";
         head_nr = 0;
-        head_pos = new int[]{ 0, 1, 2, 3, 4 };
+        head_pos = "12";
     }
 
     int GetNewXpNeeded(int level)

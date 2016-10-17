@@ -71,16 +71,19 @@ public class Mini1 : MonoBehaviour {
             int spawnRow = Random.RandomRange(0, 3);
             Vector3 EnemySpawnPos = new Vector3(1000 + i*200, spawn_y - row_gap * spawnRow, 0);
             GameObject e = (GameObject)Instantiate(Enemy, EnemySpawnPos, transform.rotation);
+            e.tag = "Enemy";
         }
         if(noEnemies <= 2)
         {
             int spawnRow = Random.RandomRange(0, 3);
-            Vector3 EnemySpawnPos = new Vector3(1025 + noEnemies * 150, spawn_y - row_gap * spawnRow, 0);
+            Vector3 EnemySpawnPos = new Vector3(1025 + noEnemies * 112, spawn_y - row_gap * spawnRow, 0);
             GameObject e = (GameObject)Instantiate(Obstacle, EnemySpawnPos, transform.rotation);
+            e.tag = "Obstacle";
         }
         int spawnRow2 = Random.RandomRange(0, 3);
-        Vector3 EnemySpawnPos2 = new Vector3(1225 + noEnemies * 150, spawn_y - row_gap * spawnRow2, 0);
+        Vector3 EnemySpawnPos2 = new Vector3(1225 + noEnemies * 117, spawn_y - row_gap * spawnRow2, 0);
         GameObject e2 = (GameObject)Instantiate(Obstacle, EnemySpawnPos2, transform.rotation);
+        e2.tag = "Obstacle";
 
     }
 
@@ -230,10 +233,19 @@ public class Mini1 : MonoBehaviour {
 
     void EndGame()
     {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies)
+        GameObject.Destroy(enemy);
+        enemies = GameObject.FindGameObjectsWithTag("Obstacle");
+        foreach (GameObject enemy in enemies)
+        GameObject.Destroy(enemy);
+        Destroy(Answer1);
+        Destroy(Answer2);
+        Destroy(Answer3);
         Question.text = "";
         xp = CorrectCounter*(Lifes+1);
         GameObject.Find("RewardText").GetComponent<Text>().text = "Du hast " + CorrectCounter + " Antworten richtig beantwortet" + System.Environment.NewLine +
-            "und " + (Lifes+1) + " Leben übrig." + System.Environment.NewLine + "Dafür erhältst du " + xp + "XP";
+            "und " + (Lifes) + " Leben übrig." + System.Environment.NewLine + "Dafür erhältst du " + xp + "XP";
         GameObject.Find("SaveAndQuitButton").GetComponent<Button>().enabled = true;
         GameObject.Find("SaveAndQuitButton").GetComponent<Button>().interactable = true;
         GameObject.Find("Endscreen").transform.localScale= new Vector3(1, 1, 1);
