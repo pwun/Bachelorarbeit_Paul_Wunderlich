@@ -20,6 +20,7 @@ public class Login : MonoBehaviour {
         PwInput = GameObject.Find("Password_Input").GetComponent<InputField>();
         Warning =  GameObject.Find("Warning").GetComponent<Text>();
         GameObject.Find("Submit_Button").GetComponent<Button>().onClick.AddListener(() => { SubmitLogin(); });
+		UsernameInput.Select();
     }
 
     public void SubmitLogin(){
@@ -72,6 +73,7 @@ public class Login : MonoBehaviour {
         data.head_nr = GetIntValue(result, "'helmet'");
         data.armor_pos = GetStringValue(result, "'armor_pos'");
         data.head_pos = GetStringValue(result, "'helmet_pos'");
+		Log.LogEntry ("Login",GetIntValue(result, "'id'"));
     }
 
     void Update()

@@ -23,6 +23,7 @@ public class Mini1_Start : MonoBehaviour {
     public void LoadGame()
     {
         data.lifes--;
+		Log.LogEntry ("Mini1 Start", data.id);
         data.Save("Mini1");
     }
 }

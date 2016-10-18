@@ -28,6 +28,7 @@ public class TrainSettings : MonoBehaviour {
             data.current_subject = "m";
         }
         //Change Scene
+		Log.LogEntry("Training Start", data.id);
         SceneManager.LoadScene("Train");
     }
 }

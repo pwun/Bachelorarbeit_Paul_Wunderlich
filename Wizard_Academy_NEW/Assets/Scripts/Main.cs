@@ -18,7 +18,7 @@ public class Main : MonoBehaviour {
 	void Start () {
         data = GameObject.Find("User_Data").GetComponent<UserData>();
         initUiElements();
-        GameObject.Find("Save_Button").GetComponent<Button>().onClick.AddListener(() => { data.Save("Login"); });
+		GameObject.Find("Save_Button").GetComponent<Button>().onClick.AddListener(() => { Log.LogEntry("logout", data.id); data.Save("Login"); });
         GameObject.Find("Train_Button").GetComponent<Button>().onClick.AddListener(() => { data.Save("TrainSetup"); });
         GameObject.Find("Mini1_Button").GetComponent<Button>().onClick.AddListener(() => { data.Save("Mini1_Start"); });
         GameObject.Find("Test_Cheat_Button").GetComponent<Button>().onClick.AddListener(() => { data.addXp(100); });

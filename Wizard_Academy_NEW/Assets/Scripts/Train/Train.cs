@@ -32,13 +32,6 @@ public class Train : MonoBehaviour {
         GameObject.Find("NameDisplay").GetComponent<Text>().text = data.name;
         e = GetComponent<Exercises>();
         e.GetTrainExercises(data.current_subject, data.class_level, 1, data.level);
-        //Use Start Button as Loading Indicator
-        /*Button startButton = GameObject.Find("Start").GetComponent<Button>();
-        while (e.Ready())
-        {
-            startButton.interactable = false;
-        }
-        startButton.interactable = true;*/
     }
 
     public void Begin()
@@ -129,7 +122,6 @@ public class Train : MonoBehaviour {
 
     void Close()
     {
-        //1280x720
         AnswerInput.transform.position = new Vector3(-500, -500, -20);
         Destroy(Question);
         Destroy(Task);
@@ -142,6 +134,8 @@ public class Train : MonoBehaviour {
     void Save()
     {
         data.addXp(GetLeveledXp());
+		Log.LogEntry ("Training End, Score: " + GetLeveledXp (), data.id);
+		GameObject.Find ("SaveQuit").GetComponent<Button> ().interactable = false;
         data.Save("Main");
     }
 

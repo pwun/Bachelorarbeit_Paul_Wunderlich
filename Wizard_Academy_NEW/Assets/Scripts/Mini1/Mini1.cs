@@ -143,6 +143,7 @@ public class Mini1 : MonoBehaviour {
             "und " + (Lifes) + " Leben übrig." + System.Environment.NewLine + "Dafür erhältst du " + xp + "XP";
         GameObject.Find("SaveAndQuitButton").GetComponent<Button>().enabled = true;
         GameObject.Find("SaveAndQuitButton").GetComponent<Button>().interactable = true;
+		GameObject.Find("SaveAndQuitButton").GetComponent<Button>().onClick.AddListener(() => { Log.LogEntry("Mini1 End, Score: "+xp, data.id); GameObject.Find("SaveAndQuitButton").GetComponent<Button>().interactable = false; });
         GameObject.Find("Endscreen").transform.localScale = new Vector3(1, 1, 1);
     }
 
