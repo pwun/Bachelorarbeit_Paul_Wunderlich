@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class Mini1_Player : MonoBehaviour {
 
     int rowNr = 1;
-    int rowGap = 140;
+    int rowGap = 180;
     int jumpHeight = 70;
     int jumpLength = 150;
     bool attacking = false;

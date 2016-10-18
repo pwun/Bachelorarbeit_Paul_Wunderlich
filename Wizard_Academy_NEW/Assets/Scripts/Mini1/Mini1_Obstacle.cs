@@ -26,7 +26,7 @@ public class Mini1_Obstacle : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (me.transform.position.x < 0)
+        if (me.transform.position.x < -1800)
         {
             Kill();
         }

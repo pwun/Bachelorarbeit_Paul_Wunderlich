@@ -9,9 +9,9 @@ public class Mini1 : MonoBehaviour {
 
     Vector3 left = new Vector3(-1, 0, 0);
 
-    Vector3 spawnBg = new Vector3(1450, 540, 0);
-    int Bg_minx = 500;
-    float Bg_speed = 50.0f;
+    Vector3 spawnBg = new Vector3(320, 0, 0);
+    int Bg_minx = -360;
+    float Bg_speed = 20.0f;
 
     float speed = 120.0f;
 
@@ -31,14 +31,10 @@ public class Mini1 : MonoBehaviour {
     int CorrectCounter;
     int IncorrectCounter;
 
-    int answer_y = 275;
-    int min_x = 0;
-    int max_x = 400;
+    int answer_y = -120;
     int spawn_x = 1500;
-	int spawn_y = 490;
-    int row_gap = 140;
-    int player_start_x = -350;
-    int player_x = -150;
+	int spawn_y = -70;
+    int row_gap = 190;
     int Lifes;
     public Sprite hearts_inactive;
     public Sprite hearts_active;
@@ -71,7 +67,7 @@ public class Mini1 : MonoBehaviour {
     void Update()
     {
         if (Bg.transform.position.x < Bg_minx) Bg.transform.position = spawnBg;
-        if (Answers.transform.position.x < 0) ResetAnswer();
+        if (Answers.transform.position.x < -680) ResetAnswer();
     }
 
     public void EnemySpawn()
@@ -81,19 +77,19 @@ public class Mini1 : MonoBehaviour {
         {
             Debug.Log("Create new Enemy");
             int spawnRow = Random.RandomRange(0, 3);
-            Vector3 EnemySpawnPos = new Vector3(2000 + i*200, spawn_y - row_gap * spawnRow, 0);
+            Vector3 EnemySpawnPos = new Vector3(spawn_x+ 250 + i*200, spawn_y - row_gap * spawnRow, 0);
             GameObject e = (GameObject)Instantiate(Enemy, EnemySpawnPos, transform.rotation);
             e.tag = "Enemy";
         }
         if(noEnemies <= 2)
         {
             int spawnRow = Random.RandomRange(0, 3);
-            Vector3 EnemySpawnPos = new Vector3(2025 + noEnemies * 172, spawn_y - 20 - row_gap * spawnRow, 0);
+            Vector3 EnemySpawnPos = new Vector3(spawn_x+400 + noEnemies * 172, spawn_y - 20 - row_gap * spawnRow, 0);
             GameObject e = (GameObject)Instantiate(Obstacle, EnemySpawnPos, transform.rotation);
             e.tag = "Obstacle";
         }
         int spawnRow2 = Random.RandomRange(0, 3);
-        Vector3 EnemySpawnPos2 = new Vector3(2225 + noEnemies * 167, spawn_y - 20 - row_gap * spawnRow2, 0);
+        Vector3 EnemySpawnPos2 = new Vector3(spawn_x+100 + noEnemies * 167, spawn_y - 20 - row_gap * spawnRow2, 0);
         GameObject e2 = (GameObject)Instantiate(Obstacle, EnemySpawnPos2, transform.rotation);
         e2.tag = "Obstacle";
 
