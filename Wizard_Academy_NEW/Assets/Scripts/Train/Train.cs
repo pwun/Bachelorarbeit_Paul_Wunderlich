@@ -47,6 +47,8 @@ public class Train : MonoBehaviour {
         initUi();
         GameObject.Find("Start").GetComponent<Button>().enabled = false;
         GameObject.Find("Start").transform.localScale = new Vector3(0, 0, 0);
+        //GameObject.Find("Back_Button_Text").GetComponent<Text>().text = "Abbrechen";
+        //GameObject.Find("Back_Button_Text").GetComponent<Text>().fontSize = 14;
         running = true;
     }
 
@@ -133,7 +135,7 @@ public class Train : MonoBehaviour {
         AnswerInput.transform.position = new Vector3(-500, -500, -20);
         Destroy(Question);
         Destroy(Task);
-        GameObject.Find("Endscreen").transform.position = new Vector3(640, 360, 10);
+        GameObject.Find("Endscreen").transform.position = new Vector3(960,540,1);
         GameObject.Find("EndText").GetComponent<Text>().text = "Du hast " + CorrectCounter + " Fragen von " + e.nrExerciseMax + " richtig beantwortet." + System.Environment.NewLine +
             "Als Belohnung bekommst du " + GetLeveledXp() + " Erfahrungspunkte.";
         GameObject.Find("SaveQuit").GetComponent<Button>().onClick.AddListener(() => { Save(); });
