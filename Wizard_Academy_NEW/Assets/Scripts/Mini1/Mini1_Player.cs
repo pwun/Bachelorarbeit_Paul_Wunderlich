@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class Mini1_Player : MonoBehaviour {
 
     int rowNr = 1;
-    int rowGap = 100;
+    int rowGap = 140;
     int jumpHeight = 70;
     int jumpLength = 150;
     bool attacking = false;
@@ -51,7 +51,6 @@ public class Mini1_Player : MonoBehaviour {
     public void StartAnimation()
     {
         anim.SwitchIdle();
-        Debug.Log("Idle OFF");
     }
 
     public int GetRowNumber()
@@ -67,7 +66,6 @@ public class Mini1_Player : MonoBehaviour {
             Vector3 position = this.transform.position;
             position.y+=rowGap;
             this.transform.position = position;
-            Debug.Log("Head ON");
         }
     }
 
@@ -79,28 +77,23 @@ public class Mini1_Player : MonoBehaviour {
             Vector3 position = this.transform.position;
             position.y -= rowGap;
             this.transform.position = position;
-            Debug.Log("Head OFF");
         }
     }
     void OnTriggerEnter2D(Collider2D coll)
     {
-        if (coll.gameObject.name.Contains("Answer")) {
-            game.HitQuestion(rowNr);
-        }
-        else if (coll.gameObject.tag == "Enemy")
+        Debug.Log("Hit: " + coll.gameObject.tag);
+        switch (coll.gameObject.tag)
         {
-            if (attacking)
-            {
-                Destroy(coll.gameObject);
-            }
-            else
-            {
-                game.LoseLife();
-            }
-        }
-        else
-        {
-            game.LoseLife();
+            case "Answer":
+                game.Answer(rowNr);
+                break;
+            case "Enemy":
+                if (attacking) Destroy(coll.gameObject);
+                else game.Hurt();
+                break;
+            case "Obstacle":
+                game.Hurt();
+                break;
         }
     }
 
@@ -111,7 +104,6 @@ public class Mini1_Player : MonoBehaviour {
 
     public void Kill()
     {
-        Debug.Log("I was Killed!");
         anim.AllsetTrigger("Die");
         StartCoroutine(BeDead());
     }
