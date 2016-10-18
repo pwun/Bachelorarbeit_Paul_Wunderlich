@@ -56,13 +56,15 @@ public class Exercises : MonoBehaviour {
 
     private void LoadQuestion(int i)
     {
-        current_task = GetDataValue(exercises[i-1], "task");
+        current_task = GetDataValue(exercises[i - 1], "task");
         current_question = GetDataValue(exercises[i - 1], "question");
-        current_answer = GetDataValue(exercises[i-1], "answer");
-        string[] answer_pos = GetDataValue(exercises[i - 1], "answer_pos").Split(',');
-        current_answer1 = answer_pos[0].Replace('{',' ').Replace(" ", "");
-        current_answer2 = answer_pos[1].Replace(" ", "");
-        current_answer3 = answer_pos[2].Replace('}', ' ').Replace(" ", "");
+        current_answer = GetDataValue(exercises[i - 1], "answer");
+        if (!string.IsNullOrEmpty(GetDataValue(exercises[i - 1], "answer_pos"))) { 
+            string[] answer_pos = GetDataValue(exercises[i - 1], "answer_pos").Split(',');
+            current_answer1 = answer_pos[0].Replace('{', ' ').Replace(" ", "");
+            current_answer2 = answer_pos[1].Replace(" ", "");
+            current_answer3 = answer_pos[2].Replace('}', ' ').Replace(" ", "");
+        }
     }
     
     /*

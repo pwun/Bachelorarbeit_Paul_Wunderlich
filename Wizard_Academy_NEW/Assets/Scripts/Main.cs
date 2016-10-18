@@ -25,31 +25,16 @@ public class Main : MonoBehaviour {
         GameObject.Find("Test_Reset_Button").GetComponent<Button>().onClick.AddListener(() => { data.wipe(); });
     }
 
+    void Update()
+    {
+        initUi();
+    }
+
     public void continueUpdating()
     {
         initUi();
         player.SetArmor(data.armor_nr);
         player.SetHead(data.head_nr);
-    }
-	
-	// Update is called once per frame
-	void Update () {
-        initUi();
-	}
-
-    public void Train()
-    {
-        //StartCoroutine(data.Train());
-    }
-
-    public void Save()
-    {
-        //data.Save();
-    }
-
-    public void Quit()
-    {
-        //StartCoroutine(data.Logout());
     }
 
     void initUiElements()

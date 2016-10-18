@@ -9,7 +9,7 @@ public class Mini1 : MonoBehaviour {
 
     Vector3 left = new Vector3(-1, 0, 0);
 
-    Vector3 spawnBg = new Vector3(1050, 384, 0);
+    Vector3 spawnBg = new Vector3(1000, 384, 0);
     int Bg_minx = -50;
     float Bg_speed = 20.0f;
 
@@ -19,6 +19,7 @@ public class Mini1 : MonoBehaviour {
     Text Answer1;
     Text Answer2;
     Text Answer3;
+    Text ExerciseCounter;
     Rigidbody2D Answers;
     Rigidbody2D Bg;
     public GameObject Enemy;
@@ -50,6 +51,7 @@ public class Mini1 : MonoBehaviour {
         Answer1 = GameObject.Find("Answer1").GetComponent<Text>();
         Answer2 = GameObject.Find("Answer2").GetComponent<Text>();
         Answer3 = GameObject.Find("Answer3").GetComponent<Text>();
+        ExerciseCounter = GameObject.Find("Counter").GetComponent<Text>();
 
         Answers = GameObject.Find("Answers").GetComponent<Rigidbody2D>();
 		Answers.transform.position =  new Vector3(spawn_x, spawn_y, 0);
@@ -60,6 +62,26 @@ public class Mini1 : MonoBehaviour {
         CorrectCounter = 0;
         IncorrectCounter = 0;
         Lifes = 3;
+    }
+
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Answers.transform.position.x < min_x)
+        {
+            Debug.Log("Nächste Frage bitte!");
+            if (!e.NextQuestion())
+            {
+                EndGame();
+            }
+            updateUi();
+            ResetAnswer();
+        }
+        if (Bg.transform.position.x < Bg_minx)
+        {
+            Bg.transform.position = spawnBg;
+        }
     }
 
     public void EnemySpawn()
@@ -91,24 +113,6 @@ public class Mini1 : MonoBehaviour {
     {
         data.addXp(xp);
         data.Save("Main");
-    }
-	
-	// Update is called once per frame
-	void Update () {
-        if(Answers.transform.position.x < min_x)
-        {
-            Debug.Log("Nächste Frage bitte!");
-			if(!e.NextQuestion())
-            {
-                EndGame();
-            }
-			updateUi ();
-            ResetAnswer();
-        }
-        if (Bg.transform.position.x < Bg_minx)
-        {
-            Bg.transform.position = spawnBg;
-        }
     }
 
     public void LoseLife()
@@ -174,7 +178,7 @@ public class Mini1 : MonoBehaviour {
 
     void CheckAnswer(string text)
     {
-        EnemySpawn();
+        if(e.nrExercise<e.nrExerciseMax-1) EnemySpawn();
         Debug.Log("Correct answer:" + e.current_answer);
         Debug.Log("Submitted answer:" + text);
         if (e.current_answer.Equals(text))
@@ -192,7 +196,6 @@ public class Mini1 : MonoBehaviour {
                     Lifes--;
                     PlayerScript.Kill();
                     StartCoroutine(KillHearts());
-                    //Pause Game, Game Over
                     break;
                 default :
                     Lifes--;
@@ -202,6 +205,7 @@ public class Mini1 : MonoBehaviour {
                     break;
             }
         }
+        ExerciseCounter.text = e.nrExercise + "/" + e.nrExerciseMax;
     }
 
     IEnumerator DeactivateHeart()
@@ -243,7 +247,8 @@ public class Mini1 : MonoBehaviour {
         Destroy(Answer2);
         Destroy(Answer3);
         Question.text = "";
-        xp = CorrectCounter*(Lifes+1);
+        int multiply = Lifes + 1;
+        xp = CorrectCounter*(multiply);
         GameObject.Find("RewardText").GetComponent<Text>().text = "Du hast " + CorrectCounter + " Antworten richtig beantwortet" + System.Environment.NewLine +
             "und " + (Lifes) + " Leben übrig." + System.Environment.NewLine + "Dafür erhältst du " + xp + "XP";
         GameObject.Find("SaveAndQuitButton").GetComponent<Button>().enabled = true;

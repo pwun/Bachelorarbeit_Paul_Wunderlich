@@ -97,9 +97,7 @@ public class Train : MonoBehaviour {
         }
         //switch button
         NextButton.enabled = true;
-        //GameObject.Find("Next_Question").transform.localScale = new Vector3(1, 1, 1);
         SubmitButton.enabled = false;
-        //GameObject.Find("Submit_Question").transform.localScale = new Vector3(0, 0, 0);
         refreshUi();
     }
 
@@ -130,6 +128,18 @@ public class Train : MonoBehaviour {
     }
 
     void Close()
+    {
+        //1280x720
+        AnswerInput.transform.position = new Vector3(-500, -500, -20);
+        Destroy(Question);
+        Destroy(Task);
+        GameObject.Find("Endscreen").transform.position = new Vector3(640, 360, 10);
+        GameObject.Find("EndText").GetComponent<Text>().text = "Du hast " + CorrectCounter + " Fragen von " + e.nrExerciseMax + " richtig beantwortet." + System.Environment.NewLine +
+            "Als Belohnung bekommst du " + GetLeveledXp() + " Erfahrungspunkte.";
+        GameObject.Find("SaveQuit").GetComponent<Button>().onClick.AddListener(() => { Save(); });
+    }
+
+    void Save()
     {
         data.addXp(GetLeveledXp());
         data.Save("Main");
