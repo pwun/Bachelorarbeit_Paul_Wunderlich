@@ -10,27 +10,20 @@ public class Mini1_Start : MonoBehaviour {
 	void Start () {
         data = GameObject.Find("User_Data").GetComponent<UserData>();
         Coins = GameObject.Find("Coins").GetComponent<Text>();
-        if(data.getLifes() < 1)
+        if(data.lifes < 1)
         {
             Coins.color = Color.red;
             GameObject.Find("Start").GetComponent<Button>().interactable = false;
             GameObject.Find("Reminder").transform.localScale= new Vector3(1, 1, 1);
         }
-        /* else
-         {
-             Coins.color = Color.green;
-             GameObject.Find("Start").GetComponent<Button>().interactable = true;
-             GameObject.Find("Reminder").transform.localScale = new Vector3(0, 0, 0);
-         }*/
-        Coins.text = "Aktuelle Münzen: " + data.getLifes();
-
+        Coins.text = "Aktuelle Münzen: " + data.lifes;
+        GameObject.Find("Start").GetComponent<Button>().onClick.AddListener(() => { data.lifes--;  data.Save("Mini1"); });
     }
 
     public void LoadGame()
     {
-        data.subLifes(1);
-        data.Save();
-        data.LogEntry("mini1start");
-        SceneManager.LoadScene("Mini1");
+        data.lifes--;
+		Log.LogEntry ("Mini1 Start", data.id);
+        data.Save("Mini1");
     }
 }

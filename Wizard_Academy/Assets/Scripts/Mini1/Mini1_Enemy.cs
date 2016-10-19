@@ -12,6 +12,7 @@ public class Mini1_Enemy : MonoBehaviour {
     void Start () {
         me = GetComponent<Rigidbody2D>();
         me.velocity = left * speed;
+        this.tag = "Enemy";
     }
 
     public void Kill()
@@ -23,7 +24,7 @@ public class Mini1_Enemy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	    if (me.transform.position.x < 0)
+	    if (me.transform.position.x < -1800)
         {
             Kill();
         }

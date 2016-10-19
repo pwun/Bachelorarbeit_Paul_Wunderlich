@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class Main : MonoBehaviour {
 
     UserData data;
-    UpdateUserdata updater;
     PlayerCreation player;
 
     Text name_display;
@@ -19,8 +18,16 @@ public class Main : MonoBehaviour {
 	void Start () {
         data = GameObject.Find("User_Data").GetComponent<UserData>();
         initUiElements();
-        updater = GameObject.Find("EventSystem").GetComponent<UpdateUserdata>();
-        updater.refresh();
+		GameObject.Find("Save_Button").GetComponent<Button>().onClick.AddListener(() => { Log.LogEntry("logout", data.id); data.Save("Login"); });
+        GameObject.Find("Train_Button").GetComponent<Button>().onClick.AddListener(() => { data.Save("TrainSetup"); });
+        GameObject.Find("Mini1_Button").GetComponent<Button>().onClick.AddListener(() => { data.Save("Mini1_Start"); });
+        GameObject.Find("Test_Cheat_Button").GetComponent<Button>().onClick.AddListener(() => { data.addXp(100); });
+        GameObject.Find("Test_Reset_Button").GetComponent<Button>().onClick.AddListener(() => { data.wipe(); });
+    }
+
+    void Update()
+    {
+        initUi();
     }
 
     public void continueUpdating()
@@ -28,27 +35,6 @@ public class Main : MonoBehaviour {
         initUi();
         player.SetArmor(data.armor_nr);
         player.SetHead(data.head_nr);
-        player.refresh();
-    }
-	
-	// Update is called once per frame
-	void Update () {
-        initUi();
-	}
-
-    public void Train()
-    {
-        StartCoroutine(data.Train());
-    }
-
-    public void Save()
-    {
-        data.Save();
-    }
-
-    public void Quit()
-    {
-        StartCoroutine(data.Logout());
     }
 
     void initUiElements()
@@ -63,17 +49,15 @@ public class Main : MonoBehaviour {
     }
 
     void initUi() {
-        name_display.text = data.getName();
-        level_display.text = "Lvl.:  "+data.getLevel();
-        xp_display.text = data.getXp() + "/" + data.getNeededXp() + " XP";
+        name_display.text = data.name;
+        level_display.text = "Lvl.:  "+data.level;
+        xp_display.text = data.xp + "/" + data.xp_needed + " XP";
         //xp_e_display.text = "Englisch: "+data.getEnglishXp()+" XP";
         //xp_m_display.text = "Mathe: " + data.getMathXp()+" XP";
-        life_display.text = data.getLifes() + " Münzen";
+        life_display.text = data.lifes + " Münzen";
     }
 
-    public void addXpMath(int addXp){data.addXpMath(addXp);}
-    public void addXpEnglish(int addXp){data.addXpEnglish(addXp);}
-    public void addLifes(int nrLifes){data.addLifes(nrLifes);}
-    public void subLifes(int nrLifes){data.subLifes(nrLifes);}
+    //public void addXpMath(int addXp){data.addXpMath(addXp);}
+    //public void addXpEnglish(int addXp){data.addXpEnglish(addXp);}
     public void resetStats() { data.wipe();  }
 }

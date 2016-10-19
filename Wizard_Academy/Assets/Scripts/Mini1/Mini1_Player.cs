@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class Mini1_Player : MonoBehaviour {
 
     int rowNr = 1;
-    int rowGap = 100;
+    int rowGap = 180;
     int jumpHeight = 70;
     int jumpLength = 150;
     bool attacking = false;
@@ -21,7 +21,7 @@ public class Mini1_Player : MonoBehaviour {
     void Start () {
         //Animator start running animation
         data = GameObject.Find("User_Data").GetComponent<UserData>();
-        GameObject.Find("Name_Display").GetComponent<Text>().text = data.getName();
+        GameObject.Find("Name_Display").GetComponent<Text>().text = data.name;
         //Fetch Questions
         //Set first Question
         game = GameObject.Find("EventSystem").GetComponent<Mini1>();
@@ -51,7 +51,6 @@ public class Mini1_Player : MonoBehaviour {
     public void StartAnimation()
     {
         anim.SwitchIdle();
-        Debug.Log("Idle OFF");
     }
 
     public int GetRowNumber()
@@ -67,7 +66,6 @@ public class Mini1_Player : MonoBehaviour {
             Vector3 position = this.transform.position;
             position.y+=rowGap;
             this.transform.position = position;
-            Debug.Log("Head ON");
         }
     }
 
@@ -79,45 +77,47 @@ public class Mini1_Player : MonoBehaviour {
             Vector3 position = this.transform.position;
             position.y -= rowGap;
             this.transform.position = position;
-            Debug.Log("Head OFF");
         }
     }
     void OnTriggerEnter2D(Collider2D coll)
     {
-        if (coll.gameObject.name.Contains("Answer")) {
-            game.HitQuestion(rowNr);
-        }
-        else if (coll.gameObject.name.Contains("Enemy"))
+        Debug.Log("Hit: " + coll.gameObject.tag);
+        switch (coll.gameObject.tag)
         {
-            if (attacking)
-            {
-                Destroy(coll.gameObject);
-            }
-        }
-        else
-        {
-            game.LoseLife();
+            case "Answer":
+                game.Answer(rowNr);
+                break;
+            case "Enemy":
+                if (attacking) Destroy(coll.gameObject);
+                else game.Hurt();
+                break;
+            case "Obstacle":
+                game.Hurt();
+                break;
         }
     }
 
     public void LoseLife()
     {
-        //anim_player.SetTrigger("LooseLife");
+        anim.AllsetTrigger("Hurt");
     }
 
     public void Kill()
     {
-        Debug.Log("I was Killed!");
-        //anim.SetTrigger("Die");
-        anim.SwitchIdle();
-        Debug.Log("Head ON");
+        anim.AllsetTrigger("Die");
+        StartCoroutine(BeDead());
+    }
+
+    IEnumerator BeDead()
+    {
+        yield return new WaitForSeconds(0.5f);
+        anim.SetDead(true);
     }
 
     public void Attack()
     {
         attacking = true;
         anim.AllsetTrigger("Attack");
-        Debug.Log("ATTACK");
         StartCoroutine(wait());
     }
 
