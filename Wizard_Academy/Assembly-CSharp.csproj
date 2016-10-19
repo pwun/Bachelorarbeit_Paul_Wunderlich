@@ -45,6 +45,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Customizer\CustomizerUI.cs" />
+     <Compile Include="Assets\Customizer\Player.cs" />
      <Compile Include="Assets\Scripts\Core\BackButton.cs" />
      <Compile Include="Assets\Scripts\Core\Exercises.cs" />
      <Compile Include="Assets\Scripts\Core\Log.cs" />
