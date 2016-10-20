@@ -6,8 +6,6 @@ public class CustomizerUI : MonoBehaviour {
 
 	Player player;
 
-	public int sex, body, hair, feet, legs, torso, arms, helmet = 0;
-
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find("Player").GetComponent<Player>();
