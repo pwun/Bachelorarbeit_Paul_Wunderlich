@@ -19,6 +19,6 @@ public class CustomizerUI : MonoBehaviour {
 	}
 	
 	void refresh(){
-		player.refresh ();
+		player.Refresh ();
 	}
 }

@@ -16,10 +16,10 @@ public class UserData : MonoBehaviour {
     public int lifes = 0;
     public int current_dif = 1;
     public string current_subject = "m";
-    public int armor_nr = 0;
-    public string armor_pos = "";
-    public int head_nr = 0;
-    public string head_pos = "";
+	//Muss auf Server
+	public int body = 1, hair = 1, legs = 1, feet = 1, torso = 0, arms = 0, hands = 0, helmet = 0, weapon = 1, belt = 0;
+	//Muss auf Server
+	public string body_pos, hair_pos, legs_pos, feet_pos, torso_pos, arms_pos, hands_pos, helmet_pos, weapon_pos, belt_pos;
 
     void Start()
     {
@@ -47,10 +47,31 @@ public class UserData : MonoBehaviour {
         form.AddField("xpPost", xp);
         form.AddField("max_xpPost", xp_needed);
         form.AddField("lifesPost", lifes);
-        form.AddField("armorPost", armor_nr);
-        form.AddField("headPost", head_nr);
-        form.AddField("armorposPost", armor_pos);
-        form.AddField("headposPost", head_pos);
+        //form.AddField("armorPost", armor_nr);
+        //form.AddField("headPost", head_nr);
+        //form.AddField("armorposPost", armor_pos);
+        //form.AddField("headposPost", head_pos);
+		form.AddField("Body",body);
+		form.AddField("Hair",hair);
+		form.AddField("Legs",legs);
+		form.AddField("Feet",feet);
+		form.AddField("Torso",torso);
+		form.AddField("Arms",arms);
+		form.AddField("Hands",hands);
+		form.AddField("Helmet",helmet);
+		form.AddField("Weapon",weapon);
+		form.AddField("Belt",belt);
+
+		form.AddField("BodyPos",body_pos);
+		form.AddField("HairPos",hair_pos);
+		form.AddField("LegsPos",legs_pos);
+		form.AddField("FeetPos",feet_pos);
+		form.AddField("TorsoPos",torso_pos);
+		form.AddField("ArmsPos",arms_pos);
+		form.AddField("HandsPos",hands_pos);
+		form.AddField("HelmetPos",helmet_pos);
+		form.AddField("WeaponPos",weapon_pos);
+		form.AddField("BeltPos",belt_pos);
         WWW www = new WWW(UpdateURL, form);
         yield return www;
         Debug.Log(www.text);
@@ -102,10 +123,8 @@ public class UserData : MonoBehaviour {
         //xp_english = 0;
         xp_needed = 200;
         lifes = 3;
-        armor_nr = 0;
-        armor_pos = "12";
-        head_nr = 0;
-        head_pos = "12";
+		body = 1; hair = 1; legs = 1; feet = 1; torso = 0; arms = 0; hands = 0; helmet = 0; weapon = 1; belt = 0;
+		body_pos = "01"; hair_pos = "01"; legs_pos="01"; feet_pos = "01"; torso_pos = "0134"; arms_pos="0"; hands_pos = "0"; helmet_pos="0134"; weapon_pos = "01"; belt_pos="0";
     }
 
     int GetNewXpNeeded(int level)

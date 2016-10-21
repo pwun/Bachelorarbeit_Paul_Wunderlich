@@ -1,0 +1,13 @@
+/Users/paulwunderlich/Documents/Bachelorarbeit/Bachelorarbeit GitHub/Wizard_Academy/Temp/bin/Debug/UnityEngine.dll
+/Users/paulwunderlich/Documents/Bachelorarbeit/Bachelorarbeit GitHub/Wizard_Academy/Temp/bin/Debug/UnityEditor.dll
+/Users/paulwunderlich/Documents/Bachelorarbeit/Bachelorarbeit GitHub/Wizard_Academy/Temp/bin/Debug/UnityEngine.UI.dll
+/Users/paulwunderlich/Documents/Bachelorarbeit/Bachelorarbeit GitHub/Wizard_Academy/Temp/bin/Debug/UnityEngine.Networking.dll
+/Users/paulwunderlich/Documents/Bachelorarbeit/Bachelorarbeit GitHub/Wizard_Academy/Temp/bin/Debug/Mono.Cecil.dll
+/Users/paulwunderlich/Documents/Bachelorarbeit/Bachelorarbeit GitHub/Wizard_Academy/Temp/bin/Debug/Unity.SerializationLogic.dll
+/Users/paulwunderlich/Documents/Bachelorarbeit/Bachelorarbeit GitHub/Wizard_Academy/Temp/bin/Debug/Unity.DataContract.dll
+/Users/paulwunderlich/Documents/Bachelorarbeit/Bachelorarbeit GitHub/Wizard_Academy/Temp/bin/Debug/ICSharpCode.NRefactory.dll
+/Users/paulwunderlich/Documents/Bachelorarbeit/Bachelorarbeit GitHub/Wizard_Academy/Temp/bin/Debug/Unity.UNetWeaver.dll
+/Users/paulwunderlich/Documents/Bachelorarbeit/Bachelorarbeit GitHub/Wizard_Academy/Temp/bin/Debug/Unity.UNetWeaver.dll.mdb
+/Users/paulwunderlich/Documents/Bachelorarbeit/Bachelorarbeit GitHub/Wizard_Academy/Temp/bin/Debug/Unity.CecilTools.dll
+/Users/paulwunderlich/Documents/Bachelorarbeit/Bachelorarbeit GitHub/Wizard_Academy/Temp/bin/Debug/Mono.Cecil.Pdb.dll
+/Users/paulwunderlich/Documents/Bachelorarbeit/Bachelorarbeit GitHub/Wizard_Academy/Temp/bin/Debug/Mono.Cecil.Mdb.dll

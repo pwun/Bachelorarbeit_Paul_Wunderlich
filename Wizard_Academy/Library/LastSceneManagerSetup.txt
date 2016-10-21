@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Customizer/Customizer.unity
+- path: Assets/Scenes/Mini1/Mini1.unity
   isLoaded: 1
   isActive: 1

@@ -49,7 +49,7 @@ public class Login : MonoBehaviour {
         yield return www;
         updateData(www.text);
         Debug.Log("Answer from Server:"+www.text);
-        if(data.armor_nr == -1 && data.head_nr == -1)
+		if(data.torso==0)
         {
             SceneManager.LoadScene("PlayerCreation");
         }
@@ -69,10 +69,13 @@ public class Login : MonoBehaviour {
         //data.SetMathXp(GetIntValue(result, "'m_xp'");
         //data.SetEnglishXp(GetIntValue(result, "'e_xp'");
         data.lifes = GetIntValue(result, "'lifes'");
-        data.armor_nr = GetIntValue(result, "'armor'");
-        data.head_nr = GetIntValue(result, "'helmet'");
-        data.armor_pos = GetStringValue(result, "'armor_pos'");
-        data.head_pos = GetStringValue(result, "'helmet_pos'");
+        //data.armor_nr = GetIntValue(result, "'armor'");
+        //data.head_nr = GetIntValue(result, "'helmet'");
+        //data.armor_pos = GetStringValue(result, "'armor_pos'");
+        //data.head_pos = GetStringValue(result, "'helmet_pos'");
+
+		//POSSTRING = GETSTRINGVALUE
+		//ITEMSTRING = GETITEMMBLIBLABLUB
 		Log.LogEntry ("Login",GetIntValue(result, "'id'"));
     }
 

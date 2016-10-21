@@ -1,9 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Customizer/Player/Player.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Customizer/CustomizerUI.cs">
     <Files>
-      <File FileName="Assets/Customizer/CustomizerUI.cs" Line="8" Column="2" />
-      <File FileName="Assets/Customizer/Player/Player.cs" Line="20" Column="18" />
+      <File FileName="Assets/Customizer/CustomizerUI.cs" Line="22" Column="11" />
+      <File FileName="Assets/Scripts/Mini1/Mini1_Player.cs" Line="1" Column="1" />
+      <File FileName="Assets/Prefabs/Player/Player/Player.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Core/UserData.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Core/Login.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
