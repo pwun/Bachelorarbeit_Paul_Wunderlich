@@ -33,8 +33,8 @@ public class Main : MonoBehaviour {
     public void continueUpdating()
     {
         initUi();
-        player.SetArmor(data.armor_nr);
-        player.SetHead(data.head_nr);
+//        player.SetArmor(data.armor_nr);
+//        player.SetHead(data.head_nr);
     }
 
     void initUiElements()

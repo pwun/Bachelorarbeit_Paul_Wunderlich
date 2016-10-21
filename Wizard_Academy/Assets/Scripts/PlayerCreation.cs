@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerCreation : MonoBehaviour {
 
-    Animator player;
+    /*Animator player;
     Animator head;
     Animator armor;
     UserData data;
@@ -120,6 +120,6 @@ public class PlayerCreation : MonoBehaviour {
             Armor = System.Int32.Parse("" + data.armor_pos[ArmorNr - 1]);
         }
         armor.SetInteger("Armor", Armor);
-    }
+    }*/
 
 }
