@@ -17,9 +17,9 @@ public class UserData : MonoBehaviour {
     public int current_dif = 1;
     public string current_subject = "m";
 	//Muss auf Server
-	public int body = 1, hair = 1, legs = 1, feet = 1, torso = 0, arms = 0, hands = 0, helmet = 0, weapon = 1, belt = 0;
+	//public int body = 1, hair = 1, legs = 1, feet = 1, torso = 0, arms = 0, hands = 0, helmet = 0, weapon = 1, belt = 0;
 	//Muss auf Server
-	public string body_pos, hair_pos, legs_pos, feet_pos, torso_pos, arms_pos, hands_pos, helmet_pos, weapon_pos, belt_pos;
+	//public string body_pos, hair_pos, legs_pos, feet_pos, torso_pos, arms_pos, hands_pos, helmet_pos, weapon_pos, belt_pos;
 
     void Start()
     {
@@ -51,7 +51,7 @@ public class UserData : MonoBehaviour {
         //form.AddField("headPost", head_nr);
         //form.AddField("armorposPost", armor_pos);
         //form.AddField("headposPost", head_pos);
-		form.AddField("Body",body);
+		/*form.AddField("Body",body);
 		form.AddField("Hair",hair);
 		form.AddField("Legs",legs);
 		form.AddField("Feet",feet);
@@ -71,7 +71,7 @@ public class UserData : MonoBehaviour {
 		form.AddField("HandsPos",hands_pos);
 		form.AddField("HelmetPos",helmet_pos);
 		form.AddField("WeaponPos",weapon_pos);
-		form.AddField("BeltPos",belt_pos);
+		form.AddField("BeltPos",belt_pos);*/
         WWW www = new WWW(UpdateURL, form);
         yield return www;
         Debug.Log(www.text);
@@ -123,8 +123,8 @@ public class UserData : MonoBehaviour {
         //xp_english = 0;
         xp_needed = 200;
         lifes = 3;
-		body = 1; hair = 1; legs = 1; feet = 1; torso = 0; arms = 0; hands = 0; helmet = 0; weapon = 1; belt = 0;
-		body_pos = "01"; hair_pos = "01"; legs_pos="01"; feet_pos = "01"; torso_pos = "0134"; arms_pos="0"; hands_pos = "0"; helmet_pos="0134"; weapon_pos = "01"; belt_pos="0";
+		//body = 1; hair = 1; legs = 1; feet = 1; torso = 0; arms = 0; hands = 0; helmet = 0; weapon = 1; belt = 0;
+		//body_pos = "01"; hair_pos = "01"; legs_pos="01"; feet_pos = "01"; torso_pos = "0134"; arms_pos="0"; hands_pos = "0"; helmet_pos="0134"; weapon_pos = "01"; belt_pos="0";
     }
 
     int GetNewXpNeeded(int level)

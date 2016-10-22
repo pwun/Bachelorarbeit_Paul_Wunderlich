@@ -1,17 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour {
 
 	GameObject go;
 	Animator anim;
 
-    string signupURL = "http://wunderlich-paul.de/wizard/SignupItem.php";
+    string signupURL = "http://wunderlich-paul.de/wizard/SignupItems.php";
     string updateURL = "http://wunderlich-paul.de/wizard/UpdateItems.php";
     string infoURL = "http://wunderlich-paul.de/wizard/ItemInfo.php";
 
 	public int sex, body = 1, hair = 1, legs = 1, feet = 1, torso = 0, arms = 0, hands = 0, helmet = 0, weapon = 1, belt = 0;
-    public string sex_pos = "12", body_pos, hair_pos, legs_pos, feet_pos, torso_pos, arms_pos, hands_pos, helmet_pos, weapon_pos, belt_pos;
+    //public string sex_pos = "12", body_pos, hair_pos, legs_pos, feet_pos, torso_pos, arms_pos, hands_pos, helmet_pos, weapon_pos, belt_pos;
 
 
     UserData data;
@@ -88,7 +89,7 @@ public class Player : MonoBehaviour {
         helmet = GetIntValue(answer, "'helmet'");
         belt = GetIntValue(answer, "'belt'");
 
-        body_pos = GetStringValue(answer, "'body_pos'");
+        /*body_pos = GetStringValue(answer, "'body_pos'");
         hair_pos = GetStringValue(answer, "'hair_pos'");
         feet_pos = GetStringValue(answer, "'feet_pos'");
         legs_pos = GetStringValue(answer, "'legs_pos'");
@@ -97,16 +98,16 @@ public class Player : MonoBehaviour {
         hands_pos = GetStringValue(answer, "'hands_pos'");
         weapon_pos = GetStringValue(answer, "'weapon_pos'");
         helmet_pos = GetStringValue(answer, "'helmet_pos'");
-        belt_pos = GetStringValue(answer, "'belt_pos'");
+        belt_pos = GetStringValue(answer, "'belt_pos'");*/
         Refresh();
     }
 
-    public void Save(int id)
+    public void Save(string scene)
     {
-        StartCoroutine(SaveToDB(id));
+        StartCoroutine(SaveToDB(data.id, scene));
     }
 
-    IEnumerator SaveToDB(int id)
+    IEnumerator SaveToDB(int id, string scene)
     {
         WWWForm form = new WWWForm();
         form.AddField("idPost", id);
@@ -121,7 +122,7 @@ public class Player : MonoBehaviour {
         form.AddField("weaponPost", weapon);
         form.AddField("helmetPost", helmet);
         form.AddField("beltPost", belt);
-        form.AddField("body_posPost", body_pos);
+        /*form.AddField("body_posPost", body_pos);
         form.AddField("hair_posPost", hair_pos);
         form.AddField("feet_posPost", feet_pos);
         form.AddField("legs_posPost", legs_pos);
@@ -130,33 +131,35 @@ public class Player : MonoBehaviour {
         form.AddField("hands_posPost", hands_pos);
         form.AddField("weapon_posPost", weapon_pos);
         form.AddField("helmet_posPost", helmet_pos);
-        form.AddField("belt_posPost", belt_pos);
+        form.AddField("belt_posPost", belt_pos);*/
         WWW www = new WWW(updateURL, form);
         yield return www;
         Debug.Log("Answer from Server:" + www.text);
+        SceneManager.LoadScene(scene);
     }
 
     public void Refresh(){
-		SetAppearance("Body",body,body_pos);
-		SetAppearance("Pants",legs,legs_pos);
-		SetAppearance("Feet",feet,feet_pos);
-		SetAppearance("Torso",torso,torso_pos);
-		SetAppearance("Hair",hair,hair_pos);
-		SetAppearance("Weapon",weapon,weapon_pos);
-		SetAppearance("Arms",arms,arms_pos);
-		SetAppearance("Hands",hands,hands_pos);
-		SetAppearance("Helmet",helmet,helmet_pos);
-		SetAppearance("Belt",belt,belt_pos);
+		SetAppearance("Body",body);
+		SetAppearance("Pants",legs);
+		SetAppearance("Feet",feet);
+		SetAppearance("Torso",torso);
+		SetAppearance("Hair",hair);
+		SetAppearance("Weapon",weapon);
+		SetAppearance("Arms",arms);
+		SetAppearance("Hands",hands);
+		SetAppearance("Helmet",helmet);
+		SetAppearance("Belt",belt);
         //Server Update UpdateItem
 	}
 
-	public void SetAppearance(string ArmorPart, int id,string pos){
+	public void SetAppearance(string ArmorPart, int id){
 		foreach (GameObject go in GameObject.FindGameObjectsWithTag("Wearables_"+ArmorPart)) {
 			go.GetComponent<SpriteRenderer> ().enabled = false;
 		}
-        if (pos.Contains(id + "")) GameObject.Find("Player_" + ArmorPart + "_" + id).GetComponent<SpriteRenderer>().enabled = true;
-        else Debug.Log("Id " + id + " Not Contained In List For " + ArmorPart + " : " + pos);
-	}
+        GameObject.Find("Player_" + ArmorPart + "_" + id).GetComponent<SpriteRenderer>().enabled = true;
+        //SAVE NEW APPEARANCE
+    }
+
     int GetIntValue(string data, string index)
     {
         string value = data.Substring(data.IndexOf(index) + index.Length + 1);

@@ -78,6 +78,9 @@
     <Compile Include="Assets\Scripts\Mini1\Mini1_Player.cs" />
     <Compile Include="Assets\Scripts\Mini1\Mini1_Start.cs" />
     <Compile Include="Assets\Scripts\PlayerCreation.cs" />
+    <Compile Include="Assets\Scripts\Save\Character.cs" />
+    <Compile Include="Assets\Scripts\Save\Game.cs" />
+    <Compile Include="Assets\Scripts\Save\SaveLoad.cs" />
     <Compile Include="Assets\Scripts\Startmenu.cs" />
     <Compile Include="Assets\Scripts\Train\Train.cs" />
     <Compile Include="Assets\Scripts\Train\TrainSettings.cs" />

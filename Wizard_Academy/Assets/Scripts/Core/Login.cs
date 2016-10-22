@@ -49,12 +49,13 @@ public class Login : MonoBehaviour {
         yield return www;
         updateData(www.text);
         Debug.Log("Answer from Server:"+www.text);
-		if(data.torso==0)
+        /*if(data.torso==0)
         {
             SceneManager.LoadScene("PlayerCreation");
         }
         else { SceneManager.LoadScene("Main");}
-        
+        */
+        SceneManager.LoadScene("Customizer");
     }
 
     void updateData(string result)
