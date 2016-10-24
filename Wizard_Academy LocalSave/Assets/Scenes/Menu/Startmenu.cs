@@ -13,7 +13,7 @@ public class Startmenu : MonoBehaviour
     void Login()
     {
         SaveLoad.Load();
-        /*if (SaveLoad.savedGames.Count < 1)
+        if (SaveLoad.savedGames.Count < 1)
         {
             SceneManager.LoadScene("Signup");
         }
@@ -21,7 +21,7 @@ public class Startmenu : MonoBehaviour
         {
             Game.current = SaveLoad.savedGames[SaveLoad.savedGames.Count - 1];
             SceneManager.LoadScene("Main");
-        }*/
-        SceneManager.LoadScene("Signup");
+        }
+        //SceneManager.LoadScene("Signup");
     }
 }

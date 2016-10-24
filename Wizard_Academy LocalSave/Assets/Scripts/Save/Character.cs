@@ -6,10 +6,11 @@ using System.Collections.Generic;
 public class Character
 {
 
-    public string Name;
-    public int ClassLevel, Level, Xp, XpNeeded, Coins, Lifes, Subject, Difficulty;
+    public string Name, Subject;
+    public int ClassLevel, Level, Xp, XpNeeded, Coins, Lifes, Difficulty;
     public int Sex, Body, Hair, Feet, Legs, Torso, Belt, Arms, Hands, Weapon, Helmet;
     public List<int> SexPos, BodyPos, HairPos, FeetPos, LegsPos, TorsoPos, BeltPos, ArmsPos, HandsPos, WeaponPos, HelmetPos;
+    public int[] XpList = {200, 200, 400, 600, 1000, 1200, 1400, 1800, 2100, 2400, 2800, 3200, 3600, 5000};
 
     public Character(string name, int classLevel)
     {
@@ -22,6 +23,17 @@ public class Character
         Lifes = 3;
         initItemPos();
         initItems();
+    }
+
+    public void AddXp(int newXp)
+    {
+        Xp += newXp;
+        if (Xp >= XpNeeded)
+        {
+            Level++;
+            Xp -= XpNeeded;
+            XpNeeded = XpList[Level];
+        }
     }
 
     void initItems()

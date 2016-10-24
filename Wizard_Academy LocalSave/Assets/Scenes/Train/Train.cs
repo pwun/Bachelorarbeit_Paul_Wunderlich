@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class Train : MonoBehaviour {
 
     Exercises e;
-    UserData data;
 
     Text ExerciseCounter;
     Text Question;
@@ -28,10 +27,9 @@ public class Train : MonoBehaviour {
     {
         CorrectCounter = 0;
         IncorrectCounter = 0;
-        data = GameObject.Find("User_Data").GetComponent<UserData>();
-        GameObject.Find("NameDisplay").GetComponent<Text>().text = data.name;
+        GameObject.Find("NameDisplay").GetComponent<Text>().text = Game.current.hero.Name;
         e = GetComponent<Exercises>();
-        e.GetTrainExercises(data.current_subject, data.class_level, 1, data.level);
+        e.GetTrainExercises(Game.current.hero.Subject, Game.current.hero.ClassLevel, 1, Game.current.hero.Level);
     }
 
     public void Begin()
@@ -133,16 +131,16 @@ public class Train : MonoBehaviour {
 
     void Save()
     {
-        data.addXp(GetLeveledXp());
-		Log.LogEntry ("Training End, Score: " + GetLeveledXp (), data.id);
-		GameObject.Find ("SaveQuit").GetComponent<Button> ().interactable = false;
-        data.Save("Main");
+        GameObject.Find("SaveQuit").GetComponent<Button>().interactable = false;
+        Game.current.hero.AddXp(GetLeveledXp());
+        SaveLoad.Save();
+		SceneManager.LoadScene("Main");
     }
 
     int GetLeveledXp()
     {
         int xp = 0;
-        switch (data.level)
+        switch (Game.current.hero.Level)
         {
             case 1:
             case 2:

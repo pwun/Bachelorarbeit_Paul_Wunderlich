@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class Mini1 : MonoBehaviour {
     Exercises e;
-    UserData data;
 
     Vector3 left = new Vector3(-1, 0, 0);
 
@@ -42,9 +41,8 @@ public class Mini1 : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        data = GameObject.Find("User_Data").GetComponent<UserData>();
         e = GetComponent<Exercises>();
-        e.GetTrainExercises("e", data.class_level, 2, data.level);
+        e.GetTrainExercises("e", Game.current.hero.ClassLevel, 2, Game.current.hero.Level);
 
         Question = GameObject.Find("Question").GetComponent<Text>();
         Answer1 = GameObject.Find("Answer1").GetComponent<Text>();
@@ -97,8 +95,9 @@ public class Mini1 : MonoBehaviour {
 
     public void SafeAndQuit()
     {
-        data.addXp(xp);
-        data.Save("Main");
+        Game.current.hero.AddXp(xp);
+        SaveLoad.Save();
+        SceneManager.LoadScene("Main");
     }
 
     //spawn_x answer_y
@@ -143,7 +142,7 @@ public class Mini1 : MonoBehaviour {
             "und " + (Lifes) + " Leben übrig." + System.Environment.NewLine + "Dafür erhältst du " + xp + "XP";
         GameObject.Find("SaveAndQuitButton").GetComponent<Button>().enabled = true;
         GameObject.Find("SaveAndQuitButton").GetComponent<Button>().interactable = true;
-		GameObject.Find("SaveAndQuitButton").GetComponent<Button>().onClick.AddListener(() => { Log.LogEntry("Mini1 End, Score: "+xp, data.id); GameObject.Find("SaveAndQuitButton").GetComponent<Button>().interactable = false; });
+		GameObject.Find("SaveAndQuitButton").GetComponent<Button>().onClick.AddListener(() => { GameObject.Find("SaveAndQuitButton").GetComponent<Button>().interactable = false; });
         GameObject.Find("Endscreen").transform.localScale = new Vector3(1, 1, 1);
     }
 

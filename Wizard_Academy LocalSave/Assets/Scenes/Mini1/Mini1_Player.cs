@@ -13,20 +13,18 @@ public class Mini1_Player : MonoBehaviour {
     public bool running = false;
     Rigidbody2D Player;
 
-    UserData data;
     Mini1 game;
     Player anim;
 
     // Use this for initialization
     void Start () {
         //Animator start running animation
-        data = GameObject.Find("User_Data").GetComponent<UserData>();
-        GameObject.Find("Name_Display").GetComponent<Text>().text = data.name;
+        GameObject.Find("Name_Display").GetComponent<Text>().text = Game.current.hero.Name;
         //Fetch Questions
         //Set first Question
         game = GameObject.Find("EventSystem").GetComponent<Mini1>();
         Player = GameObject.Find("Player").GetComponent<Rigidbody2D>();
-        anim = GetComponent<Player>();
+        anim = GameObject.Find("Player").GetComponent<Player>();
         //Get Item Types
         //anim.SetArmor(), Head
     }
@@ -38,11 +36,12 @@ public class Mini1_Player : MonoBehaviour {
         {
             Attack();
         }
-		if (Input.GetAxisRaw("Vertical")>0)
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             RowUp();
         }
-		if (Input.GetAxisRaw("Vertical")<0)
+        //if (Input.GetAxisRaw("Vertical")<0)
+        if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             RowDown();
         }

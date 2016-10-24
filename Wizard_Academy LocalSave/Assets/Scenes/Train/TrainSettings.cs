@@ -5,11 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class TrainSettings : MonoBehaviour {
 
-    UserData data;
 
 	// Use this for initialization
 	void Start () {
-        data = GameObject.Find("User_Data").GetComponent<UserData>();
 	}
 	
 	// Update is called once per frame
@@ -21,14 +19,13 @@ public class TrainSettings : MonoBehaviour {
     {
         if (GameObject.Find("Sub_Dropdown").GetComponent<Dropdown>().value == 0)
         {
-            data.current_subject = "e";
+            Game.current.hero.Subject = "e";
         }
         else
         {
-            data.current_subject = "m";
+            Game.current.hero.Subject = "m";
         }
         //Change Scene
-		Log.LogEntry("Training Start", data.id);
         SceneManager.LoadScene("Train");
     }
 }

@@ -56,7 +56,7 @@ public class CustomizerUI : MonoBehaviour {
     public void setLegs(int val)
     {
         Game.current.hero.Legs = val;
-        player.SetAppearance("Legs", val);
+        player.SetAppearance("Pants", val);
     }
     public void setArms(int val)
     {

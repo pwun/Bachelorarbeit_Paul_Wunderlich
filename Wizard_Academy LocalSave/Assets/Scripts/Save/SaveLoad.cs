@@ -16,6 +16,7 @@ public static class SaveLoad
         BinaryFormatter bf = new BinaryFormatter();
         //Application.persistentDataPath is a string, so if you wanted you can put that into debug.log if you want to know where save games are located
         FileStream file = File.Create(Application.persistentDataPath + "/savedGames.gd"); //you can call it anything you want
+        Debug.Log("Save Path: "+ Application.persistentDataPath + "/savedGames.gd");
         bf.Serialize(file, SaveLoad.savedGames);
         file.Close();
     }
