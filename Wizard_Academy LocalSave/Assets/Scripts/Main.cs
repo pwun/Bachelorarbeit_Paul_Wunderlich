@@ -52,5 +52,5 @@ public class Main : MonoBehaviour {
 
     //public void addXpMath(int addXp){data.addXpMath(addXp);}
     //public void addXpEnglish(int addXp){data.addXpEnglish(addXp);}
-    public void resetStats() { Game.current.hero = new Character(Game.current.hero.Name, Game.current.hero.ClassLevel); }
+    public void resetStats() { SceneManager.LoadScene("Signup"); }//{ Game.current.hero = new Character(Game.current.hero.Name, Game.current.hero.ClassLevel); }
 }

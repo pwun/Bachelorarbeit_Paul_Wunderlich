@@ -26,6 +26,7 @@ public class TrainSettings : MonoBehaviour {
             Game.current.hero.Subject = "m";
         }
         //Change Scene
+        SaveLoad.Save();
         SceneManager.LoadScene("Train");
     }
 }
