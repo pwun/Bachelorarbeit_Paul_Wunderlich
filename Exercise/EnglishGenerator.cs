@@ -1,43 +1,19 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using System.Collections.Generic;
-
-public class Exercises : MonoBehaviour {
-
-    public int nrExercise = 0;
-    public int nrExerciseMax = 0;
-    public string current_question = "Frage";
-    public string current_task = "Task";
-    public string current_answer = "Antwort";
-    bool ready = false;
-
-    public string current_answer1;
-    public string current_answer2;
-    public string current_answer3;
-
+public class EnglishGenerator {
 
     string FetchURL = "http://wunderlich-paul.de/wizard/ExerciseInfo.php";
     public string[] items;
     public string[] exercises;
 
-    public void Start()
-    {
-        exercises = new string[0];
-        ready = false;
-    }
+    public EnglishGenerator(){}
 
-    public bool Ready()
+    public List<Entry> GenerateList(int _lvl, int _class)
     {
-        return ready;
-    }
-
-    public void StartExercise()
-    {
-        nrExerciseMax = exercises.Length;
-        nrExercise = 1;
-        LoadQuestion(1);
+        GetTrainExercises("e",_class, 1, _lvl);
+        List<Entry> Entries = new List<Entry>();
+        for(int i = 0; i < exercises.Length; i++){
+          Entries.Add(LoadEntry(i));
+        }
+        return Entries;
     }
 
     public bool NextQuestion()
@@ -59,16 +35,28 @@ public class Exercises : MonoBehaviour {
         current_task = GetDataValue(exercises[i - 1], "task");
         current_question = GetDataValue(exercises[i - 1], "question");
         current_answer = GetDataValue(exercises[i - 1], "answer");
-        if (!string.IsNullOrEmpty(GetDataValue(exercises[i - 1], "answer_pos"))) { 
+        if (!string.IsNullOrEmpty(GetDataValue(exercises[i - 1], "answer_pos"))) {
             string[] answer_pos = GetDataValue(exercises[i - 1], "answer_pos").Split(',');
             current_answer1 = answer_pos[0].Replace('{', ' ').Replace(" ", "");
             current_answer2 = answer_pos[1].Replace(" ", "");
             current_answer3 = answer_pos[2].Replace('}', ' ').Replace(" ", "");
         }
     }
-    
+
+    private Entry LoadEntry(int i)
+    {
+      string[] answer_pos;
+      if (!string.IsNullOrEmpty(GetDataValue(exercises[i], "answer_pos"))) {
+          answer_pos = GetDataValue(exercises[i], "answer_pos").Split(',');
+          answer_pos[0] = answer_pos[0].Replace('{', ' ').Replace(" ", "");
+          answer_pos[1] = answer_pos[1].Replace(" ", "");
+          answer_pos[2] = answer_pos[2].Replace('}', ' ').Replace(" ", "");
+      }
+      return new Entry(GetDataValue(exercises[i - 1], "task"), GetDataValue(exercises[i - 1], "question"), GetDataValue(exercises[i - 1], "answer"), answers_pos);
+    }
+
     /*
-    HELPER 
+    HELPER
     */
     string GetDataValue(string data, string index)
     {
@@ -100,9 +88,9 @@ public class Exercises : MonoBehaviour {
         }
         return result;
     }
-    
+
     /*
-    DATABASE 
+    DATABASE
     */
     IEnumerator ReadFromDB(string Sub, int Class, int Suits, int Key)
     {
@@ -118,7 +106,7 @@ public class Exercises : MonoBehaviour {
         items = DataString.Split(';');
     }
 
-    public void GetTrainExercises(string Sub, int Class, int Suits, int Lvl)
+    public void GetTrainExercises(string Sub,int Class, int Suits, int Lvl)
     {
         switch (Suits)
         {
@@ -219,7 +207,7 @@ public class Exercises : MonoBehaviour {
         List<string> result = PickRandom(items1, 20);
         exercises = result.ToArray();
     }
-    
+
     //Class 6 English
     //3x1 4x2 3x3 1x12 1x13
     IEnumerator LoadClass6_1_3(string Sub, int Class, int Suits)

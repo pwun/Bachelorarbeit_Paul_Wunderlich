@@ -1,30 +1,35 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Reflection;
-using System.Collections.Generic;
+public class MathGenerator(){
+  public MathGenerator(){}
 
-public class Generator {
+  public Entry[] GenerateList(int _lvl, int _class){
+    List<Entry> Entries = new List<Entry>();
+    switch (_class){
+      case 6:
+      switch(_lvl){
+        case 1:
+          6_1(Entries);
+          break;
+        default:
+          break;
+      }
+      case 8:
+      switch (_lvl){
+        case 1:
+          break;
+        default:
+          break;
+      }
+      default:
+        Debug.Log("Class "+ _class + "does not match any known Classes");
+    }
+    return Entries.ToArray();
+  }
 
-	public Generator(){
-	}
-
-	public Entry[] GenerateList(int _lvl){
-		List<Entry> Entries = new List<Entry>();
-		switch (_lvl) {
-		case 1:
-			Entries.Add (Grundrechenarten1Mixed ());
-			Entries.Add (Grundrechenarten1Mixed ());
-			Entries.Add (Grundrechenarten1Mixed ());
-			break;
-		default:
-			for (int i = 0; i < 15; i++) {
-				Entries.Add (Grundrechenarten1Mixed ());
-			}
-			break;
-		}
-		return Entries.ToArray();
-	}
-
+  private void 6_1(List<Entry> Entries){
+    Entries.Add(Grundrechenarten1Mixed());
+    //...Add Other Entries
+  }
+//Testing only
 	public Entry Generate(string _methodName){
 		if (this.GetType ().GetMethod (_methodName) != null) {
 			MethodInfo mi = this.GetType ().GetMethod (_methodName);
@@ -33,7 +38,6 @@ public class Generator {
 			return Fallback ();
 		}
 	}
-
 	//fallback entry in case a method isn't found by name
 	private Entry Fallback(){
 		int a = Random.Range (0, 10);
@@ -43,6 +47,7 @@ public class Generator {
 		string answer = a + b * c + "";
 		return new Entry (question, answer, "Berechne als Ganzzahl:");
 	}
+//!Testing only
 
 	//Grundrechenarten
 	public Entry Grundrechenarten1Mixed(){
@@ -269,7 +274,7 @@ public class Generator {
 		// while a ^ b > 1000 a = new Random, b = new Random
 		return new Entry (basis1 + "^" + c + " : " + basis2 + "^" + c , a+"^"+c, "Berechne ");
 	}
-		
+
 	private string getSignedInt(int _nr){
 		if (_nr <= 0) {
 			return _nr + "";
@@ -282,5 +287,4 @@ public class Generator {
 		//
 		return 3;
 	}
-
 }
