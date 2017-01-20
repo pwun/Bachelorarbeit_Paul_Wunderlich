@@ -84,6 +84,7 @@
     <Compile Include="Assets\Scenes\Mini1\Mini1_Obstacle.cs" />
     <Compile Include="Assets\Scenes\Mini1\Mini1_Player.cs" />
     <Compile Include="Assets\Scenes\Mini1\Mini1_Start.cs" />
+    <Compile Include="Assets\Scenes\Train\FreeTrainSettings.cs" />
     <Compile Include="Assets\Scenes\Train\Train.cs" />
     <Compile Include="Assets\Scenes\Train\TrainSettings.cs" />
     <Compile Include="Assets\Scripts\BackButton.cs" />

@@ -44,6 +44,7 @@ public class Mini1 : MonoBehaviour
     MathGenerator MathGen;
     int eNr;
     bool ready = false;
+
     // Use this for initialization
     void Start()
     {

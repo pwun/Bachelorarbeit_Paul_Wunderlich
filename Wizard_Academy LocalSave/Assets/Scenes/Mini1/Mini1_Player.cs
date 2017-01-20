@@ -16,6 +16,8 @@ public class Mini1_Player : MonoBehaviour {
     Mini1 game;
     Player anim;
 
+    public AudioSource music_swordslash;
+
     // Use this for initialization
     void Start () {
         //Animator start running animation
@@ -109,7 +111,8 @@ public class Mini1_Player : MonoBehaviour {
     public void Attack()
     {
         attacking = true;
-		anim.Do("Attack");
+        music_swordslash.Play();
+        anim.Do("Attack");
         StartCoroutine(wait());
     }
 

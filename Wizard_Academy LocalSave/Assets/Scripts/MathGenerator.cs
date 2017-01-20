@@ -6,7 +6,62 @@ public class MathGenerator {
 
 	public MathGenerator(){	}
 
-	public Entry[] GenerateList(int _class, int _lvl, int _type){
+    public Entry[] GenerateList(int _type)
+    {
+        List<Entry> e = new List<Entry>();
+        switch (_type) {
+            case 0:
+                for (int i = 0; i < 10; i++) { e.Add(Einmaleins('n')); }
+                break;
+            case 1:
+                for (int i = 0; i < 10; i++) { e.Add(Einmaleins('z')); }
+                break;
+            case 2:
+                for (int i = 0; i < 10; i++) { e.Add(AddSub('n')); }
+                break;
+            case 3:
+                for (int i = 0; i < 10; i++) { e.Add(AddSub('z')); }
+                break;
+            case 4:
+                for (int i = 0; i < 10; i++) { e.Add(AddSub('q')); }
+                break;
+            case 5:
+                for (int i = 0; i < 10; i++) { e.Add(MulDiv('n')); }
+                break;
+            case 6:
+                for (int i = 0; i < 10; i++) { e.Add(MulDiv('Q')); }
+                break;
+            case 7:
+                for (int i = 0; i < 10; i++) { e.Add(MulDiv('q')); }
+                break;
+            case 8:
+                for (int i = 0; i < 10; i++) { e.Add(Feeling('z')); }
+                break;
+            case 9:
+                for (int i = 0; i < 10; i++) { e.Add(Feeling('q')); }
+                break;
+            case 10:
+                for (int i = 0; i < 10; i++) { e.Add(Runden()); }
+                break;
+            case 11:
+                for (int i = 0; i < 10; i++) { e.Add(ErweiternKürzen()); }
+                break;
+            case 12:
+                for (int i = 0; i < 10; i++) { e.Add(BruchZuDezimal()); }
+                break;
+            case 13:
+                for (int i = 0; i < 10; i++) { e.Add(BruchteilVonZahl()); }
+                break;
+            case 14:
+                for (int i = 0; i < 10; i++) { e.Add(Potenzen()); }
+                break;
+        }
+
+        return e.ToArray();
+    }
+
+
+    public Entry[] GenerateList(int _class, int _lvl, int _type){
 		List<Entry> e = new List<Entry> ();
 		/* Generate List according to Generation Rules
 		*/

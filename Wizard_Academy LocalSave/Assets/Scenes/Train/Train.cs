@@ -34,9 +34,12 @@ public class Train : MonoBehaviour
         {
             e = EnglishGen.GenerateList(Game.current.hero.ClassLevel, Game.current.hero.Level, 1);
         }
-        else
+        else if (Game.current.hero.Subject.Equals("m"))
         {
             e = MathGen.GenerateList(Game.current.hero.ClassLevel, Game.current.hero.Level, 1);
+        }
+        else if (Game.current.hero.Subject.Equals("f")) {
+            e = MathGen.GenerateList(Game.current.hero.TrainTask);
         }
         while (e.Length < 2)
         {
@@ -139,6 +142,9 @@ public class Train : MonoBehaviour
     int GetLeveledXp()
     {
         int xp = 0;
+        if (Game.current.hero.Subject.Equals("f")) {
+            return CorrectCounter*2;
+        }
         switch (Game.current.hero.Level)
         {
             case 1:
