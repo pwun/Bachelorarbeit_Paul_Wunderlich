@@ -15,11 +15,20 @@ public class Mini1_Start : MonoBehaviour {
             GameObject.Find("Reminder").transform.localScale= new Vector3(1, 1, 1);
         }
         Coins.text = "Aktuelle Münzen: " + Game.current.hero.Coins;
-        GameObject.Find("Start").GetComponent<Button>().onClick.AddListener(() => { Game.current.hero.Coins--;  SaveLoad.Save(); SceneManager.LoadScene("Mini1"); });
+        GameObject.Find("Start").GetComponent<Button>().onClick.AddListener(() => { LoadGame(); });
     }
 
     public void LoadGame()
     {
+        Dropdown dd = (Dropdown)GameObject.Find("Dropdown").GetComponent<Dropdown>();
+        if (dd.value == 0)
+        {
+            Game.current.hero.Subject = "e";
+        }
+        else
+        {
+            Game.current.hero.Subject = "m";
+        }
         Game.current.hero.Coins--;
         SaveLoad.Save();
         SceneManager.LoadScene("Mini1");

@@ -3,10 +3,8 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Train : MonoBehaviour {
-
-    Exercises e;
-
+public class Train : MonoBehaviour
+{
     Text ExerciseCounter;
     Text Question;
     Text Task;
@@ -18,29 +16,37 @@ public class Train : MonoBehaviour {
 
     int CorrectCounter;
     int IncorrectCounter;
+    int eNr;
 
     bool running = false;
 
-    string question = "";
-    // Use this for initialization
+    Entry[] e = new Entry[0];
+
     void Start()
     {
+        SaveLoad.Load();
+        EnglishGenerator EnglishGen = new EnglishGenerator();
+        MathGenerator MathGen = new MathGenerator();
         CorrectCounter = 0;
         IncorrectCounter = 0;
         GameObject.Find("NameDisplay").GetComponent<Text>().text = Game.current.hero.Name;
-        e = GetComponent<Exercises>();
-        e.GetTrainExercises(Game.current.hero.Subject, Game.current.hero.ClassLevel, 1, Game.current.hero.Level);
-    }
-
-    public void Begin()
-    {
-        e.StartExercise();
+        if (Game.current.hero.Subject.Equals("e"))
+        {
+            e = EnglishGen.GenerateList(Game.current.hero.ClassLevel, Game.current.hero.Level, 1);
+        }
+        else
+        {
+            e = MathGen.GenerateList(Game.current.hero.ClassLevel, Game.current.hero.Level, 1);
+        }
+        while (e.Length < 2)
+        {
+            //Wait
+            Debug.Log("Loading...");
+        }
+        Debug.Log("Done! "+e.Length+" Entries received");
+        eNr = 0;
         initUi();
-        GameObject.Find("Start").GetComponent<Button>().enabled = false;
-        GameObject.Find("Start").transform.localScale = new Vector3(0, 0, 0);
-        running = true;
     }
-
     void initUi()
     {
         ExerciseCounter = GameObject.Find("ExerciseCounter").GetComponent<Text>();
@@ -51,39 +57,35 @@ public class Train : MonoBehaviour {
         SubmitButton = GameObject.Find("Submit_Question").GetComponent<Button>();
         NextButton = GameObject.Find("Next_Question").GetComponent<Button>();
         AnswerInput.Select();
-
+        running = true;
+        Debug.Log("Game is running");
         refreshUi();
     }
-
     void refreshUi()
     {
-        ExerciseCounter.text = e.nrExercise + "/" + e.nrExerciseMax;
-        Question.text = e.current_question;
-        Task.text = e.current_task;
+        ExerciseCounter.text = (eNr + 1) + "/" + e.Length;
+        Question.text = e[eNr].question;
+        Task.text = e[eNr].task;
     }
-
-    // Update is called once per frame
     void Update()
     {
         if (running) { refreshUi(); }
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            if (GameObject.Find("Submit_Question").GetComponent<Button>().enabled){AnswerQuestion();}
-            else{NextQuestion();}
+            if (GameObject.Find("Submit_Question").GetComponent<Button>().enabled) { AnswerQuestion(); }
+            else { NextQuestion(); }
         }
     }
-
-    
     public void AnswerQuestion()
     {
-        if (AnswerInput.text.Equals(e.current_answer))
+        if (AnswerInput.text.Equals(e[eNr].answer))
         {
             Result.text = "Richtig!";
             CorrectCounter++;
         }
         else
         {
-            Result.text = "Falsch! Richtige Antwort: " + e.current_answer;
+            Result.text = "Falsch! Richtige Antwort: " + e[eNr].answer;
             IncorrectCounter++;
         }
         //switch button
@@ -91,52 +93,49 @@ public class Train : MonoBehaviour {
         SubmitButton.enabled = false;
         refreshUi();
     }
-
     public void NextQuestion()
     {
         SubmitButton.enabled = true;
-        //GameObject.Find("Submit_Question").transform.localScale = new Vector3(1, 1, 1);
         NextButton.enabled = false;
-        //GameObject.Find("Next_Question").transform.localScale = new Vector3(0, 0, 0);
         Result.text = "";
         AnswerInput.text = "";
         AnswerInput.Select();
-        if (!e.NextQuestion())
+        if (eNr + 1 >= e.Length)
         {
             //End of Test
-            if(CorrectCounter+IncorrectCounter != e.nrExerciseMax)
+            if (CorrectCounter + IncorrectCounter != e.Length)
             {
-                Debug.Log("Error giving XP: RightAnswers:"+CorrectCounter+" + WrongAnswers:"+IncorrectCounter+" don't add up to NrAnswers:"+e.nrExerciseMax);
+                Debug.Log("Error giving XP: RightAnswers:" + CorrectCounter + " + WrongAnswers:" + IncorrectCounter + " don't add up to NrAnswers:" + e.Length);
             }
             else
             {
                 Close();
             }
         }
-        else {
+        else
+        {
+            eNr++;
             refreshUi();
         }
     }
-
     void Close()
     {
         AnswerInput.transform.position = new Vector3(-500, -500, -20);
         Destroy(Question);
         Destroy(Task);
-        GameObject.Find("Endscreen").transform.position = new Vector3(0,0,1);
-        GameObject.Find("EndText").GetComponent<Text>().text = "Du hast " + CorrectCounter + " Fragen von " + e.nrExerciseMax + " richtig beantwortet." + System.Environment.NewLine +
+        GameObject.Find("Endscreen").transform.position = new Vector3(0, 0, 1);
+        GameObject.Find("EndText").GetComponent<Text>().text = "Du hast " + CorrectCounter + " Fragen von " + e.Length + " richtig beantwortet." + System.Environment.NewLine +
             "Als Belohnung bekommst du " + GetLeveledXp() + " Erfahrungspunkte.";
         GameObject.Find("SaveQuit").GetComponent<Button>().onClick.AddListener(() => { Save(); });
     }
-
     void Save()
     {
+        Log.LogEntry("train " + GetLeveledXp() + "xp, " + CorrectCounter + "/" + e.Length + " richtig", 0);
         GameObject.Find("SaveQuit").GetComponent<Button>().interactable = false;
         Game.current.hero.AddXp(GetLeveledXp());
         SaveLoad.Save();
-		SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("Main");
     }
-
     int GetLeveledXp()
     {
         int xp = 0;
@@ -168,5 +167,9 @@ public class Train : MonoBehaviour {
         }
         return xp;
     }
-}
 
+    public void Begin()
+    {
+        Destroy(GameObject.Find("Start"));
+    }
+}

@@ -24,4 +24,9 @@ public class Startmenu : MonoBehaviour
         }
         //SceneManager.LoadScene("Signup");
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }

@@ -33,6 +33,7 @@ public class Character
             Level++;
             Xp -= XpNeeded;
             XpNeeded = XpList[Level];
+            Coins += 3;
         }
     }
 

@@ -3,8 +3,8 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Mini1 : MonoBehaviour {
-    Exercises e;
+public class Mini1 : MonoBehaviour
+{
 
     Vector3 left = new Vector3(-1, 0, 0);
 
@@ -32,33 +32,55 @@ public class Mini1 : MonoBehaviour {
 
     int answer_y = -120;
     int spawn_x = 1500;
-	int spawn_y = -70;
+    int spawn_y = -70;
     int row_gap = 190;
     int Lifes;
     public Sprite hearts_inactive;
     public Sprite hearts_active;
     int xp = 0;
 
+    Entry[] e = new Entry[0];
+    EnglishGenerator EnglishGen;
+    MathGenerator MathGen;
+    int eNr;
+    bool ready = false;
     // Use this for initialization
-    void Start () {
-        e = GetComponent<Exercises>();
-        e.GetTrainExercises("e", Game.current.hero.ClassLevel, 2, Game.current.hero.Level);
+    void Start()
+    {
+        SaveLoad.Load();
 
         Question = GameObject.Find("Question").GetComponent<Text>();
         Answer1 = GameObject.Find("Answer1").GetComponent<Text>();
         Answer2 = GameObject.Find("Answer2").GetComponent<Text>();
         Answer3 = GameObject.Find("Answer3").GetComponent<Text>();
-        AnswerList = new  Text[] {Answer1, Answer2, Answer3};
+        AnswerList = new Text[] { Answer1, Answer2, Answer3 };
         ExerciseCounter = GameObject.Find("Counter").GetComponent<Text>();
-
         Answers = GameObject.Find("Answers").GetComponent<Rigidbody2D>();
-		//Answers.transform.position =  new Vector3(spawn_x, spawn_y, 0);
+        //Answers.transform.position =  new Vector3(spawn_x, spawn_y, 0);
         Bg = GameObject.Find("Bg").GetComponent<Rigidbody2D>();
         Player = GameObject.Find("Player").GetComponent<Rigidbody2D>();
         PlayerScript = Player.GetComponent<Mini1_Player>();
 
+        EnglishGen = new EnglishGenerator();
+        MathGen = new MathGenerator();
+        if (Game.current.hero.Subject.Equals("e"))
+        {
+            e = EnglishGen.GenerateList(Game.current.hero.ClassLevel, Game.current.hero.Level, 2);
+        }
+        else
+        {
+            e = MathGen.GenerateList(Game.current.hero.ClassLevel, Game.current.hero.Level, 2);
+        }
+
         CorrectCounter = 0;
         IncorrectCounter = 0;
+        while (e.Length <= 2) {
+            //Wait
+            Debug.Log("Loading...");
+        }
+        Debug.Log("Done! Loaded "+e.Length+" questions");
+        ready = true;
+        eNr = 0;
         Lifes = 3;
     }
 
@@ -71,25 +93,25 @@ public class Mini1 : MonoBehaviour {
     public void EnemySpawn()
     {
         int noEnemies = Random.RandomRange(1, 4);
-        for(int i = 0; i < noEnemies; i++)
+        for (int i = 0; i < noEnemies; i++)
         {
             Debug.Log("Create new Enemy");
             int spawnRow = Random.RandomRange(0, 3);
-            Vector3 EnemySpawnPos = new Vector3(spawn_x+ 250 + i*200, spawn_y - row_gap * spawnRow, 0);
-            GameObject e = (GameObject)Instantiate(Enemy, EnemySpawnPos, transform.rotation);
-            e.tag = "Enemy";
+            Vector3 EnemySpawnPos = new Vector3(spawn_x + 250 + i * 200, spawn_y - row_gap * spawnRow, 0);
+            GameObject enemy = (GameObject)Instantiate(Enemy, EnemySpawnPos, transform.rotation);
+            enemy.tag = "Enemy";
         }
-        if(noEnemies <= 2)
+        if (noEnemies <= 2)
         {
             int spawnRow = Random.RandomRange(0, 3);
-            Vector3 EnemySpawnPos = new Vector3(spawn_x+400 + noEnemies * 172, spawn_y - 20 - row_gap * spawnRow, 0);
-            GameObject e = (GameObject)Instantiate(Obstacle, EnemySpawnPos, transform.rotation);
-            e.tag = "Obstacle";
+            Vector3 EnemySpawnPos = new Vector3(spawn_x + 400 + noEnemies * 172, spawn_y - 20 - row_gap * spawnRow, 0);
+            GameObject enemy = (GameObject)Instantiate(Obstacle, EnemySpawnPos, transform.rotation);
+            enemy.tag = "Obstacle";
         }
         int spawnRow2 = Random.RandomRange(0, 3);
-        Vector3 EnemySpawnPos2 = new Vector3(spawn_x+100 + noEnemies * 167, spawn_y - 20 - row_gap * spawnRow2, 0);
-        GameObject e2 = (GameObject)Instantiate(Obstacle, EnemySpawnPos2, transform.rotation);
-        e2.tag = "Obstacle";
+        Vector3 EnemySpawnPos2 = new Vector3(spawn_x + 100 + noEnemies * 167, spawn_y - 20 - row_gap * spawnRow2, 0);
+        GameObject enemy2 = (GameObject)Instantiate(Obstacle, EnemySpawnPos2, transform.rotation);
+        enemy2.tag = "Obstacle";
 
     }
 
@@ -111,12 +133,13 @@ public class Mini1 : MonoBehaviour {
         Answer1.color = Color.white;
         Answer2.color = Color.white;
         Answer3.color = Color.white;
-        if (e.nrExercise < e.nrExerciseMax - 1) EnemySpawn();
+        eNr++;
+        if (eNr < e.Length - 1) EnemySpawn();
         updateUi();
     }
 
-    public void Begin() {
-        e.StartExercise();
+    public void Begin()
+    {
         GameObject.Find("Start").GetComponent<Button>().enabled = false;
         GameObject.Find("Start").transform.localScale = new Vector3(0, 0, 0);
         updateUi();
@@ -135,37 +158,40 @@ public class Mini1 : MonoBehaviour {
         enemies = GameObject.FindGameObjectsWithTag("Obstacle");
         foreach (GameObject enemy in enemies)
             GameObject.Destroy(enemy);
-        Answer1.text= Answer2.text = Answer3.text = Question.text = "";
+        Answer1.text = Answer2.text = Answer3.text = Question.text = "";
         int multiply = Lifes + 1;
         xp = CorrectCounter * (multiply);
         GameObject.Find("RewardText").GetComponent<Text>().text = "Du hast " + CorrectCounter + " Antworten richtig beantwortet" + System.Environment.NewLine +
             "und " + (Lifes) + " Leben übrig." + System.Environment.NewLine + "Dafür erhältst du " + xp + "XP";
         GameObject.Find("SaveAndQuitButton").GetComponent<Button>().enabled = true;
         GameObject.Find("SaveAndQuitButton").GetComponent<Button>().interactable = true;
-		GameObject.Find("SaveAndQuitButton").GetComponent<Button>().onClick.AddListener(() => { GameObject.Find("SaveAndQuitButton").GetComponent<Button>().interactable = false; });
+        GameObject.Find("SaveAndQuitButton").GetComponent<Button>().onClick.AddListener(() => { GameObject.Find("SaveAndQuitButton").GetComponent<Button>().interactable = false; });
         GameObject.Find("Endscreen").transform.localScale = new Vector3(1, 1, 1);
     }
 
     void updateUi()
     {
-        Question.text = e.current_question;
-        Answer1.text = e.current_answer1;
-        Answer2.text = e.current_answer2;
-        Answer3.text = e.current_answer3;
-        ExerciseCounter.text = e.nrExercise + "/" + e.nrExerciseMax;
+        if (ready)
+        {
+            Question.text = e[eNr].question;
+            Answer1.text = e[eNr].answerPos[0];
+            Answer2.text = e[eNr].answerPos[1];
+            Answer3.text = e[eNr].answerPos[2];
+            ExerciseCounter.text = (eNr + 1) + "/" + e.Length;
+        }
     }
 
     public void Answer(int rowNr)
     {
-        CheckAnswer(AnswerList[rowNr-1].text);
-        if (!e.NextQuestion()) EndGame();
+        CheckAnswer(AnswerList[rowNr - 1].text);
+        if (eNr + 1 >= e.Length) EndGame();
     }
 
     void CheckAnswer(string text)
     {
-        if (e.current_answer.Equals(text)) CorrectAnswer();
+        if (e[eNr].answer.Equals(text)) CorrectAnswer();
         else { Hurt(); StartCoroutine(ColorAnswers()); }
-        }
+    }
 
     void CorrectAnswer()
     {
@@ -178,7 +204,7 @@ public class Mini1 : MonoBehaviour {
     public void Hurt()
     {
         Lifes--;
-        if (Lifes > 0) PlayerScript.LoseLife();            
+        if (Lifes > 0) PlayerScript.LoseLife();
         else
         {
             PlayerScript.Kill();
@@ -209,5 +235,4 @@ public class Mini1 : MonoBehaviour {
         Answer2.enabled = false;
         Answer3.enabled = false;
     }
-
 }
