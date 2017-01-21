@@ -11,6 +11,9 @@ public class Train : MonoBehaviour
     Text Result;
     InputField AnswerInput;
 
+    public AudioSource Audio_False;
+    public AudioSource Audio_NextPage;
+
     Button SubmitButton;
     Button NextButton;
 
@@ -90,6 +93,7 @@ public class Train : MonoBehaviour
         else
         {
             Result.text = "Falsch! Richtige Antwort: " + e[eNr].answer;
+            Audio_False.Play();
             IncorrectCounter++;
         }
         //switch button
@@ -99,6 +103,7 @@ public class Train : MonoBehaviour
     }
     public void NextQuestion()
     {
+        Audio_NextPage.Play();
         SubmitButton.enabled = true;
         NextButton.enabled = false;
         Result.text = "";

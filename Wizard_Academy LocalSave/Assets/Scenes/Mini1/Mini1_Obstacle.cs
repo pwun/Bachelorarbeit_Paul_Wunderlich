@@ -13,7 +13,7 @@ public class Mini1_Obstacle : MonoBehaviour {
     {
         me = GetComponent<Rigidbody2D>();
         me.velocity = left * speed;
-        this.tag = "Enemy";
+        this.tag = "Obstacle";
     }
 
     public void Kill()

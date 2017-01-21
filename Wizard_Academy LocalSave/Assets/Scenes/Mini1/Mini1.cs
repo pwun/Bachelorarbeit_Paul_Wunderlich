@@ -229,6 +229,9 @@ public class Mini1 : MonoBehaviour
         enemies = GameObject.FindGameObjectsWithTag("Obstacle");
         foreach (GameObject enemy in enemies)
             GameObject.Destroy(enemy);
+        enemies = GameObject.FindGameObjectsWithTag("Loot");
+        foreach (GameObject enemy in enemies)
+            GameObject.Destroy(enemy);
         Answer1.text = Answer2.text = Answer3.text = Question.text = "";
         int multiply = Lifes + 1;
         xp = CorrectCounter * (multiply);

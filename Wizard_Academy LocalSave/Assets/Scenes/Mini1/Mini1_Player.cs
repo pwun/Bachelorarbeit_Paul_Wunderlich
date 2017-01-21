@@ -12,6 +12,8 @@ public class Mini1_Player : MonoBehaviour {
     bool attacking = false;
     public bool running = false;
     Rigidbody2D Player;
+    public AudioSource Audio_Hurt;
+    public AudioSource Audio_Die;
 
     Mini1 game;
     Player anim;
@@ -104,11 +106,13 @@ public class Mini1_Player : MonoBehaviour {
     public void LoseLife()
     {
 		anim.Do("Hurt");
+        Audio_Hurt.Play();
     }
 
     public void Kill()
     {
 		anim.Do("Die");
+        Audio_Die.Play();
     }
 
     public void Attack()
