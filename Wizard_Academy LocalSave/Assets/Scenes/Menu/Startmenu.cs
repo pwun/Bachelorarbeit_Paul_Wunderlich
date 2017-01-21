@@ -20,6 +20,11 @@ public class Startmenu : MonoBehaviour
         else
         {
             Game.current = SaveLoad.savedGames[SaveLoad.savedGames.Count - 1];
+            int answer = -1;
+            answer = Log.LogEntry("Login");
+            while (answer < 0)
+            { //Wait
+            }
             SceneManager.LoadScene("Main");
         }
         //SceneManager.LoadScene("Signup");

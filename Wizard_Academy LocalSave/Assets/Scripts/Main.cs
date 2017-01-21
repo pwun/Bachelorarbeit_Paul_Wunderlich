@@ -16,13 +16,20 @@ public class Main : MonoBehaviour {
         SaveLoad.Load();
         Game.current = SaveLoad.savedGames[SaveLoad.savedGames.Count - 1];
         initUiElements();
-		GameObject.Find("Save_Button").GetComponent<Button>().onClick.AddListener(() => { SaveLoad.Save(); SceneManager.LoadScene("Startmenu"); });
+		GameObject.Find("Save_Button").GetComponent<Button>().onClick.AddListener(() => {
+            int answer = -1;
+            answer = Log.LogEntry("Logout");
+            while (answer < 0)
+            { //Wait
+            }
+            SaveLoad.Save(); SceneManager.LoadScene("Startmenu"); });
         GameObject.Find("Train_Button").GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("TrainSetup"); });
         GameObject.Find("FreeTrain_Button").GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("FreeTrainSetup"); });
         GameObject.Find("Mini1_Button").GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("Mini1_Start"); });
         GameObject.Find("Test_Cheat_Button").GetComponent<Button>().onClick.AddListener(() => { Game.current.hero.AddXp(100); });
         GameObject.Find("Test_Reset_Button").GetComponent<Button>().onClick.AddListener(() => { resetStats(); });
         GameObject.Find("EditChar").GetComponent<Button>().onClick.AddListener(() => SceneManager.LoadScene("Customizer"));
+        Log.LogEntry("Menu");
     }
 
     void Update()

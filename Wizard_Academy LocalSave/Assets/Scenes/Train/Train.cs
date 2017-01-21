@@ -62,6 +62,7 @@ public class Train : MonoBehaviour
         AnswerInput.Select();
         running = true;
         Debug.Log("Game is running");
+        Log.LogEntry("Train start");
         refreshUi();
     }
     void refreshUi()
@@ -178,8 +179,8 @@ public class Train : MonoBehaviour
         return xp;
     }
 
-    public void Begin()
+    /*public void Begin()
     {
         Destroy(GameObject.Find("Start"));
-    }
+    }*/
 }

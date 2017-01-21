@@ -81,6 +81,7 @@ public class Mini1 : MonoBehaviour
         }
         Debug.Log("Done! Loaded "+e.Length+" questions");
         ready = true;
+        Log.LogEntry("Mini1 start");
         eNr = 0;
         Lifes = 3;
     }
@@ -192,6 +193,11 @@ public class Mini1 : MonoBehaviour
         GameObject.Find("SaveAndQuitButton").GetComponent<Button>().interactable = true;
         GameObject.Find("SaveAndQuitButton").GetComponent<Button>().onClick.AddListener(() => { GameObject.Find("SaveAndQuitButton").GetComponent<Button>().interactable = false; });
         GameObject.Find("Endscreen").transform.localScale = new Vector3(1, 1, 1);
+        int answer = -1;
+        answer = Log.LogEntry("Mini1 " + xp + "xp, " + CorrectCounter + "/" + e.Length + " richtig, Leben: "+Lifes);
+        while (answer < 0)
+        { //Wait
+        }
     }
 
     void updateUi()
