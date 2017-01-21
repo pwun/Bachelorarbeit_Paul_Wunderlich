@@ -22,10 +22,6 @@ public class HelpButton : MonoBehaviour {
 
     private void Start()
     {
-        if (SceneManager.GetActiveScene().Equals(SceneManager.GetSceneByName("Mini1")))
-        {
-            GameObject.Find("controller").GetComponent<Pause>().SwitchPause();
-        }
         if (SceneManager.GetActiveScene().Equals(SceneManager.GetSceneByName("Main")))
         {
             Main_CharDisplay = GameObject.Find("CharDisplay");

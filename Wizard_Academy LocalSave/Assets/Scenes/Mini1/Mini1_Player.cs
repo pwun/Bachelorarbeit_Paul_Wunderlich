@@ -95,6 +95,9 @@ public class Mini1_Player : MonoBehaviour {
             case "Obstacle":
                 game.Hurt();
                 break;
+            case "Loot":
+                coll.GetComponentInParent<loot>().Collect();
+                break;
         }
     }
 

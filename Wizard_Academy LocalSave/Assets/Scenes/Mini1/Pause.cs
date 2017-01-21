@@ -31,6 +31,10 @@ public class Pause : MonoBehaviour {
         
 	}
 
+    public void ForcePause() {
+        paused = true;
+    }
+
     public void SwitchPause()
     {
         paused = !paused;

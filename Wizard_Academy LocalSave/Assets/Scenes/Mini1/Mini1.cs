@@ -24,6 +24,7 @@ public class Mini1 : MonoBehaviour
     Rigidbody2D Bg;
     public GameObject Enemy;
     public GameObject Obstacle;
+    public GameObject Loot;
     Rigidbody2D Player;
     Mini1_Player PlayerScript;
 
@@ -45,11 +46,49 @@ public class Mini1 : MonoBehaviour
     int eNr;
     bool ready = false;
 
+    GameObject bg;
+
     // Use this for initialization
     void Start()
     {
         SaveLoad.Load();
-
+        switch (Game.current.hero.Level) {
+            case 4:
+            case 5:
+            case 6:
+                GameObject.Find("background").SetActive(false);
+                GameObject.Find("background3").SetActive(false);
+                GameObject.Find("background4").SetActive(false);
+                GameObject.Find("background2").SetActive(true);
+                bg = GameObject.Find("background2");
+                break;
+            case 7:
+            case 8:
+            case 9:
+                GameObject.Find("background").SetActive(false);
+                GameObject.Find("background2").SetActive(false);
+                GameObject.Find("background4").SetActive(false);
+                GameObject.Find("background3").SetActive(true);
+                bg = GameObject.Find("background3");
+                break;
+            case 10:
+            case 11:
+            case 12:
+                GameObject.Find("background").SetActive(false);
+                GameObject.Find("background2").SetActive(false);
+                GameObject.Find("background3").SetActive(false);
+                GameObject.Find("background4").SetActive(true);
+                bg = GameObject.Find("background4");
+                break;
+            default:
+                GameObject.Find("background2").SetActive(false);
+                GameObject.Find("background3").SetActive(false);
+                GameObject.Find("background4").SetActive(false);
+                GameObject.Find("background").SetActive(true);
+                bg = GameObject.Find("background");
+                break;
+        }
+        bg.GetComponent<scroll>().speed = 0;
         Question = GameObject.Find("Question").GetComponent<Text>();
         Answer1 = GameObject.Find("Answer1").GetComponent<Text>();
         Answer2 = GameObject.Find("Answer2").GetComponent<Text>();
@@ -58,7 +97,7 @@ public class Mini1 : MonoBehaviour
         ExerciseCounter = GameObject.Find("Counter").GetComponent<Text>();
         Answers = GameObject.Find("Answers").GetComponent<Rigidbody2D>();
         //Answers.transform.position =  new Vector3(spawn_x, spawn_y, 0);
-        Bg = GameObject.Find("Bg").GetComponent<Rigidbody2D>();
+        //Bg = GameObject.Find("Bg").GetComponent<Rigidbody2D>();
         Player = GameObject.Find("Player").GetComponent<Rigidbody2D>();
         PlayerScript = Player.GetComponent<Mini1_Player>();
 
@@ -88,38 +127,13 @@ public class Mini1 : MonoBehaviour
 
     void Update()
     {
-        if (Bg.transform.position.x < Bg_minx) Bg.transform.position = spawnBg;
+        //if (Bg.transform.position.x < Bg_minx) Bg.transform.position = spawnBg;
         if (Answers.transform.position.x < -680) ResetAnswer();
     }
 
-    /*public void EnemySpawn()
-    {
-        int noEnemies = Random.RandomRange(1, 4);
-        for (int i = 0; i < noEnemies; i++)
-        {
-            Debug.Log("Create new Enemy");
-            int spawnRow = Random.RandomRange(0, 3);
-            Vector3 EnemySpawnPos = new Vector3(spawn_x + 250 + i * 300, spawn_y - row_gap * spawnRow, 0);
-            GameObject enemy = (GameObject)Instantiate(Enemy, EnemySpawnPos, transform.rotation);
-            enemy.tag = "Enemy";
-        }
-        if (noEnemies <= 2)
-        {
-            int spawnRow = Random.RandomRange(0, 3);
-            Vector3 EnemySpawnPos = new Vector3(spawn_x + 400 + noEnemies * 172, spawn_y - 20 - row_gap * spawnRow, 0);
-            GameObject enemy = (GameObject)Instantiate(Obstacle, EnemySpawnPos, transform.rotation);
-            enemy.tag = "Obstacle";
-        }
-        int spawnRow2 = Random.RandomRange(0, 3);
-        Vector3 EnemySpawnPos2 = new Vector3(spawn_x + 100 + noEnemies * 167, spawn_y - 20 - row_gap * spawnRow2, 0);
-        GameObject enemy2 = (GameObject)Instantiate(Obstacle, EnemySpawnPos2, transform.rotation);
-        enemy2.tag = "Obstacle";
-
-    }*/
-
     public void EnemySpawn() {
-        if (Game.current.hero.ClassLevel == 8) {
-            for (int i = 0; i < 3; i++)
+        if (Game.current.hero.Level > 3) {
+            for (int i = 0; i < 3; i++)//Let new Enemies spawn
             {
                 int spawnRow = Random.RandomRange(0, 3);
                 Vector3 EnemySpawnPos = new Vector3(spawn_x + 250 + i * Random.Range(200, 400), spawn_y - row_gap * spawnRow, 0);
@@ -127,7 +141,27 @@ public class Mini1 : MonoBehaviour
                 enemy.tag = "Enemy";
             }
         }
-        for (int i = 0; i < eNr; i++) {
+        if (Game.current.hero.Level > 6)
+        {
+            for (int i = 3; i < 6; i++)//Let new Enemies spawn
+            {
+                int spawnRow = Random.RandomRange(0, 3);
+                Vector3 EnemySpawnPos = new Vector3(spawn_x + 250 + i * Random.Range(200, 400), spawn_y - row_gap * spawnRow, 0);
+                GameObject enemy = (GameObject)Instantiate(Enemy, EnemySpawnPos, transform.rotation);
+                enemy.tag = "Enemy";
+            }
+        }
+        if (Game.current.hero.Level > 9)
+        {
+            for (int i = 6; i < 9; i++)//Let new Enemies spawn
+            {
+                int spawnRow = Random.RandomRange(0, 3);
+                Vector3 EnemySpawnPos = new Vector3(spawn_x + 250 + i * Random.Range(200, 400), spawn_y - row_gap * spawnRow, 0);
+                GameObject enemy = (GameObject)Instantiate(Enemy, EnemySpawnPos, transform.rotation);
+                enemy.tag = "Enemy";
+            }
+        }
+        for (int i = 0; i < eNr+2; i++) {
             int spawnRow = Random.RandomRange(0, 3);
             Vector3 EnemySpawnPos = new Vector3(spawn_x + 250 + i * Random.Range(200,400), spawn_y - row_gap * spawnRow, 0);
             GameObject enemy = (GameObject)Instantiate(Enemy, EnemySpawnPos, transform.rotation);
@@ -138,6 +172,16 @@ public class Mini1 : MonoBehaviour
             Vector3 EnemySpawnPos = new Vector3(spawn_x + 100 + (i+1)* Random.Range(200,600), spawn_y - 20 - row_gap * spawnRow, 0);
             GameObject obstacle = (GameObject)Instantiate(Obstacle, EnemySpawnPos, transform.rotation);
             obstacle.tag = "Obstacle";
+        }
+        DropLoot();
+    }
+
+    private void DropLoot() {
+        if (Random.Range(0, 1) == 0) {
+            int spawnRow = Random.RandomRange(0, 3);
+            Vector3 EnemySpawnPos = new Vector3(spawn_x + 100 + Random.Range(300, 600), spawn_y - 20 - row_gap * spawnRow, 0);
+            GameObject obstacle = (GameObject)Instantiate(Loot, EnemySpawnPos, transform.rotation);
+            obstacle.tag = "Loot";
         }
     }
 
@@ -171,13 +215,14 @@ public class Mini1 : MonoBehaviour
         updateUi();
         PlayerScript.StartAnimation();
         Answers.velocity = left * speed;
-        Bg.velocity = left * Bg_speed;
+        bg.GetComponent<scroll>().speed = 0.02f;
     }
 
     void EndGame()
     {
         Answers.velocity = Vector2.zero;
-        Bg.velocity = Vector2.zero;
+        //Bg.velocity = Vector2.zero;
+        bg.GetComponent<scroll>().speed = 0;
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in enemies)
             GameObject.Destroy(enemy);
