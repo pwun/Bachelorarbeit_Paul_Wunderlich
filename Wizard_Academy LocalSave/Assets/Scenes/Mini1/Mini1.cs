@@ -91,14 +91,14 @@ public class Mini1 : MonoBehaviour
         if (Answers.transform.position.x < -680) ResetAnswer();
     }
 
-    public void EnemySpawn()
+    /*public void EnemySpawn()
     {
         int noEnemies = Random.RandomRange(1, 4);
         for (int i = 0; i < noEnemies; i++)
         {
             Debug.Log("Create new Enemy");
             int spawnRow = Random.RandomRange(0, 3);
-            Vector3 EnemySpawnPos = new Vector3(spawn_x + 250 + i * 200, spawn_y - row_gap * spawnRow, 0);
+            Vector3 EnemySpawnPos = new Vector3(spawn_x + 250 + i * 300, spawn_y - row_gap * spawnRow, 0);
             GameObject enemy = (GameObject)Instantiate(Enemy, EnemySpawnPos, transform.rotation);
             enemy.tag = "Enemy";
         }
@@ -114,6 +114,21 @@ public class Mini1 : MonoBehaviour
         GameObject enemy2 = (GameObject)Instantiate(Obstacle, EnemySpawnPos2, transform.rotation);
         enemy2.tag = "Obstacle";
 
+    }*/
+
+    public void EnemySpawn() {
+        for (int i = 0; i < eNr; i++) {
+            int spawnRow = Random.RandomRange(0, 3);
+            Vector3 EnemySpawnPos = new Vector3(spawn_x + 250 + i * Random.Range(200,400), spawn_y - row_gap * spawnRow, 0);
+            GameObject enemy = (GameObject)Instantiate(Enemy, EnemySpawnPos, transform.rotation);
+            enemy.tag = "Enemy";
+        }
+        for (int i = 0; i < Random.Range(1, 3);i++) {
+            int spawnRow = Random.RandomRange(0, 3);
+            Vector3 EnemySpawnPos = new Vector3(spawn_x + 100 + (i+1)* Random.Range(200,600), spawn_y - 20 - row_gap * spawnRow, 0);
+            GameObject obstacle = (GameObject)Instantiate(Obstacle, EnemySpawnPos, transform.rotation);
+            obstacle.tag = "Obstacle";
+        }
     }
 
     public void SafeAndQuit()
