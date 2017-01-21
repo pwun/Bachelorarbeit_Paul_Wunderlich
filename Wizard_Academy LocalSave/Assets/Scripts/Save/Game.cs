@@ -8,9 +8,9 @@ public class Game
     public static Game current;
     public Character hero;
 
-    public Game(string name, int classLevel)
+    public Game(string name, int classLevel, int id)
     {
-        hero = new Character(name, classLevel);
+        hero = new Character(name, classLevel, id);
     }
 
 }

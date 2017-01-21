@@ -129,14 +129,18 @@ public class Train : MonoBehaviour
         GameObject.Find("Endscreen").transform.position = new Vector3(0, 0, 1);
         GameObject.Find("EndText").GetComponent<Text>().text = "Du hast " + CorrectCounter + " Fragen von " + e.Length + " richtig beantwortet." + System.Environment.NewLine +
             "Als Belohnung bekommst du " + GetLeveledXp() + " Erfahrungspunkte.";
+        Game.current.hero.AddXp(GetLeveledXp());
+        SaveLoad.Save();
+        int answer = -1;
+        answer = Log.LogEntry("Train " + GetLeveledXp() + "xp, " + CorrectCounter + "/" + e.Length + " richtig");
+        while (answer < 0)
+        { //Wait
+        }
         GameObject.Find("SaveQuit").GetComponent<Button>().onClick.AddListener(() => { Save(); });
     }
     void Save()
     {
-        Log.LogEntry("train " + GetLeveledXp() + "xp, " + CorrectCounter + "/" + e.Length + " richtig", 0);
         GameObject.Find("SaveQuit").GetComponent<Button>().interactable = false;
-        Game.current.hero.AddXp(GetLeveledXp());
-        SaveLoad.Save();
         SceneManager.LoadScene("Main");
     }
     int GetLeveledXp()

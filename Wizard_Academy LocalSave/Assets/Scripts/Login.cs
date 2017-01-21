@@ -77,7 +77,7 @@ public class Login : MonoBehaviour {
 
 		//POSSTRING = GETSTRINGVALUE
 		//ITEMSTRING = GETITEMMBLIBLABLUB
-		Log.LogEntry ("Login",GetIntValue(result, "'id'"));
+		Log.LogEntry ("Login");
     }
 
     void Update()

@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class Main : MonoBehaviour {
 
-    UserData data;
-
     Text name_display;
     Text level_display;
     Text xp_display;

@@ -117,6 +117,15 @@ public class Mini1 : MonoBehaviour
     }*/
 
     public void EnemySpawn() {
+        if (Game.current.hero.ClassLevel == 8) {
+            for (int i = 0; i < 3; i++)
+            {
+                int spawnRow = Random.RandomRange(0, 3);
+                Vector3 EnemySpawnPos = new Vector3(spawn_x + 250 + i * Random.Range(200, 400), spawn_y - row_gap * spawnRow, 0);
+                GameObject enemy = (GameObject)Instantiate(Enemy, EnemySpawnPos, transform.rotation);
+                enemy.tag = "Enemy";
+            }
+        }
         for (int i = 0; i < eNr; i++) {
             int spawnRow = Random.RandomRange(0, 3);
             Vector3 EnemySpawnPos = new Vector3(spawn_x + 250 + i * Random.Range(200,400), spawn_y - row_gap * spawnRow, 0);

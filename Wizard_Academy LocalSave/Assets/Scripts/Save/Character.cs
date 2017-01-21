@@ -5,15 +5,16 @@ using System.Collections.Generic;
 [System.Serializable]
 public class Character
 {
-
+    public int id;
     public string Name, Subject;
     public int ClassLevel, Level, Xp, XpNeeded, Coins, Lifes, Difficulty, TrainTask;
     public int Sex, Body, Hair, Feet, Legs, Torso, Belt, Arms, Hands, Weapon, Helmet;
     public List<int> SexPos, BodyPos, HairPos, FeetPos, LegsPos, TorsoPos, BeltPos, ArmsPos, HandsPos, WeaponPos, HelmetPos;
     public int[] XpList = {200, 200, 400, 600, 1000, 1200, 1400, 1800, 2100, 2400, 2800, 3200, 3600, 5000};
 
-    public Character(string name, int classLevel)
+    public Character(string name, int classLevel, int _id)
     {
+        id = _id;
         Name = name;
         ClassLevel = classLevel;
         Level = 1;
