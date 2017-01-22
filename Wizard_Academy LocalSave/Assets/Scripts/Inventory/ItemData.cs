@@ -14,6 +14,7 @@ public class ItemData : MonoBehaviour {
             case 5: Game.current.hero.Belt = item.Index; break;
             case 6: Game.current.hero.Helmet = item.Index; break;
         }
+        GameObject.Find("Player").GetComponent<Player>().Audio_Cloth.Play();
         GameObject.Find("Player").GetComponent<Player>().Refresh();
         SaveLoad.Save();
     }

@@ -6,6 +6,7 @@ public class Player : MonoBehaviour {
 
 	GameObject go;
 	Animator anim;
+    public AudioSource Audio_Cloth;
 
 	// Use this for initialization
 	void Start () {

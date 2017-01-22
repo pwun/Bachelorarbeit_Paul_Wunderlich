@@ -44,7 +44,7 @@ public class Signup : MonoBehaviour {
         Game.current = game;
         SaveLoad.Save();
         Log.LogEntry("Registration");
-        SceneManager.LoadScene("Customizer");
+        SceneManager.LoadScene("Inventory");
     }
 
     int SignupAtDB(string _username, int _class)
