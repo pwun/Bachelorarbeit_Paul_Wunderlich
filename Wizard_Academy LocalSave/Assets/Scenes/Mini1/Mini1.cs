@@ -23,6 +23,9 @@ public class Mini1 : MonoBehaviour
     Rigidbody2D Answers;
     Rigidbody2D Bg;
     public GameObject Enemy;
+    public GameObject Enemy2;
+    public GameObject Enemy3;
+    public GameObject Enemy4;
     public GameObject Obstacle;
     public GameObject Loot;
     Rigidbody2D Player;
@@ -133,33 +136,66 @@ public class Mini1 : MonoBehaviour
 
     public void EnemySpawn() {
         if (Game.current.hero.Level > 3) {
-            for (int i = 0; i < 3; i++)//Let new Enemies spawn
-            {
-                int spawnRow = Random.RandomRange(0, 3);
-                Vector3 EnemySpawnPos = new Vector3(spawn_x + 250 + i * Random.Range(200, 400), spawn_y - row_gap * spawnRow, 0);
-                GameObject enemy = (GameObject)Instantiate(Enemy, EnemySpawnPos, transform.rotation);
-                enemy.tag = "Enemy";
-            }
+            int spawnRow = Random.RandomRange(0, 3);
+            Vector3 EnemySpawnPos = new Vector3(spawn_x + 250 + (Game.current.hero.Level-1) * Random.Range(200, 400), spawn_y - row_gap * spawnRow, 0);
+            GameObject enemy = (GameObject)Instantiate(Enemy2, EnemySpawnPos, transform.rotation);
+            enemy.tag = "Enemy";
+        }
+        if (Game.current.hero.Level > 4)
+        {
+            int spawnRow = Random.RandomRange(0, 3);
+            Vector3 EnemySpawnPos = new Vector3(spawn_x + 250 + (Game.current.hero.Level - 1) * Random.Range(200, 400), spawn_y - row_gap * spawnRow, 0);
+            GameObject enemy = (GameObject)Instantiate(Enemy2, EnemySpawnPos, transform.rotation);
+            enemy.tag = "Enemy";
+        }
+        if (Game.current.hero.Level > 5)
+        {
+            int spawnRow = Random.RandomRange(0, 3);
+            Vector3 EnemySpawnPos = new Vector3(spawn_x + 250 + (Game.current.hero.Level - 1) * Random.Range(200, 400), spawn_y - row_gap * spawnRow, 0);
+            GameObject enemy = (GameObject)Instantiate(Enemy2, EnemySpawnPos, transform.rotation);
+            enemy.tag = "Enemy";
         }
         if (Game.current.hero.Level > 6)
         {
-            for (int i = 3; i < 6; i++)//Let new Enemies spawn
-            {
-                int spawnRow = Random.RandomRange(0, 3);
-                Vector3 EnemySpawnPos = new Vector3(spawn_x + 250 + i * Random.Range(200, 400), spawn_y - row_gap * spawnRow, 0);
-                GameObject enemy = (GameObject)Instantiate(Enemy, EnemySpawnPos, transform.rotation);
-                enemy.tag = "Enemy";
-            }
+            int spawnRow = Random.RandomRange(0, 3);
+            Vector3 EnemySpawnPos = new Vector3(spawn_x + 250 + (Game.current.hero.Level - 1) * Random.Range(200, 400), spawn_y - row_gap * spawnRow, 0);
+            GameObject enemy = (GameObject)Instantiate(Enemy3, EnemySpawnPos, transform.rotation);
+            enemy.tag = "Enemy";
+        }
+        if (Game.current.hero.Level > 7)
+        {
+            int spawnRow = Random.RandomRange(0, 3);
+            Vector3 EnemySpawnPos = new Vector3(spawn_x + 250 + (Game.current.hero.Level - 1) * Random.Range(200, 400), spawn_y - row_gap * spawnRow, 0);
+            GameObject enemy = (GameObject)Instantiate(Enemy3, EnemySpawnPos, transform.rotation);
+            enemy.tag = "Enemy";
+        }
+        if (Game.current.hero.Level > 8)
+        {
+            int spawnRow = Random.RandomRange(0, 3);
+            Vector3 EnemySpawnPos = new Vector3(spawn_x + 250 + (Game.current.hero.Level - 1) * Random.Range(200, 400), spawn_y - row_gap * spawnRow, 0);
+            GameObject enemy = (GameObject)Instantiate(Enemy3, EnemySpawnPos, transform.rotation);
+            enemy.tag = "Enemy";
         }
         if (Game.current.hero.Level > 9)
         {
-            for (int i = 6; i < 9; i++)//Let new Enemies spawn
-            {
-                int spawnRow = Random.RandomRange(0, 3);
-                Vector3 EnemySpawnPos = new Vector3(spawn_x + 250 + i * Random.Range(200, 400), spawn_y - row_gap * spawnRow, 0);
-                GameObject enemy = (GameObject)Instantiate(Enemy, EnemySpawnPos, transform.rotation);
-                enemy.tag = "Enemy";
-            }
+            int spawnRow = Random.RandomRange(0, 3);
+            Vector3 EnemySpawnPos = new Vector3(spawn_x + 250 + (Game.current.hero.Level - 1) * Random.Range(200, 400), spawn_y - row_gap * spawnRow, 0);
+            GameObject enemy = (GameObject)Instantiate(Enemy4, EnemySpawnPos, transform.rotation);
+            enemy.tag = "Enemy";
+        }
+        if (Game.current.hero.Level > 10)
+        {
+            int spawnRow = Random.RandomRange(0, 3);
+            Vector3 EnemySpawnPos = new Vector3(spawn_x + 250 + (Game.current.hero.Level - 1) * Random.Range(200, 400), spawn_y - row_gap * spawnRow, 0);
+            GameObject enemy = (GameObject)Instantiate(Enemy4, EnemySpawnPos, transform.rotation);
+            enemy.tag = "Enemy";
+        }
+        if (Game.current.hero.Level > 11)
+        {
+            int spawnRow = Random.RandomRange(0, 3);
+            Vector3 EnemySpawnPos = new Vector3(spawn_x + 250 + (Game.current.hero.Level - 1) * Random.Range(200, 400), spawn_y - row_gap * spawnRow, 0);
+            GameObject enemy = (GameObject)Instantiate(Enemy4, EnemySpawnPos, transform.rotation);
+            enemy.tag = "Enemy";
         }
         for (int i = 0; i < eNr+2; i++) {
             int spawnRow = Random.RandomRange(0, 3);
