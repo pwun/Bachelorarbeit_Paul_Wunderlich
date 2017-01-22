@@ -36,8 +36,7 @@ public class loot : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = chestOpen;
 
         //int item = Random.Range(6,20);
-
-        GameObject.Find("LootImage").GetComponent<Image>().sprite = h1;
+        GameObject.Find("Inventory").GetComponent<InventoryHelper>().GetItem();
 
         GameObject.Find("LootInfo").transform.localScale = new Vector3(1, 1, 1);
         //show image

@@ -10,6 +10,7 @@ public class Character
     public int ClassLevel, Level, Xp, XpNeeded, Coins, Lifes, Difficulty, TrainTask;
     public int Sex, Body, Hair, Feet, Legs, Torso, Belt, Arms, Hands, Weapon, Helmet;
     public List<int> SexPos, BodyPos, HairPos, FeetPos, LegsPos, TorsoPos, BeltPos, ArmsPos, HandsPos, WeaponPos, HelmetPos;
+    public List<int> Unlocked;
     public int[] XpList = {200, 200, 400, 600, 1000, 1200, 1400, 1800, 2100, 2400, 2800, 3200, 3600, 5000};
 
     public Character(string name, int classLevel, int _id)
@@ -38,7 +39,7 @@ public class Character
         }
     }
 
-    void initItems()
+    public void initItems()
     {
         Sex = 1;
         Body = 1;
@@ -55,6 +56,18 @@ public class Character
 
     void initItemPos()
     {
+        Unlocked = new List<int>();
+        Unlocked.Add(0);
+        Unlocked.Add(1);
+        Unlocked.Add(6);
+        Unlocked.Add(13);
+        Unlocked.Add(14);
+
+
+
+
+
+
         SexPos = new List<int>();
         SexPos.Add(1);
         BodyPos = new List<int>();
