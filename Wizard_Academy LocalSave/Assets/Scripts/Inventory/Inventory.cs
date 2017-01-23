@@ -34,6 +34,22 @@ public class Inventory : MonoBehaviour {
         for (int i = 0; i < unlockedItems.Length; i++) {
             AddItem(unlockedItems[i]);
         }
+        if (Game.current.hero.Level > 3)
+        {
+            AddItem(2);
+        }
+        if (Game.current.hero.Level > 6)
+        {
+            AddItem(3);
+        }
+        if (Game.current.hero.Level > 9)
+        {
+            AddItem(4);
+        }
+        if (Game.current.hero.Level > 12)
+        {
+            AddItem(5);
+        }
     }
 
     public void AddItem(int id) {

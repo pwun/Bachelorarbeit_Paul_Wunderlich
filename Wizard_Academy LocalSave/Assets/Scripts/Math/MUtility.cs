@@ -10,7 +10,8 @@ public static class MUtility {
 	}
 
 	public static string RoundToString(float i){
-		string result = (float)System.Math.Round(i, 2)+"";
+        double a = System.Math.Round(i, 2);
+        string result = a + "";
 		if (result.Contains (".")) {
 			string[] r = result.Split ('.');
 			if (r [r.Length - 1].Length == 1) {

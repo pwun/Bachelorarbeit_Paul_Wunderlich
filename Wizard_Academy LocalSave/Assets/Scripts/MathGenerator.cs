@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class MathGenerator {
 
-	public MathGenerator(){	}
+    string round = "(Runde auf 2 Nachkommastellen, auch wenn diese Null sind)";
+    string potenzTask = "Löse nach den Potenzgesetzen auf. (gib das Ergebnis in folgender Form an: Basis^Exponent)";
+
+    public MathGenerator(){	}
 
     public Entry[] GenerateList(int _type)
     {
@@ -55,6 +58,42 @@ public class MathGenerator {
             case 14:
                 for (int i = 0; i < 10; i++) { e.Add(Potenzen()); }
                 break;
+            case 15:
+                for (int i = 0; i < 10; i++) { e.Add(AddBruch()); }
+                break;
+            case 16:
+                for (int i = 0; i < 10; i++) { e.Add(SubBruch()); }
+                break;
+            case 17:
+                for (int i = 0; i < 10; i++) { e.Add(MulBruch()); }
+                break;
+            case 18:
+                for (int i = 0; i < 10; i++) { e.Add(DivBruch()); }
+                break;
+            case 19:
+                for (int i = 0; i < 10; i++) { e.Add(AddSubMulDivPotenz()); }
+                break;
+            case 20:
+                for (int i = 0; i < 10; i++) { e.Add(Extremwert()); }
+                break;
+            case 21:
+                for (int i = 0; i < 10; i++) { e.Add(Gleichung()); }
+                break;
+            case 22:
+                for (int i = 0; i < 10; i++) { e.Add(Maßeinheit(1)); }
+                break;
+            case 23:
+                for (int i = 0; i < 10; i++) { e.Add(Maßeinheit(2)); }
+                break;
+            case 24:
+                for (int i = 0; i < 10; i++) { e.Add(Maßeinheit(3)); }
+                break;
+            case 25:
+                for (int i = 0; i < 10; i++) { e.Add(Trigonometrie()); }
+                break;
+            case 26:
+                for (int i = 0; i < 10; i++) { e.Add(Binom()); }
+                break;
         }
 
         return e.ToArray();
@@ -100,11 +139,11 @@ public class MathGenerator {
 					e.Add (MulDiv ('Q'));
 					e.Add (MulDiv ('Q'));
 					e.Add (MulDiv ('Q'));
-					e.Add (Maßeinheit (1));
+                    e.Add(Runden());
+                    e.Add(Runden());
+                    e.Add (Maßeinheit (1));
 					e.Add (Maßeinheit (1));
 					e.Add (Feeling ('q'));
-					e.Add (Runden ());
-					e.Add (Runden ());
 					break;
 				case 7:
 				case 8:
@@ -116,9 +155,9 @@ public class MathGenerator {
 					e.Add (Einmaleins ('z'));
 					e.Add (MulDiv ('Q'));
 					e.Add (MulDiv ('Q'));
-					e.Add (Maßeinheit (2));
-					e.Add (Maßeinheit (2));
-					e.Add (Runden ());
+                    e.Add(Runden());
+                    e.Add (Maßeinheit (4));
+					e.Add (Maßeinheit (4));
 					e.Add (ErweiternKürzen ());
 					e.Add (ErweiternKürzen ());
 					e.Add (Potenzen ());
@@ -130,9 +169,9 @@ public class MathGenerator {
 					e.Add (AddSub ('q'));
 					e.Add (MulDiv ('Q'));
 					e.Add (MulDiv ('Q'));
+					e.Add (Maßeinheit (4));
 					e.Add (Maßeinheit (2));
-					e.Add (Maßeinheit (3));
-					e.Add (Maßeinheit (3));
+					e.Add (Maßeinheit (2));
 					e.Add (ErweiternKürzen ());
 					e.Add (ErweiternKürzen ());
 					e.Add (Potenzen ());
@@ -194,10 +233,10 @@ public class MathGenerator {
 					e.Add (BruchZuDezimal ());
 					e.Add (AddSubMulDivBruch ());
 					e.Add (AddSubMulDivBruch ());
+                    e.Add(AddSubMulDivBruch());
+                    e.Add(AddSubMulDivPotenz());
+                    e.Add (AddSubMulDivPotenz ());
 					e.Add (AddSubMulDivPotenz ());
-					e.Add (AddSubMulDivPotenz ());
-					//e.Add (Term ());
-					//e.Add (Term ());
 					e.Add (Gleichung ());
 					e.Add (Gleichung ());
 					e.Add (Binom ());
@@ -208,14 +247,14 @@ public class MathGenerator {
 				case 9:
 					//lvl 7-9
 					e.Add (AddSubMulDivBruch ());
-					e.Add (AddSubMulDivPotenz ());
-					//e.Add (Term ());
+                    e.Add(AddSubMulDivBruch());
+                    e.Add (AddSubMulDivPotenz ());
 					e.Add (Gleichung ());
 					e.Add (Gleichung ());
 					e.Add (Binom ());
 					e.Add (Binom ());
-					//e.Add (Extremwert ());
-					//e.Add (Extremwert ());
+					e.Add (Extremwert ());
+					e.Add (Extremwert ());
 					e.Add (Trigonometrie ());
 					e.Add (Trigonometrie ());
 					e.Add (Trigonometrie ());
@@ -223,20 +262,20 @@ public class MathGenerator {
 				case 10:
 				case 11:
 				case 12:
-					//lvl 10-12
+                    //lvl 10-12
+                    e.Add(AddSubMulDivBruch());
+                    e.Add (Gleichung ());
 					e.Add (Gleichung ());
-					e.Add (Gleichung ());
-					//e.Add (BruchGleichung ());
-					//e.Add (BruchGleichung ());
+                    e.Add(Gleichung());
+                    e.Add (Binom ());
 					e.Add (Binom ());
-					e.Add (Binom ());
-					//e.Add (Extremwert ());
-					//e.Add (Extremwert ());
+					e.Add (Extremwert ());
+					e.Add (Extremwert ());
+                    e.Add(Extremwert());
+                    e.Add (Trigonometrie ());
 					e.Add (Trigonometrie ());
-					e.Add (Trigonometrie ());
-					//e.Add (Laplace ());
-					//e.Add (Laplace ());
-					break;
+                    e.Add(Trigonometrie());
+                    break;
 				default:
 					//default lvl
 					break;
@@ -309,7 +348,7 @@ public class MathGenerator {
 		}
 		if (_c == 'q') {
 			//Zahlenraum Q
-			task = "Berechne auf 2 Nachkommastellen genau:";
+			task = "Berechne "+round+":";
 			float a = MUtility.Round (Random.Range (-10000f, 10000f));
 			float b = MUtility.Round (Random.Range (-10000f, 10000f));
 			float c = a + b;
@@ -347,18 +386,21 @@ public class MathGenerator {
 		}
 		if (_c == 'Q') {
 			//Zahlenraum Q+
-			task = "Berechne auf 2 Nachkommastellen genau:";
+			task = "Berechne " + round + ":";
 			if (Random.Range (0, 2) > 0) {
 				//Mul
-				float a = MUtility.Round(Random.Range (0.01f, 1000.00f));
-				float b = MUtility.Round(Random.Range (0.01f, 1000.00f));
+				float a = Random.Range (0.01f, 100.00f);
+				float b = Random.Range (0.01f, 100.00f);
+                a = MUtility.Round(a);
+                b = MUtility.Round(b);
 				float c = a * b;
 				question = a + " * " + b + " = ";
 				answer = MUtility.RoundToString(c) + "";
 			} else {
 				//Div
-				float a = MUtility.Round(Random.Range (0.01f, 1000.00f));
-				float b = Random.Range (2, 100);
+				float a = MUtility.Round(Random.Range (0.01f, 100.00f));
+                float b = Random.Range(3f, 9f);
+                b = (float)System.Math.Round(b,1);
 				float c = a * b;
 				question = c + " : " + b + " = ";
 				answer = MUtility.RoundToString(a) + "";
@@ -366,21 +408,24 @@ public class MathGenerator {
 		}
 		if (_c == 'q') {
 			//Zahlenraum Q
-			task = "Berechne auf 2 Nachkommastellen genau:";
+			task = "Berechne " + round + ":";
 			if (Random.Range (0, 2) > 0) {
 				//Mul
-				float a = Random.Range (-1000.00f, 1000.00f);
-				while (a == 0) { a = Random.Range (-1000.00f, 1000.00f); }
-				float b = Random.Range (-1000.00f, 1000.00f);
-				while (b == 0) { b = Random.Range (-1000.00f, 1000.00f); }
+				float a = Random.Range (-100.00f, 100.00f);
+				while (a == 0) { a = Random.Range (-100.00f, 100.00f); }
+				float b = Random.Range (-100.00f, 100.00f);
+				while (b == 0) { b = Random.Range (-100.00f, 100.00f); }
+                a = MUtility.Round(a);
+                b = MUtility.Round(b);
 				float c = a * b;
 				question = MUtility.SignedFloat(a) + " * " + MUtility.SignedFloat(b) + " = ";
 				answer = MUtility.RoundToString(c) + "";
 			} else {
 				//Div
-				float a = Random.Range (-1000.00f, 1000.00f);
-				float b = Random.Range (-1000.00f, 1000.00f);
-				float c = a * b;
+				float a = Random.Range (-100.00f, 100.00f);
+                float b = Random.Range(-9f, 9f);
+                b = (float)System.Math.Round(b, 1);
+                float c = a * b;
 				question = MUtility.SignedFloat(c) + " : " + MUtility.SignedFloat(b) + " = ";
 				answer = MUtility.RoundToString(a) + "";
 			}
@@ -444,6 +489,7 @@ public class MathGenerator {
             }
 		}
 		if (_c == 'z') {
+            task = "Berechne:";
 			a = Random.Range(-12,13);
 			while (a == 0) {a = Random.Range(-12,13);}
 			b = Random.Range(-12,13);
@@ -516,7 +562,7 @@ public class MathGenerator {
 		int x = Random.Range (0, 4);
 		int y = Random.Range (6, 10);
 		float q = (float)System.Math.Round(Random.Range (0.00000001f, 100.000000001f),y);
-		string task = "Runde auf " + x + " Nachkommastellen:";
+		string task = "Runde auf " + x + " Nachkommastellen, auch wenn diese Null sind:";
 		string question = q+"";
 		string answer = System.Math.Round(q,x) + "";
 		//<-- Make sure that the right amount of decimal places is displayed in string (0 at the end gets cut off)
@@ -590,7 +636,7 @@ public class MathGenerator {
 	}
 
 	public Entry BruchZuDezimal(){
-		string task = "Wandle den Bruch in eine Dezimalzahl um (Runde auf 2 Nachkommastellen):";
+		string task = "Wandle den Bruch in eine Dezimalzahl um " + round + ":";
 		int a = Random.Range (1,13);
 		int b = Random.Range (1,13);
 		string question = a+"\n--\n"+b;
@@ -602,256 +648,373 @@ public class MathGenerator {
 		int a = Random.Range (1,13);
 		int b = Random.Range (1,13);
 		int c = Random.Range (1,100);
-		string task = "Berechne (Runde auf 2 Nachkommastellen):";
+		string task = "Berechne " + round + ":";
 		string question = a + "/" + b + " von " +c;
 		string answer = MUtility.RoundToString(((float)a/(float)b)*(float)c)+"";
 		return new Entry (task, question, answer, new string[3]);
 	}
 
 	public Entry Maßeinheit(int _mode){
-		string task = "Wandle um (Runde auf 2 Nachkommastellen. Gib die Einheit nicht mit an):";
+		string task = "Wandle um. Gib die Einheit nicht mit an. " + round + ":";
 		string question = "";
 		string answer = "";
 		string[] array = new string[3];
-		string[] gewicht = new string[]{ " mg", " g", " kg", " t" };//1000
+		string[] gewicht = new string[]{ " Milligramm (mg)", " Gramm (g)", " Kilogramm (kg)", " Tonnen (t)" };//1000
 		string[] geld = new string[]{ " Cent", " Euro" };//100
-		string[] strecke = new string[]{ " mm", " cm", " dm", " m" };//10
-		string[] liter = new string[]{ " ml", " cl", " dl", " l" };//10
-		string[] fläche = new string[]{ " mm2", " cm2", " dm2", " m2", " a", " ha", " km2" }; //100
-		string[] hohlmaß = new string[]{ " mm3", " cm3", " dm3", " m3" }; //1000
-		string[] zeit = new string[]{ " ms", " sek", " min", " std", " tage", " wochen" }; //1000,60,60,24,7
-		if (_mode == 0) {
-			//Gewicht, Geld, Länge, Liter -> nur 1er Schritte
-			int arr = Random.Range (0, 4);
-			if (arr == 0) {
-				array = gewicht;
-			}
-			if (arr == 1) {
-				array = geld;
-			}
-			if (arr == 2) {
-				array = strecke;
-			}
-			if (arr == 3) {
-				array = liter;
-			}
-			if (Random.Range (0, 2) > 0) {
-				//1 Schritt runter
-				float a = MUtility.Round (Random.Range (0.1f, 10f));
-				int i = Random.Range (1, array.Length);
-				string einheitA = array [i];
-				string einheitB = array [i - 1];
-				question = a + einheitA + " in" + einheitB;
-				if (arr == 0) {
-					answer = "" + MUtility.RoundToString (a * 1000);
-				}
-				if (arr == 1) {
-					answer = "" + MUtility.RoundToString (a * 100);
-				}
-				if (arr == 2) {
-					answer = "" + MUtility.RoundToString (a * 10);
-				}
-				if (arr == 3) {
-					answer = "" + MUtility.RoundToString (a * 10);
-				}
-			} else {
-				//1 Schritt rauf
-				float a = MUtility.Round (Random.Range (100f, 10000f));
-				int i = Random.Range (0, array.Length - 1);
-				string einheitA = array [i];
-				string einheitB = array [i + 1];
-				question = a + einheitA + " in" + einheitB;
-				if (arr == 0) {
-					answer = "" + MUtility.RoundToString (a / 1000);
-				}
-				if (arr == 1) {
-					answer = "" + MUtility.RoundToString (a / 100);
-				}
-				if (arr == 2) {
-					answer = "" + MUtility.RoundToString (a / 10);
-				}
-				if (arr == 3) {
-					answer = "" + MUtility.RoundToString (a / 10);
-				}
-			}
-		} else if (_mode == 1) {
-			//Gewicht, Geld, Länge, Liter -> belibige Schritte
-			int arr = Random.Range (0, 4);
-			if (arr == 0) {
-				array = gewicht;
-			}
-			if (arr == 1) {
-				array = geld;
-			}
-			if (arr == 2) {
-				array = strecke;
-			}
-			if (arr == 3) {
-				array = liter;
-			}
-			if (Random.Range (0, 2) > 0) {
-				//n Schritte runter
-				float a = MUtility.Round (Random.Range (0.1f, 10f));
-				int i = Random.Range (1, array.Length);
-				int j = Random.Range (1, array.Length);
-				while (i - j < 0) {
-					j = Random.Range (1, array.Length);
-				}
-				string einheitA = array [i];
-				string einheitB = array [i - j];
-				question = a + einheitA + " in" + einheitB;
-				if (arr == 0) {
-					for (int x = 0; x < j; x++) {
-						a *= 1000;
-					}
-					answer = "" + MUtility.RoundToString (a);
-				}
-				if (arr == 1) {
-					for (int x = 0; x < j; x++) {
-						a *= 100;
-					}
-					answer = "" + MUtility.RoundToString (a);
-				}
-				if (arr == 2) {
-					for (int x = 0; x < j; x++) {
-						a *= 10;
-					}
-					answer = "" + MUtility.RoundToString (a);
-				}
-				if (arr == 3) {
-					for (int x = 0; x < j; x++) {
-						a *= 10;
-					}
-					answer = "" + MUtility.RoundToString (a);
-				}
-			} else {
-				//n Schritte rauf
-				float a = MUtility.Round (Random.Range (100f, 10000f));
-				int i = Random.Range (0, array.Length - 1);
-				int j = Random.Range (1, array.Length);
-				while (i + j >= array.Length) {
-					j = Random.Range (1, array.Length);
-				}
-				string einheitA = array [i];
-				string einheitB = array [i + j];
-				question = a + einheitA + " in" + einheitB;
-				if (arr == 0) {
-					for (int x = 0; x < j; x++) {
-						a /= 1000;
-					}
-					answer = "" + MUtility.RoundToString (a);
-				}
-				if (arr == 1) {
-					for (int x = 0; x < j; x++) {
-						a /= 100;
-					}
-					answer = "" + MUtility.RoundToString (a);
-				}
-				if (arr == 2) {
-					for (int x = 0; x < j; x++) {
-						a /= 10;
-					}
-					answer = "" + MUtility.RoundToString (a);
-				}
-				if (arr == 3) {
-					for (int x = 0; x < j; x++) {
-						a /= 10;
-					}
-					answer = "" + MUtility.RoundToString (a);
-				}
-			}
-		} else if (_mode == 2) {
-			//Fläche, Hohlmaß
-			int arr = Random.Range (0, 2);
-			if (arr == 0) {
-				array = fläche;
-			}
-			if (arr == 1) {
-				array = hohlmaß;
-			}
-			if (Random.Range (0, 2) > 0) {
-				//n Schritte runter
-				float a = MUtility.Round (Random.Range (0.1f, 10f));
-				int i = Random.Range (1, array.Length);
-				int j = Random.Range (1, 3);
-				while (i - j < 0) {
-					j = Random.Range (1, array.Length);
-				}
-				string einheitA = array [i];
-				string einheitB = array [i - j];
-				question = a + einheitA + " in" + einheitB;
-				if (arr == 0) {
-					for (int x = 0; x < j; x++) {
-						a *= 100;
-					}
-					answer = "" + MUtility.RoundToString (a);
-				}
-				if (arr == 1) {
-					for (int x = 0; x < j; x++) {
-						a *= 1000;
-					}
-					answer = "" + MUtility.RoundToString (a);
-				}
-			} else {
-				//n Schritte rauf
-				float a = MUtility.Round (Random.Range (100f, 10000f));
-				int i = Random.Range (0, array.Length - 1);
-				int j = Random.Range (1, 3);
-				while (i + j >= array.Length) {
-					j = Random.Range (1, array.Length);
-				}
-				string einheitA = array [i];
-				string einheitB = array [i + j];
-				question = a + einheitA + " in" + einheitB;
-				if (arr == 0) {
-					for (int x = 0; x < j; x++) {
-						a /= 100;
-					}
-					answer = "" + MUtility.RoundToString (a);
-				}
-				if (arr == 1) {
-					for (int x = 0; x < j; x++) {
-						a /= 1000;
-					}
-					answer = "" + MUtility.RoundToString (a);
-				}
-			}
-		} else {
-			//Zeit
-			array = zeit;
-			int[] faktoren = new int[]{ 1000, 60, 60, 24, 7 };
-			int min;
-			int max;
-			int modus;
-			float zahl = MUtility.Round (Random.Range (0.1f, 10f));
-			int a = Random.Range (0, array.Length); //startindex
-			int b = Random.Range (0, array.Length); //endindex
-			while(a==b || a-b > 3 || a-b < -2){b = Random.Range (0, array.Length);}
-			if (a < b) {
-				min = a;
-				max = b;
-				modus = 0;
-			} else {
-				min = b;
-				max = a;
-				modus = 1;
-			}
-			int faktor = 1;
-			for (int i = 0; i < (max - min); i++) {
-				faktor *= faktoren [min + i];
-			}
-			if (modus > 0) {
-				//n schritte runter
-				question = zahl + array [a] + " in" + array [b];
-				float ergebnis = (float)zahl * (float)faktor;
-				answer = "" + MUtility.RoundToString (ergebnis);
-			} else {
-				//n schritte rauf
-				question = zahl + array [a] + " in" + array [b];
-				float ergebnis = (float)zahl / (float)faktor;
-				answer = "" + MUtility.RoundToString (ergebnis);
-			}
-		}
+		string[] strecke = new string[]{ " Millimeter (mm)", " Zentimeter (cm)", " Dezimeter (dm)", " Meter (m)" };//10
+		string[] liter = new string[]{ " Milliliter (ml)", " Zentiliter (cl)", " Deziliter (dl)", " Liter (l)" };//10
+        string[] fläche = new string[] { " Quadratmillimeter (mm2)", " Quadratzentimeter (cm2)", " Quadratdezimeter (dm2)", " Quadratmeter (m2)", };
+		string[] hohlmaß = new string[]{ " Kubikmillimeter (mm3)", " Kubikzentimeter (cm3)", " Kubikdezimeter (dm3)", " Kubikmeter (m3)" }; //1000
+		string[] zeit = new string[]{ " Sekunden (s)", " Minuten (m)", " Stunden (h)", " Tage (d)" }; //1000,60,60,24,7
+        if (_mode == 0)
+        {
+            //Gewicht, Geld, Länge, Liter -> nur 1er Schritte
+            int arr = Random.Range(0, 4);
+            if (arr == 0)
+            {
+                array = gewicht;
+            }
+            if (arr == 1)
+            {
+                array = geld;
+            }
+            if (arr == 2)
+            {
+                array = strecke;
+            }
+            if (arr == 3)
+            {
+                array = liter;
+            }
+            if (Random.Range(0, 2) > 0)
+            {
+                //1 Schritt runter
+                float a = MUtility.Round(Random.Range(0.1f, 10f));
+                int i = Random.Range(1, array.Length);
+                string einheitA = array[i];
+                string einheitB = array[i - 1];
+                question = a + einheitA + " in" + einheitB;
+                if (arr == 0)
+                {
+                    answer = "" + MUtility.RoundToString(a * 1000);
+                }
+                if (arr == 1)
+                {
+                    answer = "" + MUtility.RoundToString(a * 100);
+                }
+                if (arr == 2)
+                {
+                    answer = "" + MUtility.RoundToString(a * 10);
+                }
+                if (arr == 3)
+                {
+                    answer = "" + MUtility.RoundToString(a * 10);
+                }
+            }
+            else
+            {
+                //1 Schritt rauf
+                float a = MUtility.Round(Random.Range(100f, 10000f));
+                int i = Random.Range(0, array.Length - 1);
+                string einheitA = array[i];
+                string einheitB = array[i + 1];
+                question = a + einheitA + " in" + einheitB;
+                if (arr == 0)
+                {
+                    answer = "" + MUtility.RoundToString(a / 1000);
+                }
+                if (arr == 1)
+                {
+                    answer = "" + MUtility.RoundToString(a / 100);
+                }
+                if (arr == 2)
+                {
+                    answer = "" + MUtility.RoundToString(a / 10);
+                }
+                if (arr == 3)
+                {
+                    answer = "" + MUtility.RoundToString(a / 10);
+                }
+            }
+        }
+        else if (_mode == 1)
+        {
+            //Gewicht, Geld, Länge, Liter -> belibige Schritte
+            int arr = Random.Range(0, 4);
+            if (arr == 0)
+            {
+                array = gewicht;
+            }
+            if (arr == 1)
+            {
+                array = geld;
+            }
+            if (arr == 2)
+            {
+                array = strecke;
+            }
+            if (arr == 3)
+            {
+                array = liter;
+            }
+            if (Random.Range(0, 2) > 0)
+            {
+                //n Schritte runter
+                float a = MUtility.Round(Random.Range(0.1f, 10f));
+                int i = Random.Range(1, array.Length);
+                int j = Random.Range(1, array.Length);
+                while (i - j < 0)
+                {
+                    j = Random.Range(1, array.Length);
+                }
+                string einheitA = array[i];
+                string einheitB = array[i - j];
+                question = a + einheitA + " in" + einheitB;
+                if (arr == 0)
+                {
+                    for (int x = 0; x < j; x++)
+                    {
+                        a *= 1000;
+                    }
+                    answer = "" + MUtility.RoundToString(a);
+                }
+                if (arr == 1)
+                {
+                    for (int x = 0; x < j; x++)
+                    {
+                        a *= 100;
+                    }
+                    answer = "" + MUtility.RoundToString(a);
+                }
+                if (arr == 2)
+                {
+                    for (int x = 0; x < j; x++)
+                    {
+                        a *= 10;
+                    }
+                    answer = "" + MUtility.RoundToString(a);
+                }
+                if (arr == 3)
+                {
+                    for (int x = 0; x < j; x++)
+                    {
+                        a *= 10;
+                    }
+                    answer = "" + MUtility.RoundToString(a);
+                }
+            }
+            else
+            {
+                //n Schritte rauf
+                float a = MUtility.Round(Random.Range(100f, 10000f));
+                int i = Random.Range(0, array.Length - 1);
+                int j = Random.Range(1, array.Length);
+                while (i + j >= array.Length)
+                {
+                    j = Random.Range(1, array.Length);
+                }
+                string einheitA = array[i];
+                string einheitB = array[i + j];
+                question = a + einheitA + " in" + einheitB;
+                if (arr == 0)
+                {
+                    for (int x = 0; x < j; x++)
+                    {
+                        a /= 1000;
+                    }
+                    answer = "" + MUtility.RoundToString(a);
+                }
+                if (arr == 1)
+                {
+                    for (int x = 0; x < j; x++)
+                    {
+                        a /= 100;
+                    }
+                    answer = "" + MUtility.RoundToString(a);
+                }
+                if (arr == 2)
+                {
+                    for (int x = 0; x < j; x++)
+                    {
+                        a /= 10;
+                    }
+                    answer = "" + MUtility.RoundToString(a);
+                }
+                if (arr == 3)
+                {
+                    for (int x = 0; x < j; x++)
+                    {
+                        a /= 10;
+                    }
+                    answer = "" + MUtility.RoundToString(a);
+                }
+            }
+        }
+        else if (_mode == 2)
+        {
+            //Fläche, Hohlmaß
+            int arr = Random.Range(0, 2);
+            if (arr == 0)
+            {
+                array = fläche;
+            }
+            if (arr == 1)
+            {
+                array = hohlmaß;
+            }
+            if (Random.Range(0, 2) > 0)
+            {
+                //n Schritte runter
+                float a = MUtility.Round(Random.Range(0.1f, 10f));
+                int i = Random.Range(1, array.Length);
+                int j = Random.Range(1, 3);
+                while (i - j < 0)
+                {
+                    j = Random.Range(1, array.Length);
+                }
+                string einheitA = array[i];
+                string einheitB = array[i - j];
+                question = a + einheitA + " in" + einheitB;
+                if (arr == 0)
+                {
+                    for (int x = 0; x < j; x++)
+                    {
+                        a *= 100;
+                    }
+                    answer = "" + MUtility.RoundToString(a);
+                }
+                if (arr == 1)
+                {
+                    for (int x = 0; x < j; x++)
+                    {
+                        a *= 1000;
+                    }
+                    answer = "" + MUtility.RoundToString(a);
+                }
+            }
+            else
+            {
+                //1 Schritte rauf
+                float a = MUtility.Round(Random.Range(100f, 10000f));
+                int i = Random.Range(0, array.Length - 1);
+                int j = Random.Range(1, 3);
+                while (i + j >= array.Length)
+                {
+                    j = Random.Range(1, array.Length);
+                }
+                string einheitA = array[i];
+                string einheitB = array[i + j];
+                question = a + einheitA + " in" + einheitB;
+                if (arr == 0)
+                {
+                    for (int x = 0; x < j; x++)
+                    {
+                        a /= 100;
+                    }
+                    answer = "" + MUtility.RoundToString(a);
+                }
+                if (arr == 1)
+                {
+                    for (int x = 0; x < j; x++)
+                    {
+                        a /= 1000;
+                    }
+                    answer = "" + MUtility.RoundToString(a);
+                }
+            }
+        }
+        else if (_mode == 4)
+        {
+            //Fläche Kubik-> nur 1er Schritte
+            int arr = Random.Range(0, 2);
+            if (arr == 0)
+            {
+                array = fläche;
+            }
+            if (arr == 1)
+            {
+                array = hohlmaß;
+            }
+            if (Random.Range(0, 2) > 0)
+            {
+                //1 Schritt runter
+                float a = MUtility.Round(Random.Range(0.1f, 10f));
+                int i = Random.Range(1, array.Length);
+                string einheitA = array[i];
+                string einheitB = array[i - 1];
+                question = a + einheitA + " in" + einheitB;
+                if (arr == 0)
+                {
+                    answer = "" + MUtility.RoundToString(a * 100);
+                }
+                if (arr == 1)
+                {
+                    answer = "" + MUtility.RoundToString(a * 1000);
+                }
+
+            }
+            else
+            {
+                //1 Schritt rauf
+                float a = MUtility.Round(Random.Range(100f, 10000f));
+                int i = Random.Range(0, array.Length - 1);
+                string einheitA = array[i];
+                string einheitB = array[i + 1];
+                question = a + einheitA + " in" + einheitB;
+                if (arr == 0)
+                {
+                    answer = "" + MUtility.RoundToString(a / 100);
+                }
+                if (arr == 1)
+                {
+                    answer = "" + MUtility.RoundToString(a / 1000);
+                }
+            }
+        }
+        else
+        {
+            //Zeit
+            array = zeit;
+            int[] faktoren = new int[] { 60, 60, 24 };
+            int min;
+            int max;
+            int modus;
+            float zahl = MUtility.Round(Random.Range(0.1f, 10f));
+            int a = Random.Range(0, array.Length); //startindex
+            int b = Random.Range(0, array.Length); //endindex
+            while (a == b || a - b > 3 || a - b < -2) { b = Random.Range(0, array.Length); }
+            if (a < b)
+            {
+                min = a;
+                max = b;
+                modus = 0;
+            }
+            else
+            {
+                min = b;
+                max = a;
+                modus = 1;
+            }
+            int faktor = 1;
+            for (int i = 0; i < (max - min); i++)
+            {
+                faktor *= faktoren[min + i];
+            }
+            if (modus > 0)
+            {
+                //n schritte runter
+                question = zahl + array[a] + " in" + array[b];
+                float ergebnis = (float)zahl * (float)faktor;
+                answer = "" + MUtility.RoundToString(ergebnis);
+            }
+            else
+            {
+                //n schritte rauf
+                question = zahl + array[a] + " in" + array[b];
+                float ergebnis = (float)zahl / (float)faktor;
+                answer = "" + MUtility.RoundToString(ergebnis);
+            }
+        }
 		return new Entry(task, question, answer, new string[3]);
 	}
 
@@ -882,16 +1045,17 @@ public class MathGenerator {
 		return new Entry (task, question, answer, new string[3]);
 	}
 	public Entry BinomRückwärts(){
-		string task = "Vereinfache:";
+		string task = "Bilde ein Binom aus:";
 		string question = "";
 		string answer = "";
 		int zahl = Random.Range (1, 13);
-		int art = Random.Range (0, 3);
-		if (art == 0) {
+		int art = Random.Range (0, 7);
+		if (art == 0 || art == 1 || art == 2) {
 			answer = "(x + "+zahl+")^2";
 			question = "x^2 + " + 2 * zahl + "x + " + (zahl * zahl);
-		}else if(art == 1){
-			answer = "(x + "+zahl+")^2";
+		}else if(art == 3 || art == 4 || art == 5)
+        {
+			answer = "(x - "+zahl+")^2";
 			question = "x^2 - " + 2 * zahl + "x + " + (zahl * zahl);
 		}else{
 			answer = "(x + "+zahl+") * (x - "+zahl+")";
@@ -999,7 +1163,7 @@ public class MathGenerator {
 		int z2 = Random.Range (1, 13);
 		int n1 = Random.Range (1, 13);
 		int n2 = Random.Range (1, 13);
-		string task = "Berechne (Gib den Ergebnisbruch soweit vereinfacht wie möglich in folgender Form an: Zähler/Nenner):";
+		string task = "Berechne (Gib den Ergebnisbruch soweit gekürzt wie möglich in folgender Form an: Zähler/Nenner):";
 		string question = " "+z1 + "      " + z2+ "\n--- * --- =\n "+n1 + "      "+n2;
 		int neuZ = z1 * z2;
 		int neuN  = n1 * n2;
@@ -1015,7 +1179,7 @@ public class MathGenerator {
 		int z2 = Random.Range (1, 13);
 		int n1 = Random.Range (1, 13);
 		int n2 = Random.Range (1, 13);
-		string task = "Berechne (Gib den Ergebnisbruch soweit vereinfacht wie möglich in folgender Form an: Zähler/Nenner):";
+		string task = "Berechne (Gib den Ergebnisbruch soweit gekürzt wie möglich in folgender Form an: Zähler/Nenner):";
 		string question = " "+z1 + "      " + z2+ "\n--- + --- =\n "+n1 + "      "+n2;
 		int neuZ = z1 * n2;
 		int neuN  = n1 * z2;
@@ -1031,9 +1195,9 @@ public class MathGenerator {
 		int z2 = Random.Range (1, 13);
 		int n1 = Random.Range (1, 13);
 		int n2 = Random.Range (1, 13);
-		string task = "Berechne (Gib den Ergebnisbruch soweit vereinfacht wie möglich in folgender Form an: Zähler/Nenner):";
+		string task = "Berechne (Gib den Ergebnisbruch soweit gekürzt wie möglich in folgender Form an: Zähler/Nenner):";
 		string question = " "+z1 + "      " + z2+ "\n--- - --- =\n "+n1 + "      "+n2;
-		int neuZ = z1 * n2 - z2 * n1;
+		int neuZ = (z1 * n2) - (z2 * n1);
 		int neuN  = n1 * n2;
 		int teiler = GGT (neuZ, neuN);
 		neuZ /= teiler;
@@ -1047,9 +1211,9 @@ public class MathGenerator {
 		int z2 = Random.Range (1, 13);
 		int n1 = Random.Range (1, 13);
 		int n2 = Random.Range (1, 13);
-		string task = "Berechne (Gib den Ergebnisbruch soweit vereinfacht wie möglich in folgender Form an: Zähler/Nenner):";
+		string task = "Berechne (Gib den Ergebnisbruch soweit gekürzt wie möglich in folgender Form an: Zähler/Nenner):";
 		string question = " "+z1 + "      " + z2+ "\n--- + --- =\n "+n1 + "      "+n2;
-		int neuZ = z1 * n2 + z2 * n1;
+		int neuZ = (z1 * n2) + (z2 * n1);
 		int neuN  = n1 * n2;
 		int teiler = GGT (neuZ, neuN);
 		neuZ /= teiler;
@@ -1058,45 +1222,20 @@ public class MathGenerator {
 		return new Entry (task, question, answer, new string[3]);
 	}
 		
-	/*TODO: Überptüfen*/
 	public Entry AddSubMulDivPotenz(){
-		int mode = Random.Range (0, 4);
+		int mode = Random.Range (0, 2);
 		switch (mode) {
 		case 0:
-			return AddPotenz ();
-		case 1:
-			return SubPotenz ();
-		case 2:
 			return MulPotenz ();
-		case 3:
+		case 1:
 			return DivPotenz ();
 		default:
-			return AddPotenz ();
+			return MulPotenz ();
 		}
 	}
 
-	public Entry AddPotenz(){
-		string task = "Berechne:";
-		int b1 = Random.Range (1, 7);
-		int e1 = Random.Range (1, 7);
-		int b2 = Random.Range (1, 7);
-		string question = "("+b1+"x)^"+e1+" + ("+ b2+"x)^"+e1;
-		string answer = (b1+b2)+"x^"+e1;
-		return new Entry (task, question, answer, new string[3]);
-	}
-
-	public Entry SubPotenz(){
-		string task = "Berechne:";
-		int b1 = Random.Range (1, 7);
-		int e1 = Random.Range (1, 7);
-		int b2 = Random.Range (1, 7);
-		string question = "("+b1+"x)^"+e1+" - ("+ b2+"x)^"+e1;
-		string answer = (b1-b2)+"x^"+e1;
-		return new Entry (task, question, answer, new string[3]);
-	}
-
 	public Entry MulPotenz(){
-		string task = "Berechne:";
+		string task = potenzTask;
 		int b1 = Random.Range (1, 7);
 		int e1 = Random.Range (1, 7);
 		int b2 = Random.Range (1, 7);
@@ -1107,6 +1246,9 @@ public class MathGenerator {
 			question = "x^" + e1 + " * " + "x^" + e2;
 			answer = "x^" + (e1 + e2);
 		} else {
+            while (b1 == b2) {
+                b2 = Random.Range(1, 7);
+            }
 			question = b1+"^" + e1 + " * " + b2+"^" + e1;
 			answer = (b1*b2)+"^" + e1;
 		}
@@ -1114,7 +1256,7 @@ public class MathGenerator {
 	}
 
 	public Entry DivPotenz(){
-		string task = "Berechne:";
+		string task = potenzTask;
 		int b1 = Random.Range (1, 7);
 		int e1 = Random.Range (1, 7);
 		int b2 = Random.Range (1, 7);
@@ -1133,7 +1275,7 @@ public class MathGenerator {
 	}
 		
 	public Entry Extremwert(){
-		string task = "Berechne die Extremwerte:";
+		string task = "Berechne die Extremwerte (Gib das Ergebnis in folgender Form an: T(min/max)=Ys für x=Xs):";
 		int[] scheitel = new int[2];//0 = xs, 1 = ys
 		scheitel [0] = Random.Range (-19, 20);
 		scheitel [1] = Random.Range (-19, 20);
@@ -1158,11 +1300,11 @@ public class MathGenerator {
 		//a neg max
 		string answer;
 		if (a > 0) {
-			answer = "T(min):";
+			answer = "T(min)=";
 		} else {
-			answer = "T(max):";
+			answer = "T(max)=";
 		}
-		answer += scheitel[0]+";"+scheitel[1];
+		answer += scheitel[1]+" für x="+ scheitel[0];
 		return new Entry (task, question, answer, new string[3]);
 	}
 

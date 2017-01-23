@@ -61,7 +61,13 @@ public class Train : MonoBehaviour
         Result = GameObject.Find("Result").GetComponent<Text>();
         AnswerInput = GameObject.Find("AnswerInput").GetComponent<InputField>();
         SubmitButton = GameObject.Find("Submit_Question").GetComponent<Button>();
+        SubmitButton.onClick.AddListener(() => {
+            AnswerQuestion();
+        });
         NextButton = GameObject.Find("Next_Question").GetComponent<Button>();
+        NextButton.onClick.AddListener(() => {
+            NextQuestion();
+        });
         AnswerInput.Select();
         running = true;
         Debug.Log("Game is running");
@@ -85,7 +91,18 @@ public class Train : MonoBehaviour
     }
     public void AnswerQuestion()
     {
-        if (AnswerInput.text.Equals(e[eNr].answer))
+        //Leerzeichen weg, , durch .
+        string r1 = AnswerInput.text;
+        string r2 = e[eNr].answer;
+        r1 = r1.Replace(" ", "");
+        r1 = r1.Replace(',', '.');
+        r1 = r1.Replace("+", "");
+        r1 = r1.Replace("*", "");
+        r2 = r2.Replace(" ", "");
+        r2 = r2.Replace(',', '.');
+        r2 = r2.Replace("+", "");
+        r2 = r2.Replace("*", "");
+        if (r1.Equals(r2))
         {
             Result.text = "Richtig!";
             CorrectCounter++;
@@ -99,6 +116,7 @@ public class Train : MonoBehaviour
         //switch button
         NextButton.enabled = true;
         SubmitButton.enabled = false;
+        SubmitButton.transform.localScale = new Vector3(0, 0, 0);
         refreshUi();
     }
     public void NextQuestion()
@@ -126,6 +144,7 @@ public class Train : MonoBehaviour
             eNr++;
             refreshUi();
         }
+        SubmitButton.transform.localScale = new Vector3(1, 1, 1);
     }
     void Close()
     {
