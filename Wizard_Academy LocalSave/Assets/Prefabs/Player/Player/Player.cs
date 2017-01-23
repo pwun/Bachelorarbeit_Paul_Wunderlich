@@ -25,6 +25,12 @@ public class Player : MonoBehaviour {
 			case "Walk":
 				anim.SetBool("Idle", false);
 				break;
+            case "Pause":
+                anim.enabled = false;
+                break;
+            case "Continue":
+                anim.enabled = true;
+                break;
 		}
 	}
 

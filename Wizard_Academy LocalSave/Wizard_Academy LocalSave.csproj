@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="Assets\Boss.cs" />
     <Compile Include="Assets\BossSettings.cs" />
+    <Compile Include="Assets\Boss_Player.cs" />
     <Compile Include="Assets\ItemList.cs" />
     <Compile Include="Assets\Prefabs\Player\Player\Player.cs" />
     <Compile Include="Assets\Scenes\Menu\CustomizerUI.cs" />

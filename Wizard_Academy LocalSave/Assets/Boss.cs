@@ -25,7 +25,7 @@ public class Boss : MonoBehaviour
     public GameObject Obstacle;
     public GameObject Loot;
     Rigidbody2D Player;
-    Mini1_Player PlayerScript;
+    Boss_Player PlayerScript;
 
     int CorrectCounter;
     int IncorrectCounter;
@@ -48,11 +48,15 @@ public class Boss : MonoBehaviour
     GameObject bg;
 
     Animator BossAnim;
+    Text TimerText;
+    float time = 120.00f;
+    float startDeltaTime = 0;
 
     // Use this for initialization
     void Start()
     {
         BossAnim = GameObject.Find("Boss").GetComponent<Animator>();
+        TimerText = (Text)GameObject.Find("Timer").GetComponent<Text>();
 
         SaveLoad.Load();
         switch (Game.current.hero.Level)
@@ -103,7 +107,7 @@ public class Boss : MonoBehaviour
         //Answers.transform.position =  new Vector3(spawn_x, spawn_y, 0);
         //Bg = GameObject.Find("Bg").GetComponent<Rigidbody2D>();
         Player = GameObject.Find("Player").GetComponent<Rigidbody2D>();
-        PlayerScript = Player.GetComponent<Mini1_Player>();
+        PlayerScript = Player.GetComponent<Boss_Player>();
 
         EnglishGen = new EnglishGenerator();
         MathGen = new MathGenerator();
@@ -125,7 +129,7 @@ public class Boss : MonoBehaviour
         }
         Debug.Log("Done! Loaded " + e.Length + " questions");
         ready = true;
-        Log.LogEntry("Mini1 start");
+        Log.LogEntry("Boss start");
         eNr = 0;
         Lifes = 3;
     }
@@ -134,6 +138,12 @@ public class Boss : MonoBehaviour
     {
         //if (Bg.transform.position.x < Bg_minx) Bg.transform.position = spawnBg;
         if (Answers.transform.position.x < -680) ResetAnswer();
+        if (startDeltaTime > 0f)
+        {
+            time -= Time.deltaTime;
+        }
+        int min = (int)time / 60;
+        TimerText.text = min + ":" + (int)(time - min * 60)+ "Min";
     }
 
     public void EnemySpawn()
@@ -258,7 +268,8 @@ public class Boss : MonoBehaviour
         GameObject.Find("Start").transform.localScale = new Vector3(0, 0, 0);
         updateUi();
         PlayerScript.StartAnimation();
-        
+        startDeltaTime = Time.deltaTime;
+        time += startDeltaTime;
     }
 
     void EndGame()
