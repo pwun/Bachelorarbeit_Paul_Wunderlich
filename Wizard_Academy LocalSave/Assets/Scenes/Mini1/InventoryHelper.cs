@@ -32,26 +32,39 @@ public class InventoryHelper : MonoBehaviour
             slots.Add(Instantiate(inventorySlot));
             slots[i].transform.SetParent(slotPanel.transform);
         }
+        if (Game.current.hero.Level > 3)
+        {
+            if (!Game.current.hero.Unlocked.Contains(2))
+            {
+                Game.current.hero.Unlocked.Add(2);
+            }
+        }
+        if (Game.current.hero.Level > 6)
+        {
+            if (!Game.current.hero.Unlocked.Contains(3))
+            {
+                Game.current.hero.Unlocked.Add(3);
+            }
+        }
+        if (Game.current.hero.Level > 9)
+        {
+            if (!Game.current.hero.Unlocked.Contains(4))
+            {
+                Game.current.hero.Unlocked.Add(4);
+            }
+        }
+        if (Game.current.hero.Level > 12)
+        {
+            if (!Game.current.hero.Unlocked.Contains(5))
+            {
+                Game.current.hero.Unlocked.Add(5);
+            }
+        }
+        SaveLoad.Save();
         int[] unlockedItems = Game.current.hero.Unlocked.ToArray();
         for (int i = 0; i < unlockedItems.Length; i++)
         {
             AddItem(unlockedItems[i]);
-        }
-        if (Game.current.hero.Level > 3)
-        {
-            AddItem(2);
-        }
-        if (Game.current.hero.Level > 6)
-        {
-            AddItem(3);
-        }
-        if (Game.current.hero.Level > 9)
-        {
-            AddItem(4);
-        }
-        if (Game.current.hero.Level > 12)
-        {
-            AddItem(5);
         }
     }
 
@@ -78,7 +91,23 @@ public class InventoryHelper : MonoBehaviour
     public void GetItem() {
         int[] itemIds = new int[] { 7, 8, 9, 10, 11, 12, 15, 16, 17, 18, 19 };
         int itemId = itemIds[Random.Range(0, 11)];
-        if (Game.current.hero.Unlocked.Count < 16 + (Game.current.hero.Level / 3))//2,3,4,5 -> boss drops //0,1,6,13,14 -> start
+        int max = 16;
+        if (Game.current.hero.Level > 3) {
+            max++;
+        }
+        if (Game.current.hero.Level > 6)
+        {
+            max++;
+        }
+        if (Game.current.hero.Level > 9)
+        {
+            max++;
+        }
+        if (Game.current.hero.Level > 12)
+        {
+            max++;
+        }
+        if (Game.current.hero.Unlocked.Count < max)//2,3,4,5 -> boss drops //0,1,6,13,14 -> start
         {
             while (ItemInInventory(itemId))
             {
@@ -86,6 +115,7 @@ public class InventoryHelper : MonoBehaviour
             }
             Game.current.hero.Unlocked.Add(itemId);
             AddItem(itemId);
+            GameObject.Find("LootText").GetComponent<Text>().text = "Du hast "+ database.FetchItemById(itemId).Title +" gefunden!";
             GameObject.Find("LootImage").GetComponent<Image>().sprite = database.FetchItemById(itemId).Sprite;
         }
         else {

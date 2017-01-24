@@ -15,13 +15,13 @@ public class Test : MonoBehaviour {
 			Debug.Log (em [i].ToString ());
 		}*/
 
-		System.IO.File.AppendAllText(@"/Users/paul/Desktop/ausgabe.txt", "Mathe 6. Klasse Lvl 1:\n\n");
+		System.IO.File.AppendAllText(@"ausgabe.txt", "Mathe 6. Klasse Lvl 1:\n\n");
 		MathGenerator mg = new MathGenerator ();
 		Entry[] em = mg.GenerateList (6, 1, 1);
 		for (int i = 0; i < em.Length; i++) {
 			Debug.Log (em [i].ToString ());
 		}
-		System.IO.File.AppendAllText(@"/Users/paul/Desktop/ausgabe.txt", "Englisch 6. Klasse Lvl 1:\n\n");
+		System.IO.File.AppendAllText(@"ausgabe.txt", "Englisch 6. Klasse Lvl 1:\n\n");
 		EnglishGenerator eg = new EnglishGenerator ();
 		Entry[] ee = eg.GenerateList (6, 1, 1);
 		for (int i = 0; i < ee.Length; i++) {

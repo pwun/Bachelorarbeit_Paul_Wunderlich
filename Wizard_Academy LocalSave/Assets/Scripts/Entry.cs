@@ -16,4 +16,9 @@ public class Entry{
 		System.IO.File.AppendAllText(@"/Users/paul/Desktop/ausgabe.txt", result);
 		return result;
   }
+    public void printToFile(string path)
+    {
+        string result = task + "\n" + question + "\n\n";
+        System.IO.File.AppendAllText(@"C:\Users\Paul\Desktop\ausgabe\" + path, result);
+    }
 }

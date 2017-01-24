@@ -30,25 +30,38 @@ public class Inventory : MonoBehaviour {
             slots.Add(Instantiate(inventorySlot));
             slots[i].transform.SetParent(slotPanel.transform);
         }
-        int[] unlockedItems = Game.current.hero.Unlocked.ToArray();
-        for (int i = 0; i < unlockedItems.Length; i++) {
-            AddItem(unlockedItems[i]);
-        }
         if (Game.current.hero.Level > 3)
         {
-            AddItem(2);
+            if (!Game.current.hero.Unlocked.Contains(2))
+            {
+                Game.current.hero.Unlocked.Add(2);
+            }
         }
         if (Game.current.hero.Level > 6)
         {
-            AddItem(3);
+            if (!Game.current.hero.Unlocked.Contains(3))
+            {
+                Game.current.hero.Unlocked.Add(3);
+            }
         }
         if (Game.current.hero.Level > 9)
         {
-            AddItem(4);
+            if (!Game.current.hero.Unlocked.Contains(4))
+            {
+                Game.current.hero.Unlocked.Add(4);
+            }
         }
         if (Game.current.hero.Level > 12)
         {
-            AddItem(5);
+            if (!Game.current.hero.Unlocked.Contains(5))
+            {
+                Game.current.hero.Unlocked.Add(5);
+            }
+        }
+        SaveLoad.Save();
+        int[] unlockedItems = Game.current.hero.Unlocked.ToArray();
+        for (int i = 0; i < unlockedItems.Length; i++) {
+            AddItem(unlockedItems[i]);
         }
     }
 
