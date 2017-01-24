@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 6f6f6d8da483acc42a4c51fb795803fb
+timeCreated: 1485265458
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Kelly
+  fontNames:
+  - Kelly
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

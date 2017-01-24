@@ -1,15 +1,15 @@
 fileFormatVersion: 2
 guid: ad6e18b542526e144af3118c0a335dd7
-timeCreated: 1485080164
+timeCreated: 1485267359
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
-  - Enemy: {fileID: 1833565006904084, guid: 7ae73a2167c25a3419f91c32912bf079, type: 2}
-  - Enemy2: {fileID: 1377162205838030, guid: 6584bdc115bf4984abef002dfdef5167, type: 2}
-  - Enemy3: {fileID: 1200165317998352, guid: 981046a6a4dc6374394a341c2d0033b7, type: 2}
-  - Enemy4: {fileID: 1820160769814694, guid: 3a73bef59ad34b34c8b32cda8d8b1dc1, type: 2}
-  - Obstacle: {fileID: 1000013984565378, guid: e039a5d0a362abd4187aa8711357d5c7, type: 2}
+  - Enemy: {fileID: 1799827237873796, guid: 7ae73a2167c25a3419f91c32912bf079, type: 2}
+  - Enemy2: {fileID: 1842176888160142, guid: 6584bdc115bf4984abef002dfdef5167, type: 2}
+  - Enemy3: {fileID: 1765365112797630, guid: 981046a6a4dc6374394a341c2d0033b7, type: 2}
+  - Enemy4: {fileID: 1708753186419496, guid: 3a73bef59ad34b34c8b32cda8d8b1dc1, type: 2}
+  - Obstacle: {fileID: 1686972961788370, guid: e039a5d0a362abd4187aa8711357d5c7, type: 2}
   - Loot: {fileID: 1182748394206606, guid: 4933a2afb49182e4dbf6f881c3c47c18, type: 2}
   - hearts_inactive: {fileID: 21300000, guid: f4132b9fb0f49904585b5c431f8294af, type: 3}
   - hearts_active: {instanceID: 0}

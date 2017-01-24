@@ -60,8 +60,12 @@ public class EnglishGenerator {
 					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,14),3));
 					break;
 				default:
-					//default lvl
-					break;
+                    //default lvl = max
+                    e.AddRange(PickRandom(ReadFromDB("e", _class, _type, 1), 1));
+                    e.AddRange(PickRandom(ReadFromDB("e", _class, _type, 4), 4));
+                    e.AddRange(PickRandom(ReadFromDB("e", _class, _type, 7), 4));
+                    e.AddRange(PickRandom(ReadFromDB("e", _class, _type, 14), 3));
+                    break;
 				}
 				break;
 			case 2:
@@ -74,6 +78,7 @@ public class EnglishGenerator {
 			}
 			break;
 		case 8:
+        case 10:
 			//class 8
 			switch(_type){
 			case 1:
@@ -83,62 +88,69 @@ public class EnglishGenerator {
 				case 2:
 				case 3:
 					//lvl 1-3
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,1),1));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,2),1));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,3),1));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,4),1));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,5),1));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,6),1));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,7),2));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,12),1));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,13),1));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,14),1));
+					e.AddRange(PickRandom(ReadFromDB("e",8,_type,1),1));
+					e.AddRange(PickRandom(ReadFromDB("e",8,_type,2),1));
+					e.AddRange(PickRandom(ReadFromDB("e",8,_type,3),1));
+					e.AddRange(PickRandom(ReadFromDB("e",8,_type,4),1));
+					e.AddRange(PickRandom(ReadFromDB("e",8,_type,5),1));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,6),1));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,7),2));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,12),1));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,13),1));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,14),1));
 					break;
 				case 4:
 				case 5:
 				case 6:
 					//lvl 4-6
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,1),1));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,4),2));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,7),2));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,8),1));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,9),1));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,10),2));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,11),2));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,14),1));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,1),1));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,4),2));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,7),2));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,8),1));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,9),1));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,10),2));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,11),2));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,14),1));
 					break;
 				case 7:
 				case 8:
 				case 9:
 					//lvl 7-9
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,1),1));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,4),1));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,7),1));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,10),1));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,11),3));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,15),3));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,17),2));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,1),1));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,4),1));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,7),1));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,10),1));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,11),3));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,15),3));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,17),2));
 					break;
 				case 10:
 				case 11:
 				case 12:
 					//lvl 10-12
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,1),1));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,4),1));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,7),1));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,10),1));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,11),2));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,16),3));
-					e.AddRange(PickRandom(ReadFromDB("e",_class,_type,17),3));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,1),1));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,4),1));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,7),1));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,10),1));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,11),2));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,16),3));
+					e.AddRange(PickRandom(ReadFromDB("e", 8, _type,17),3));
 					break;
 				default:
-					//default lvl
-					break;
+                    //default lvl = max
+                    e.AddRange(PickRandom(ReadFromDB("e", 8, _type, 1), 1));
+                    e.AddRange(PickRandom(ReadFromDB("e", 8, _type, 4), 1));
+                    e.AddRange(PickRandom(ReadFromDB("e", 8, _type, 7), 1));
+                    e.AddRange(PickRandom(ReadFromDB("e", 8, _type, 10), 1));
+                    e.AddRange(PickRandom(ReadFromDB("e", 8, _type, 11), 2));
+                    e.AddRange(PickRandom(ReadFromDB("e", 8, _type, 16), 3));
+                    e.AddRange(PickRandom(ReadFromDB("e", 8, _type, 17), 3));
+                    break;
 				}
 				break;
 			case 2:
                 //typ 2: mini1
-                e.AddRange(PickRandom(ReadFromDB("e", _class, _type, 1), 10));
+                e.AddRange(PickRandom(ReadFromDB("e", 8, _type, 1), 10));
                 break;
 			default:
 				//default type

@@ -180,29 +180,43 @@ public class MathGenerator {
 					e.Add (BruchteilVonZahl ());
 					break;
 				default:
-					//default lvl
-					break;
+                    //default lvl = max
+                    e.Add(AddSub('q'));
+                    e.Add(MulDiv('Q'));
+                    e.Add(MulDiv('Q'));
+                    e.Add(Maßeinheit(4));
+                    e.Add(Maßeinheit(2));
+                    e.Add(Maßeinheit(2));
+                    e.Add(ErweiternKürzen());
+                    e.Add(ErweiternKürzen());
+                    e.Add(Potenzen());
+                    e.Add(Potenzen());
+                    e.Add(BruchZuDezimal());
+                    e.Add(BruchteilVonZahl());
+                    break;
 				}
 				break;
 			case 2:
                 //typ 2: mini1
                 e.Add(Einmaleins('n'));
-                e.Add(Einmaleins('n'));
-                e.Add(Einmaleins('n'));
-                e.Add(Einmaleins('n'));
-                e.Add(Einmaleins('n'));
-                e.Add(Einmaleins('n'));
-                e.Add(Einmaleins('n'));
-                e.Add(Einmaleins('n'));
-                e.Add(Einmaleins('n'));
-                e.Add(Einmaleins('n'));
-                break;
+                e.Add(Einmaleins('z'));
+                        e.Add(Feeling('z'));
+                        e.Add(Feeling('q'));
+                        e.Add(Maßeinheit(0));
+                        e.Add(Maßeinheit(4));
+                        e.Add(AddSub('m'));
+                        e.Add(MulBruch());
+                        e.Add(DivBruch());
+                        e.Add(BinomVorwärts());
+                        e.Add(AddSubMulDivPotenz());
+                        break;
 			default:
 				//default type
 				break;
 			}
 			break;
 		case 8:
+        case 10:
 			//class 8
 			switch(_type){
 			case 1:
@@ -277,8 +291,20 @@ public class MathGenerator {
                     e.Add(Trigonometrie());
                     break;
 				default:
-					//default lvl
-					break;
+                    //default lvl = max
+                    e.Add(AddSubMulDivBruch());
+                    e.Add(Gleichung());
+                    e.Add(Gleichung());
+                    e.Add(Gleichung());
+                    e.Add(Binom());
+                    e.Add(Binom());
+                    e.Add(Extremwert());
+                    e.Add(Extremwert());
+                    e.Add(Extremwert());
+                    e.Add(Trigonometrie());
+                    e.Add(Trigonometrie());
+                    e.Add(Trigonometrie());
+                    break;
 				}
 				break;
 			case 2:
@@ -316,6 +342,7 @@ public class MathGenerator {
 		string task = "Berechne:";
 		string question = "";
 		string answer = "";
+        string[] answers = new string[3];
 		if (_c == 'n') {
 			//Zahlenraum N
 			int a = Random.Range (1, 100000);
@@ -362,7 +389,32 @@ public class MathGenerator {
 				answer = MUtility.RoundToString(a) + "";
 			}
 		}
-		return new Entry (task, question, answer, new string[3]);
+        if (_c == 'm')
+        {
+            //Minispiel
+            int a = Random.Range(10, 100);
+            int b = Random.Range(10, 100);
+            int c = a + b;
+            if (Random.Range(0, 2) > 0)
+            {
+                //Add
+                question = a + " + " + b + " = ";
+                answer = c + "";
+                answers[0] = c + "";
+                answers[1] = (c + Random.Range(-5, 5)) +"";
+                answers[2] = (c + Random.Range(-5, 5)) +"";
+            }
+            else
+            {
+                //Sub
+                question = c + " - " + b + " = ";
+                answer = a + "";
+                answers[0] = a + "";
+                answers[1] = (a+Random.Range(-5,5)) + "";
+                answers[2] = (a + Random.Range(-5, 5)) +"";
+            }
+        }
+        return new Entry (task, question, answer, shuffle(answers));
 	}
 
 	public Entry MulDiv(char _c){
@@ -531,6 +583,7 @@ public class MathGenerator {
 		string task = "Setze das passende (Un-)Gleichungszeichen ein:";
 		string question = "";
 		string answer = "";
+        string[] answers = new string[] { "<", ">", "=" };
 		if (_c == 'z') {
 			int a = Random.Range (-1000, 1000);
 			int b = Random.Range (-1000, 1000);
@@ -555,7 +608,7 @@ public class MathGenerator {
 				answer = "=";
 			}
 		}
-		return new Entry (task, question, answer, new string[3]);
+		return new Entry (task, question, answer, shuffle(answers));
 	}
 
 	public Entry Runden(){
@@ -658,6 +711,7 @@ public class MathGenerator {
 		string task = "Wandle um. Gib die Einheit nicht mit an. " + round + ":";
 		string question = "";
 		string answer = "";
+        string[] answers = new string[3];
 		string[] array = new string[3];
 		string[] gewicht = new string[]{ " Milligramm (mg)", " Gramm (g)", " Kilogramm (kg)", " Tonnen (t)" };//1000
 		string[] geld = new string[]{ " Cent", " Euro" };//100
@@ -697,18 +751,64 @@ public class MathGenerator {
                 if (arr == 0)
                 {
                     answer = "" + MUtility.RoundToString(a * 1000);
+                    if (Random.RandomRange(0, 2) > 0) {
+                        answers[0] = "" + MUtility.RoundToString(a * 1000);
+                        answers[1] = "" + MUtility.RoundToString(a * 100);
+                        answers[2] = "" + MUtility.RoundToString(a * 10000);
+                    } else
+                    {
+                        answers[0] = "" + MUtility.RoundToString(a * 1000);
+                        answers[1] = "" + MUtility.RoundToString(a * 100);
+                        answers[2] = "" + MUtility.RoundToString(a * 10);
+                    }
                 }
                 if (arr == 1)
                 {
                     answer = "" + MUtility.RoundToString(a * 100);
+                    if (Random.RandomRange(0, 2) > 0)
+                    {
+                        answers[0] = "" + MUtility.RoundToString(a * 1000);
+                        answers[1] = "" + MUtility.RoundToString(a * 100);
+                        answers[2] = "" + MUtility.RoundToString(a * 10000);
+                    }
+                    else
+                    {
+                        answers[0] = "" + MUtility.RoundToString(a * 1000);
+                        answers[1] = "" + MUtility.RoundToString(a * 100);
+                        answers[2] = "" + MUtility.RoundToString(a * 0.01f);
+                    }
                 }
                 if (arr == 2)
                 {
                     answer = "" + MUtility.RoundToString(a * 10);
+                    if (Random.RandomRange(0, 2) > 0)
+                    {
+                        answers[0] = "" + MUtility.RoundToString(a * 0.1f);
+                        answers[1] = "" + MUtility.RoundToString(a * 100);
+                        answers[2] = "" + MUtility.RoundToString(a * 10);
+                    }
+                    else
+                    {
+                        answers[0] = "" + MUtility.RoundToString(a * 1000);
+                        answers[1] = "" + MUtility.RoundToString(a * 100);
+                        answers[2] = "" + MUtility.RoundToString(a * 10);
+                    }
                 }
                 if (arr == 3)
                 {
                     answer = "" + MUtility.RoundToString(a * 10);
+                    if (Random.RandomRange(0, 2) > 0)
+                    {
+                        answers[0] = "" + MUtility.RoundToString(a * 0.1f);
+                        answers[1] = "" + MUtility.RoundToString(a * 100);
+                        answers[2] = "" + MUtility.RoundToString(a * 10);
+                    }
+                    else
+                    {
+                        answers[0] = "" + MUtility.RoundToString(a * 1000);
+                        answers[1] = "" + MUtility.RoundToString(a * 100);
+                        answers[2] = "" + MUtility.RoundToString(a * 10);
+                    }
                 }
             }
             else
@@ -722,18 +822,66 @@ public class MathGenerator {
                 if (arr == 0)
                 {
                     answer = "" + MUtility.RoundToString(a / 1000);
+                    if (Random.RandomRange(0, 2) > 0)
+                    {
+                        answers[0] = "" + MUtility.RoundToString(a / 0.1f);
+                        answers[1] = "" + MUtility.RoundToString(a / 100);
+                        answers[2] = "" + MUtility.RoundToString(a / 1000);
+                    }
+                    else
+                    {
+                        answers[0] = "" + MUtility.RoundToString(a / 1000);
+                        answers[1] = "" + MUtility.RoundToString(a / 100);
+                        answers[2] = "" + MUtility.RoundToString(a / 10);
+                    }
                 }
                 if (arr == 1)
                 {
                     answer = "" + MUtility.RoundToString(a / 100);
+                    if (Random.RandomRange(0, 2) > 0)
+                    {
+                        answers[0] = "" + MUtility.RoundToString(a / 0.1f);
+                        answers[1] = "" + MUtility.RoundToString(a / 100);
+                        answers[2] = "" + MUtility.RoundToString(a / 10);
+                    }
+                    else
+                    {
+                        answers[0] = "" + MUtility.RoundToString(a / 1000);
+                        answers[1] = "" + MUtility.RoundToString(a / 100);
+                        answers[2] = "" + MUtility.RoundToString(a / 10);
+                    }
                 }
                 if (arr == 2)
                 {
                     answer = "" + MUtility.RoundToString(a / 10);
+                    if (Random.RandomRange(0, 2) > 0)
+                    {
+                        answers[0] = "" + MUtility.RoundToString(a / 0.1f);
+                        answers[1] = "" + MUtility.RoundToString(a / 100);
+                        answers[2] = "" + MUtility.RoundToString(a / 10);
+                    }
+                    else
+                    {
+                        answers[0] = "" + MUtility.RoundToString(a / 1000);
+                        answers[1] = "" + MUtility.RoundToString(a / 100);
+                        answers[2] = "" + MUtility.RoundToString(a / 10);
+                    }
                 }
                 if (arr == 3)
                 {
                     answer = "" + MUtility.RoundToString(a / 10);
+                    if (Random.RandomRange(0, 2) > 0)
+                    {
+                        answers[0] = "" + MUtility.RoundToString(a / 0.1f);
+                        answers[1] = "" + MUtility.RoundToString(a / 100);
+                        answers[2] = "" + MUtility.RoundToString(a / 10);
+                    }
+                    else
+                    {
+                        answers[0] = "" + MUtility.RoundToString(a / 1000);
+                        answers[1] = "" + MUtility.RoundToString(a / 100);
+                        answers[2] = "" + MUtility.RoundToString(a / 10);
+                    }
                 }
             }
         }
@@ -894,7 +1042,7 @@ public class MathGenerator {
             }
             else
             {
-                //1 Schritte rauf
+                //n Schritte rauf
                 float a = MUtility.Round(Random.Range(100f, 10000f));
                 int i = Random.Range(0, array.Length - 1);
                 int j = Random.Range(1, 3);
@@ -945,11 +1093,34 @@ public class MathGenerator {
                 question = a + einheitA + " in" + einheitB;
                 if (arr == 0)
                 {
-                    answer = "" + MUtility.RoundToString(a * 100);
+                    answer = "" + MUtility.RoundToString(a * 100); if (Random.RandomRange(0, 2) > 0)
+                    {
+                        answers[0] = "" + MUtility.RoundToString(a * 0.1f);
+                        answers[1] = "" + MUtility.RoundToString(a * 100);
+                        answers[2] = "" + MUtility.RoundToString(a * 10);
+                    }
+                    else
+                    {
+                        answers[0] = "" + MUtility.RoundToString(a * 1000);
+                        answers[1] = "" + MUtility.RoundToString(a * 100);
+                        answers[2] = "" + MUtility.RoundToString(a * 10);
+                    }
                 }
                 if (arr == 1)
                 {
                     answer = "" + MUtility.RoundToString(a * 1000);
+                    if (Random.RandomRange(0, 2) > 0)
+                    {
+                        answers[0] = "" + MUtility.RoundToString(a * 0.1f);
+                        answers[1] = "" + MUtility.RoundToString(a * 1000);
+                        answers[2] = "" + MUtility.RoundToString(a * 10);
+                    }
+                    else
+                    {
+                        answers[0] = "" + MUtility.RoundToString(a * 1000);
+                        answers[1] = "" + MUtility.RoundToString(a * 100);
+                        answers[2] = "" + MUtility.RoundToString(a * 10);
+                    }
                 }
 
             }
@@ -964,10 +1135,34 @@ public class MathGenerator {
                 if (arr == 0)
                 {
                     answer = "" + MUtility.RoundToString(a / 100);
+                    if (Random.RandomRange(0, 2) > 0)
+                    {
+                        answers[0] = "" + MUtility.RoundToString(a / 0.1f);
+                        answers[1] = "" + MUtility.RoundToString(a / 100);
+                        answers[2] = "" + MUtility.RoundToString(a / 10);
+                    }
+                    else
+                    {
+                        answers[0] = "" + MUtility.RoundToString(a / 1000);
+                        answers[1] = "" + MUtility.RoundToString(a / 100);
+                        answers[2] = "" + MUtility.RoundToString(a / 10);
+                    }
                 }
                 if (arr == 1)
                 {
                     answer = "" + MUtility.RoundToString(a / 1000);
+                    if (Random.RandomRange(0, 2) > 0)
+                    {
+                        answers[0] = "" + MUtility.RoundToString(a / 0.1f);
+                        answers[1] = "" + MUtility.RoundToString(a / 100);
+                        answers[2] = "" + MUtility.RoundToString(a / 1000);
+                    }
+                    else
+                    {
+                        answers[0] = "" + MUtility.RoundToString(a / 1000);
+                        answers[1] = "" + MUtility.RoundToString(a / 100);
+                        answers[2] = "" + MUtility.RoundToString(a / 10);
+                    }
                 }
             }
         }
@@ -1015,7 +1210,7 @@ public class MathGenerator {
                 answer = "" + MUtility.RoundToString(ergebnis);
             }
         }
-		return new Entry(task, question, answer, new string[3]);
+		return new Entry(task, question, answer, shuffle(answers));
 	}
 
 	public Entry Binom(){
@@ -1032,17 +1227,28 @@ public class MathGenerator {
 		string answer = "";
 		int zahl = Random.Range (1, 13);
 		int art = Random.Range (0, 3);
+        string answer2;
+        string answer3;
 		if (art == 0) {
 			question = "(x + "+zahl+")^2";
 			answer = "x^2 + " + 2 * zahl + "x + " + (zahl * zahl);
-		}else if(art == 1){
+            answer2 = "x^2 - " + 2 * zahl + "x + " + (zahl * zahl);
+            answer3 = "x^2 - " + (zahl * zahl);
+        }
+        else if(art == 1){
 			question = "(x - "+zahl+")^2";
 			answer = "x^2 - " + 2 * zahl + "x + " + (zahl * zahl);
-		}else{
+            answer2 = "x^2 + " + 2 * zahl + "x + " + (zahl * zahl);
+            answer3 = "x^2 - " + (zahl * zahl);
+        }
+        else{
 			question = "(x + "+zahl+") * (x - "+zahl+")";
-			answer = "x^2 - " + (zahl * zahl); 
-		}
-		return new Entry (task, question, answer, new string[3]);
+			answer = "x^2 - " + (zahl * zahl);
+            answer3 = "x^2 + " + 2 * zahl + "x + " + (zahl * zahl);
+            answer2 = "x^2 - " + 2 * zahl + "x + " + (zahl * zahl);
+        }
+        string[] answers = new string[] { answer, answer2, answer3 };
+		return new Entry (task, question, answer, shuffle(answers));
 	}
 	public Entry BinomRückwärts(){
 		string task = "Bilde ein Binom aus:";
@@ -1171,7 +1377,10 @@ public class MathGenerator {
 		neuZ /= teiler;
 		neuN /= teiler;
 		string answer = neuZ + "/" + neuN;
-		return new Entry (task, question, answer, new string[3]);
+        string answer2 = (z1 + z2) / GGT(z1 + z2, n1 + n2) + "/" + (n1 + n2) / GGT(z1 + z2, n1 + n2);
+        string answer3 = (z1 * n2) / GGT(z1 * n2, z2 * n1) + "/" + (z2 * n1) / GGT(z1 * n2, z2 * n1);
+        string[] answers = new string[] { answer, answer2, answer3};
+        return new Entry (task, question, answer, shuffle(answers));
 	}
 
 	public Entry DivBruch(){
@@ -1187,7 +1396,10 @@ public class MathGenerator {
 		neuZ /= teiler;
 		neuN /= teiler;
 		string answer = neuZ + "/" + neuN;
-		return new Entry (task, question, answer, new string[3]);
+        string answer2 = (z1 + n1) / GGT(z1 + n1, z2 * n2) + "/" + (z2 * n2) / GGT(z1 + n1, z2 * n2);
+        string answer3 = (z1 * z2) / GGT(z1 * z2, n2 * n1) + "/" + (n2 * n1) / GGT(z1 * z2, n2 * n1);
+        string[] answers = new string[] { answer, answer2, answer3 };
+        return new Entry (task, question, answer, shuffle(answers));
 	}
 
 	public Entry SubBruch(){
@@ -1242,17 +1454,24 @@ public class MathGenerator {
 		int e2 = Random.Range (1, 7);
 		string question = "";
 		string answer = "";
-		if (Random.Range (0, 2) > 0) {
+        string answer2 = "";
+        string answer3 = "";
+        if (Random.Range (0, 2) > 0) {
 			question = "x^" + e1 + " * " + "x^" + e2;
 			answer = "x^" + (e1 + e2);
-		} else {
+            answer2 = "x^" + (e1*e2);
+            answer3 = e1 + "x^" + e2;
+        } else {
             while (b1 == b2) {
                 b2 = Random.Range(1, 7);
             }
 			question = b1+"^" + e1 + " * " + b2+"^" + e1;
 			answer = (b1*b2)+"^" + e1;
-		}
-		return new Entry (task, question, answer, new string[3]);
+            answer2 = (b1*e1)+"^"+b2;
+            answer3 = (b1 + b2) + "^" + e1;
+        }
+        string[] answers = new string[] { answer, answer2, answer3 };
+        return new Entry (task, question, answer, shuffle(answers));
 	}
 
 	public Entry DivPotenz(){
@@ -1264,14 +1483,21 @@ public class MathGenerator {
 		int bTeilbar = b1 * b2;
 		string question = "";
 		string answer = "";
-		if (Random.Range (0, 2) > 0) {
+        string answer2 = "";
+        string answer3 = "";
+        if (Random.Range (0, 2) > 0) {
 			question = "x^" + e1 + " : " + "x^" + e2;
 			answer = "x^" + (e1 - e2);
-		} else {
+            answer2 = "x^" + (e1 + e2);
+            answer3 = "x^" + (e1 / e2);
+        } else {
 			question = bTeilbar+"^" + e1 + " : " + b2+"^" + e1;
 			answer = b1+"^" + e1;
-		}
-		return new Entry (task, question, answer, new string[3]);
+            answer2 = b2 + bTeilbar + "^" + e1;
+            answer3 = bTeilbar -b2 + "^" + e1;
+        }
+        string[] answers = new string[] { answer, answer2, answer3 };
+        return new Entry (task, question, answer, shuffle(answers));
 	}
 		
 	public Entry Extremwert(){

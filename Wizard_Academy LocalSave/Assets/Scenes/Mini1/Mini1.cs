@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Mini1 : MonoBehaviour
 {
+    public int dropRarity = 30;//1/30
 
     Vector3 left = new Vector3(-1, 0, 0);
 
@@ -213,7 +214,7 @@ public class Mini1 : MonoBehaviour
     }
 
     private void DropLoot() {
-        if (Random.Range(0, 1) == 0) {
+        if (Random.Range(0, dropRarity) == 0) {
             int spawnRow = Random.RandomRange(0, 3);
             Vector3 EnemySpawnPos = new Vector3(spawn_x + 100 + Random.Range(300, 600), spawn_y - 20 - row_gap * spawnRow, 0);
             GameObject obstacle = (GameObject)Instantiate(Loot, EnemySpawnPos, transform.rotation);
