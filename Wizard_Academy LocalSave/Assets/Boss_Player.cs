@@ -5,113 +5,43 @@ using UnityEngine.SceneManagement;
 
 public class Boss_Player : MonoBehaviour
 {
-
-    int rowNr = 1;
-    int rowGap = 180;
-    int jumpHeight = 70;
-    int jumpLength = 150;
-    bool attacking = false;
-    public bool running = false;
-    Rigidbody2D Player;
     public AudioSource Audio_Hurt;
     public AudioSource Audio_Die;
-
-    Boss game;
-    Player anim;
-    float speed = 120.0f;
-
     public AudioSource music_swordslash;
 
-    // Use this for initialization
+    Boss game;
+
+    Rigidbody2D Player;
+    Player anim;
+
+    float speed = 120.0f;
+    
     void Start()
     {
-        //Animator start running animation
         GameObject.Find("Name_Display").GetComponent<Text>().text = Game.current.hero.Name;
-        //Fetch Questions
-        //Set first Question
+
         game = GameObject.Find("EventSystem").GetComponent<Boss>();
         Player = GameObject.Find("Player").GetComponent<Rigidbody2D>();
         anim = GameObject.Find("Player").GetComponent<Player>();
-        //Get Item Types
-        //anim.SetArmor(), Head
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
-        {
-            anim.Do("Continue");
-            Player.velocity = new Vector3(1, 0, 0) * speed;
-        }
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
-        {
-            RowUp();
-        }
-        if (Player.transform.position.x > 300) {
-            //if answer = correct
-            Attack();
-            Player.velocity = new Vector3(-1,0,0)*speed;
-            //move back
-        }
-        //if (Input.GetAxisRaw("Vertical")<0)
-        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
-        {
-            RowDown();
-        }
     }
 
-    public void StartAnimation()
-    {
-        anim.Do("Walk");
-        anim.Do("Pause");
-
-    }
-
-    public int GetRowNumber()
-    {
-        return rowNr;
-    }
-
-    void RowUp()
-    {
-        if (rowNr < 3)
-        {
-            rowNr++;
-            Vector3 position = this.transform.position;
-            position.y += rowGap;
-            this.transform.position = position;
-        }
-    }
-
-    void RowDown()
-    {
-        if (rowNr > 1)
-        {
-            rowNr--;
-            Vector3 position = this.transform.position;
-            position.y -= rowGap;
-            this.transform.position = position;
-        }
-    }
     void OnTriggerEnter2D(Collider2D coll)
     {
         Debug.Log("Hit: " + coll.gameObject.tag);
         switch (coll.gameObject.tag)
         {
-            case "Answer":
-                game.Answer(rowNr);
-                break;
-            case "Enemy":
+            /*case "Enemy":
                 if (attacking) Destroy(coll.gameObject);
                 else game.Hurt();
-                break;
+                break;*/
             case "Obstacle":
                 game.Hurt();
-                break;
-            case "Loot":
-                coll.GetComponentInParent<loot>().Collect();
                 break;
         }
     }
@@ -130,15 +60,15 @@ public class Boss_Player : MonoBehaviour
 
     public void Attack()
     {
-        attacking = true;
+        //attacking = true;
         music_swordslash.Play();
         anim.Do("Attack");
-        StartCoroutine(wait());
+        //StartCoroutine(wait());
     }
 
     IEnumerator wait()
     {
         yield return new WaitForSeconds(0.6f);
-        attacking = false;
+        //attacking = false;
     }
 }

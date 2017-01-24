@@ -31,6 +31,9 @@ public class Signup : MonoBehaviour {
             case 1:
                 classLevel = 8;
                 break;
+            case 2:
+                classLevel = 10;
+                break;
         }
         string heroName = GameObject.Find("Username_Input").GetComponent<InputField>().text;
         nextId = -1;

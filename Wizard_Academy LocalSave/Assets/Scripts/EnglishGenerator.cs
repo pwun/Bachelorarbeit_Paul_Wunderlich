@@ -73,8 +73,9 @@ public class EnglishGenerator {
                 e.AddRange(PickRandom(ReadFromDB("e", _class, _type, 1), 10));
                 break;
 			default:
-				//default type
-				break;
+                        //default type=boss
+                        e.AddRange(PickRandom(ReadFromDB("e", _class, _type, 1), 3));
+                        break;
 			}
 			break;
 		case 8:
@@ -153,8 +154,9 @@ public class EnglishGenerator {
                 e.AddRange(PickRandom(ReadFromDB("e", 8, _type, 1), 10));
                 break;
 			default:
-				//default type
-				break;
+                        //default type=boss
+                        e.AddRange(PickRandom(ReadFromDB("e", _class, _type, 1), 3));
+                        break;
 			}
 			break;
 		default:

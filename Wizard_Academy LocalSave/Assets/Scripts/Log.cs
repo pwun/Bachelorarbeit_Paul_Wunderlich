@@ -13,6 +13,9 @@ public static class Log {
         form.AddField("useridPost", Game.current.hero.id);
         string logString = "Aktion: " + action + ", ID: "+Game.current.hero.id+", N: " + Game.current.hero.Name + " ,C: " + Game.current.hero.ClassLevel + ", S: " + Game.current.hero.Subject + ", L: " + Game.current.hero.Level + ", XP: " + Game.current.hero.Xp + "/" + Game.current.hero.XpNeeded;
         Debug.Log("Logstring (" + logString.Length + "): " + logString);
+        //!Log offline
+        System.IO.File.AppendAllText(Application.persistentDataPath + "/log.txt", "{"+logString + "},\n");
+        //Log offline!
         form.AddField("actionPost", logString);
         WWW www = new WWW(LogURL, form);
         while (!www.isDone) {

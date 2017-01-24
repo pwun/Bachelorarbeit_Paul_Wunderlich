@@ -211,8 +211,10 @@ public class MathGenerator {
                         e.Add(AddSubMulDivPotenz());
                         break;
 			default:
-				//default type
-				break;
+                        //default type = boss
+                        e.Add(Feeling('z'));
+                        e.Add(Feeling('q'));
+                        break;
 			}
 			break;
 		case 8:
@@ -321,9 +323,11 @@ public class MathGenerator {
                         e.Add(Einmaleins('z'));
                         break;
 			default:
-				//default type
-				break;
-			}
+                        //default type = boss
+                        e.Add(Feeling('z'));
+                        e.Add(Feeling('q'));
+                        break;
+                }
 			break;
 		default:
 			//default class
@@ -1389,7 +1393,7 @@ public class MathGenerator {
 		int n1 = Random.Range (1, 13);
 		int n2 = Random.Range (1, 13);
 		string task = "Berechne (Gib den Ergebnisbruch soweit gekürzt wie möglich in folgender Form an: Zähler/Nenner):";
-		string question = " "+z1 + "      " + z2+ "\n--- + --- =\n "+n1 + "      "+n2;
+		string question = " "+z1 + "      " + z2+ "\n--- : --- =\n "+n1 + "      "+n2;
 		int neuZ = z1 * n2;
 		int neuN  = n1 * z2;
 		int teiler = GGT (neuZ, neuN);
@@ -1510,15 +1514,15 @@ public class MathGenerator {
 		string question;
 		if(a*scheitel[0]<0){
 			if ((a * (scheitel [0] * scheitel [0]) + scheitel [1]) < 0) {
-				question = a + "x^2 + " + MUtility.Betrag((2 * a * scheitel [0])) + "x - " + MUtility.Betrag((a * (scheitel [0] * scheitel [0]) + scheitel [1]));
+				question = a + "x^2 + " + MUtility.Round(MUtility.Betrag((2 * a * scheitel [0]))) + "x - " + MUtility.Round(MUtility.Betrag((a * (scheitel [0] * scheitel [0]) + scheitel [1])));
 			} else {
-				question = a + "x^2 + " + MUtility.Betrag((2 * a * scheitel [0])) + "x + " + (a * (scheitel [0] * scheitel [0]) + scheitel [1]);
+				question = a + "x^2 + " + MUtility.Round(MUtility.Betrag((2 * a * scheitel [0]))) + "x + " + MUtility.Round((a * (scheitel [0] * scheitel [0]) + scheitel [1]));
 			}
 		} else{
 			if ((a * (scheitel [0] * scheitel [0]) + scheitel [1]) < 0) {
-				question = a + "x^2 - " + MUtility.Betrag((2 * a * scheitel [0])) + "x - " + MUtility.Betrag((a * (scheitel [0] * scheitel [0]) + scheitel [1]));
+				question = a + "x^2 - " + MUtility.Round(MUtility.Betrag((2 * a * scheitel [0]))) + "x - " + MUtility.Round(MUtility.Betrag((a * (scheitel [0] * scheitel [0]) + scheitel [1])));
 			} else {
-				question = a + "x^2 - " + MUtility.Betrag((2 * a * scheitel [0])) + "x + " + (a * (scheitel [0] * scheitel [0]) + scheitel [1]);
+				question = a + "x^2 - " + MUtility.Round(MUtility.Betrag((2 * a * scheitel [0]))) + "x + " + MUtility.Round((a * (scheitel [0] * scheitel [0]) + scheitel [1]));
 			}
 		}
 		//question += "\n(Generiert aus: y = " + a + " * (x - " + scheitel [0] + ")^2 + " + scheitel [1]+" )";

@@ -94,14 +94,17 @@ public class Train : MonoBehaviour
         //Leerzeichen weg, , durch .
         string r1 = AnswerInput.text;
         string r2 = e[eNr].answer;
+        
         r1 = r1.Replace(" ", "");
         r1 = r1.Replace(',', '.');
         r1 = r1.Replace("+", "");
         r1 = r1.Replace("*", "");
+        if (r1.StartsWith("1x")) { r1 = r1.Replace("1x", "x"); }
         r2 = r2.Replace(" ", "");
         r2 = r2.Replace(',', '.');
         r2 = r2.Replace("+", "");
         r2 = r2.Replace("*", "");
+        if (r2.StartsWith("1x")) { r2 = r2.Replace("1x", "x"); }
         if (r1.Equals(r2))
         {
             Result.text = "Richtig!";
