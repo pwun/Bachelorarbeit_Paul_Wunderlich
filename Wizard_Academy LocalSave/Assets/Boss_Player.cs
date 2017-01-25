@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -13,8 +14,9 @@ public class Boss_Player : MonoBehaviour
 
     Rigidbody2D Player;
     Player anim;
+    SpriteRenderer[] renderer;
 
-    float speed = 120.0f;
+    float speed = 300.0f;
     
     void Start()
     {
@@ -23,6 +25,7 @@ public class Boss_Player : MonoBehaviour
         game = GameObject.Find("EventSystem").GetComponent<Boss>();
         Player = GameObject.Find("Player").GetComponent<Rigidbody2D>();
         anim = GameObject.Find("Player").GetComponent<Player>();
+        renderer = GameObject.Find("Player").GetComponentsInChildren<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -31,19 +34,40 @@ public class Boss_Player : MonoBehaviour
 
     }
 
-    void OnTriggerEnter2D(Collider2D coll)
+    IEnumerator OnTriggerEnter2D(Collider2D coll)
     {
         Debug.Log("Hit: " + coll.gameObject.tag);
         switch (coll.gameObject.tag)
         {
-            /*case "Enemy":
-                if (attacking) Destroy(coll.gameObject);
-                else game.Hurt();
-                break;*/
+            case "Boss":
+                Attack();
+                game.BossHurt();
+                yield return wait();
+                //Return to starting Position
+                foreach (SpriteRenderer r in renderer){r.flipX = true; }
+                Player.velocity = new Vector3(-1, 0, 0) * speed*2;
+                break;
             case "Obstacle":
-                //game.Hurt();
+                coll.GetComponent<Mini1_Obstacle>().Kill();
+                LoseLife();
+                game.PlayerHurt();
+                //Return to starting Position
+                foreach (SpriteRenderer r in renderer) { r.flipX = true; }
+                Player.velocity = new Vector3(-1, 0, 0) * speed*2;
+                break;
+            case "Startarea":
+                anim.Do("StopWalking");
+                GameObject.Find("QuestionPanel").transform.localScale = new Vector3(7, 5, 0);
+                game.animRunning = false;
+                Player.velocity = new Vector3(0, 0, 0);
+                foreach (SpriteRenderer r in renderer) { r.flipX = false; }
                 break;
         }
+    }
+
+    public void StartWalking() {
+        anim.Do("Walk");
+        Player.velocity = new Vector3(1, 0, 0) * speed;
     }
 
     public void LoseLife()
@@ -68,7 +92,7 @@ public class Boss_Player : MonoBehaviour
 
     IEnumerator wait()
     {
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.4f);
         //attacking = false;
     }
 }

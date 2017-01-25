@@ -20,8 +20,8 @@ public class Boss : MonoBehaviour
 
     int CorrectCounter;
     int IncorrectCounter;
-    int eNr;
-
+    public int eNr;
+    public bool animRunning = false;
     int bossHearts = 20;
     int playerHearts = 10;
 
@@ -33,7 +33,9 @@ public class Boss : MonoBehaviour
     string locationName = "NEUER ORT";
     string itemName = "NEUES ITEM";
 
-    float time = 900.00f;
+    float time = 90.00f;
+
+    public bool rightAnswer = true;
 
     bool running = false;
 
@@ -181,6 +183,8 @@ public class Boss : MonoBehaviour
     void Update()
     {
         if (running) { refreshUi(); }
+        if (time < 180f) { Timer.color = Color.yellow; }
+        if (time < 60f) { Timer.color = Color.red; }
         if (Input.GetKeyDown(KeyCode.Return))
         {
             if (running)
@@ -196,6 +200,9 @@ public class Boss : MonoBehaviour
     }
     public void AnswerQuestion()
     {
+        GameObject.Find("QuestionPanel").transform.localScale = new Vector3(0, 0, 0);
+        animRunning = true;
+        player.GetComponent<Boss_Player>().StartWalking();
         //Leerzeichen weg, , durch .
         string r1 = AnswerInput.text;
         string r2 = e[eNr].answer;
@@ -213,14 +220,14 @@ public class Boss : MonoBehaviour
         if (r1.Equals(r2))
         {
             Result.text = "Richtig!";
+            rightAnswer = true;
             CorrectCounter++;
-            BossHurt();
         }
         else
         {
+            rightAnswer = false;
             Result.text = "Falsch! Richtige Antwort: " + e[eNr].answer;
             IncorrectCounter++;
-            PlayerHurt();
         }
         //switch button
         NextButton.enabled = true;
@@ -233,21 +240,27 @@ public class Boss : MonoBehaviour
         //maximize ui
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
-    void BossHurt() {
+    public void BossHurt() {
         if (bossHearts - CorrectCounter > 0) {
             GameObject.Find("BossLife" + (bossHearts - CorrectCounter +1)).SetActive(false);
+            GameObject.FindGameObjectWithTag("Boss").GetComponent<Animator>().SetTrigger("Hurt");
         }
-        else { BossDie(); }
+        else {
+            GameObject.Find("BossLife" + (bossHearts - CorrectCounter + 1)).SetActive(false);
+            BossDie(); }
     }
-    void PlayerHurt() {
+    public void PlayerHurt() {
         if (playerHearts - IncorrectCounter > 0)
         {
             GameObject.Find("Life" + (playerHearts - IncorrectCounter +1)).SetActive(false);
         }
-        else { PlayerDie(); }
+        else {
+            GameObject.Find("Life" + (playerHearts - IncorrectCounter + 1)).SetActive(false);
+            PlayerDie(); }
     }
     void BossDie() {
         //Play Die Animation
+        GameObject.FindGameObjectWithTag("Boss").GetComponent<Animator>().SetBool("Idle", false);
         Close();
     }
     void PlayerDie() {
@@ -256,29 +269,31 @@ public class Boss : MonoBehaviour
     }
     public void NextQuestion()
     {
-        SubmitButton.enabled = true;
-        NextButton.enabled = false;
-        Result.text = "";
-        AnswerInput.text = "";
-        AnswerInput.Select();
-        if (eNr+1 >= e.Length)
-        {
-            //End of Test
-            if (CorrectCounter + IncorrectCounter != e.Length)
+        if (!animRunning) {
+            SubmitButton.enabled = true;
+            NextButton.enabled = false;
+            Result.text = "";
+            AnswerInput.text = "";
+            AnswerInput.Select();
+            if (eNr + 1 >= e.Length)
             {
-                Debug.Log("Error giving XP: RightAnswers:" + CorrectCounter + " + WrongAnswers:" + IncorrectCounter + " don't add up to NrAnswers:" + e.Length);
+                //End of Test
+                if (CorrectCounter + IncorrectCounter != e.Length)
+                {
+                    Debug.Log("Error giving XP: RightAnswers:" + CorrectCounter + " + WrongAnswers:" + IncorrectCounter + " don't add up to NrAnswers:" + e.Length);
+                }
+                else
+                {
+                    Close();
+                }
             }
             else
             {
-                Close();
+                eNr++;
+                refreshUi();
             }
+            SubmitButton.transform.localScale = new Vector3(0.2f, 0.3f, 1);
         }
-        else
-        {
-            eNr++;
-            refreshUi();
-        }
-        SubmitButton.transform.localScale = new Vector3(0.2f, 0.3f, 1);
     }
     void Close()
     {
