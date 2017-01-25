@@ -12,6 +12,8 @@ public class Inventory : MonoBehaviour {
     public GameObject inventorySlot;
     public GameObject inventoryItem;
 
+    public Button colorR1;
+
     int slotAmount;
     public List<Item> items = new List<Item>();
     public List<GameObject> slots = new List<GameObject>();
@@ -24,7 +26,73 @@ public class Inventory : MonoBehaviour {
         slotAmount = 20;
         inventoryPanel = GameObject.Find("Inventory Panel");
         slotPanel = inventoryPanel.transform.FindChild("Slot Panel").gameObject;
-        for(int i = 0; i < slotAmount; i++)
+        GameObject.Find("Color_Reset").GetComponent<Button>().onClick.AddListener(() => { Game.current.hero.color = 0; SaveLoad.Save(); GameObject.Find("Player").GetComponent<Player>().setColor(); });
+        if (Game.current.hero.achievements.Contains(1)){
+            GameObject.Find("Color_R1").GetComponent<Button>().onClick.AddListener(() => { Game.current.hero.color = 1; SaveLoad.Save(); GameObject.Find("Player").GetComponent<Player>().setColor(); });
+        }else{Destroy(GameObject.Find("Color_R1"));}
+        if (Game.current.hero.achievements.Contains(1))
+        {
+            GameObject.Find("Color_R1").GetComponent<Button>().onClick.AddListener(() => { Game.current.hero.color = 1; SaveLoad.Save(); GameObject.Find("Player").GetComponent<Player>().setColor(); });
+        }
+        else { Destroy(GameObject.Find("Color_R1")); }
+        if (Game.current.hero.achievements.Contains(2))
+        {
+            GameObject.Find("Color_R2").GetComponent<Button>().onClick.AddListener(() => { Game.current.hero.color = 2; SaveLoad.Save(); GameObject.Find("Player").GetComponent<Player>().setColor(); });
+        }
+        else { Destroy(GameObject.Find("Color_R2")); }
+        if (Game.current.hero.achievements.Contains(3))
+        {
+            GameObject.Find("Color_R3").GetComponent<Button>().onClick.AddListener(() => { Game.current.hero.color = 3; SaveLoad.Save(); GameObject.Find("Player").GetComponent<Player>().setColor(); });
+        }
+        else { Destroy(GameObject.Find("Color_R3")); }
+        if (Game.current.hero.achievements.Contains(4))
+        {
+            GameObject.Find("Color_R4").GetComponent<Button>().onClick.AddListener(() => { Game.current.hero.color = 4; SaveLoad.Save(); GameObject.Find("Player").GetComponent<Player>().setColor(); });
+        }
+        else { Destroy(GameObject.Find("Color_R4")); }
+        if (Game.current.hero.achievements.Contains(5))
+        {
+            GameObject.Find("Color_B1").GetComponent<Button>().onClick.AddListener(() => { Game.current.hero.color = 5; SaveLoad.Save(); GameObject.Find("Player").GetComponent<Player>().setColor(); });
+        }
+        else { Destroy(GameObject.Find("Color_B1")); }
+        if (Game.current.hero.achievements.Contains(6))
+        {
+            GameObject.Find("Color_B2").GetComponent<Button>().onClick.AddListener(() => { Game.current.hero.color = 6; SaveLoad.Save(); GameObject.Find("Player").GetComponent<Player>().setColor(); });
+        }
+        else { Destroy(GameObject.Find("Color_B2")); }
+        if (Game.current.hero.achievements.Contains(7))
+        {
+            GameObject.Find("Color_B3").GetComponent<Button>().onClick.AddListener(() => { Game.current.hero.color = 7; SaveLoad.Save(); GameObject.Find("Player").GetComponent<Player>().setColor(); });
+        }
+        else { Destroy(GameObject.Find("Color_B3")); }
+        if (Game.current.hero.achievements.Contains(8))
+        {
+            GameObject.Find("Color_B4").GetComponent<Button>().onClick.AddListener(() => { Game.current.hero.color = 8; SaveLoad.Save(); GameObject.Find("Player").GetComponent<Player>().setColor(); });
+        }
+        else { Destroy(GameObject.Find("Color_B4")); }
+        if (Game.current.hero.achievements.Contains(9))
+        {
+            GameObject.Find("Color_S1").GetComponent<Button>().onClick.AddListener(() => { Game.current.hero.color = 9; SaveLoad.Save(); GameObject.Find("Player").GetComponent<Player>().setColor(); });
+        }
+        else { Destroy(GameObject.Find("Color_S1")); }
+        if (Game.current.hero.achievements.Contains(10))
+        {
+            GameObject.Find("Color_S2").GetComponent<Button>().onClick.AddListener(() => { Game.current.hero.color = 10; SaveLoad.Save(); GameObject.Find("Player").GetComponent<Player>().setColor(); });
+        }
+        else { Destroy(GameObject.Find("Color_S2")); }
+        if (Game.current.hero.achievements.Contains(11))
+        {
+            GameObject.Find("Color_S3").GetComponent<Button>().onClick.AddListener(() => { Game.current.hero.color = 11; SaveLoad.Save(); GameObject.Find("Player").GetComponent<Player>().setColor(); });
+        }
+        else { Destroy(GameObject.Find("Color_S3")); }
+        if (Game.current.hero.achievements.Contains(12))
+        {
+            GameObject.Find("Color_S4").GetComponent<Button>().onClick.AddListener(() => { Game.current.hero.color = 12; SaveLoad.Save(); GameObject.Find("Player").GetComponent<Player>().setColor(); });
+        }
+        else { Destroy(GameObject.Find("Color_S4")); }        
+
+
+        for (int i = 0; i < slotAmount; i++)
         {
             items.Add(new Item());
             slots.Add(Instantiate(inventorySlot));

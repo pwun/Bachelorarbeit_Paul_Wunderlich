@@ -33,9 +33,15 @@ public class Boss : MonoBehaviour
     string locationName = "NEUER ORT";
     string itemName = "NEUES ITEM";
 
-    float time = 90.00f;
+    float time = 600.00f;
 
     public bool rightAnswer = true;
+
+    public GameObject boss1;
+    public GameObject boss2;
+    public GameObject boss3;
+    public GameObject boss4;
+
 
     bool running = false;
 
@@ -46,7 +52,6 @@ public class Boss : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
-        boss = GameObject.Find("Boss");
         Timer = (Text)GameObject.Find("Timer").GetComponent<Text>();
         SaveLoad.Load();
         chooseBg();
@@ -56,25 +61,31 @@ public class Boss : MonoBehaviour
                 bossName = "Forstos - Waldmagier";
                 locationName = "die dunklen Sümpfe von Sumpfus";
                 itemName = "die Robe des Waldmönchs";
+                boss = Instantiate(boss1, new Vector3(960, -282, 90), new Quaternion(0, 0, 0,0));
                 break;
             case 6:
                 bossName = "Sumpfus - Giftmagier";
                 locationName = "die eisige Bergkette von Frostos";
                 itemName = "das Kettenhemd des Kriegers";
+                boss = Instantiate(boss2, new Vector3(960, -282, 90), new Quaternion(0, 0, 0, 0));
                 break;
             case 9:
                 bossName = "Frostos - Eismagier";
                 locationName = "den kochenden Magmarkrater";
                 itemName = "die Plattenrüstung des Ritters";
+                boss = Instantiate(boss3, new Vector3(960, -282, 90), new Quaternion(0, 0, 0, 0));
                 break;
             case 12:
                 bossName = "Magmarus - Lavadrache";
                 locationName = "alle Regionen";
                 itemName = "das verzierte Kettenhemd eines Helden";
+                boss = Instantiate(boss4, new Vector3(960, -282, 90), new Quaternion(0, 0, 0, 0));
                 break;
             default:
                 bossName = "Forstos - Waldmagier";
                 locationName = "die dunklen Sümpfe von Sumpfus";
+                itemName = "nichts";
+                boss = Instantiate(boss1, new Vector3(960, -282, 90), new Quaternion(0, 0, 0, 0));
                 break;
         }
         GameObject.Find("Title").GetComponent<Text>().text = bossName;

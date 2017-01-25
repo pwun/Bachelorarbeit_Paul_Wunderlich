@@ -262,6 +262,7 @@ public class Mini1 : MonoBehaviour
     public void SafeAndQuit()
     {
         Game.current.hero.AddXp(xp);
+        if (Lifes == 3) { Game.current.hero.AddAchievement(0); }
         SaveLoad.Save();
         SceneManager.LoadScene("Main");
     }

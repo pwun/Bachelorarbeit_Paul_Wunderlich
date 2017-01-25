@@ -12,6 +12,11 @@ public class Character
     public List<int> SexPos, BodyPos, HairPos, FeetPos, LegsPos, TorsoPos, BeltPos, ArmsPos, HandsPos, WeaponPos, HelmetPos;
     public List<int> Unlocked;
     public int[] XpList = {200, 200, 400, 600, 1000, 1200, 1400, 1800, 2100, 2400, 2800, 3200, 3600, 5000};
+    public int color;
+    public List<int> achievements;
+    public int[] achievementCounter;
+    public int[] achievementLevel;
+    public int[] achievementMax;
 
     public Character(string name, int classLevel, int _id)
     {
@@ -25,6 +30,32 @@ public class Character
         Lifes = 3;
         initItemPos();
         initItems();
+        color = 0;
+        achievements = new List<int>();
+        achievementCounter = new int[] { 0, 0, 0 };
+        achievementLevel = new int[] { 0, 0, 0 };
+        achievementMax = new int[] { 3, 5, 10, 15 };
+    }
+
+    public void AddAchievement(int i) {
+        if (achievementLevel[i] == achievementMax.Length - 1 && achievementCounter[i] >= achievementMax[achievementLevel[i]]) {/*Do nothing if max stats*/ }
+        else
+        {
+            achievementCounter[i]++;
+            if (achievementCounter[i] == achievementMax[achievementLevel[i]])
+            {
+                UnlockAchievement(i,achievementLevel[i]);
+                achievementLevel[i]++;
+                achievementCounter[i] = 0;
+            }
+        }
+    }
+
+    private void UnlockAchievement(int _a, int _lvl) {
+        int nr = (_lvl + 1) + (_a * 4);
+        if (!achievements.Contains(nr)) {
+            achievements.Add(nr);
+        }
     }
 
     public void AddXp(int newXp)

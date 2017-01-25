@@ -158,6 +158,7 @@ public class Train : MonoBehaviour
         GameObject.Find("EndText").GetComponent<Text>().text = "Du hast " + CorrectCounter + " Fragen von " + e.Length + " richtig beantwortet." + System.Environment.NewLine +
             "Als Belohnung bekommst du " + GetLeveledXp() + " Erfahrungspunkte.";
         Game.current.hero.AddXp(GetLeveledXp());
+        if (IncorrectCounter == 0) { Game.current.hero.AddAchievement(1); }
         SaveLoad.Save();
         int answer = -1;
         answer = Log.LogEntry("Train " + GetLeveledXp() + "xp, " + CorrectCounter + "/" + e.Length + " richtig");
