@@ -32,30 +32,30 @@ public class Inventory : MonoBehaviour {
         }
         if (Game.current.hero.Level > 3)
         {
-            if (!Game.current.hero.Unlocked.Contains(2))
-            {
-                Game.current.hero.Unlocked.Add(2);
-            }
-        }
-        if (Game.current.hero.Level > 6)
-        {
-            if (!Game.current.hero.Unlocked.Contains(3))
-            {
-                Game.current.hero.Unlocked.Add(3);
-            }
-        }
-        if (Game.current.hero.Level > 9)
-        {
             if (!Game.current.hero.Unlocked.Contains(4))
             {
                 Game.current.hero.Unlocked.Add(4);
             }
         }
-        if (Game.current.hero.Level > 12)
+        if (Game.current.hero.Level > 6)
+        {
+            if (!Game.current.hero.Unlocked.Contains(2))
+            {
+                Game.current.hero.Unlocked.Add(2);
+            }
+        }
+        if (Game.current.hero.Level > 9)
         {
             if (!Game.current.hero.Unlocked.Contains(5))
             {
                 Game.current.hero.Unlocked.Add(5);
+            }
+        }
+        if (Game.current.hero.Level > 12)
+        {
+            if (!Game.current.hero.Unlocked.Contains(3))
+            {
+                Game.current.hero.Unlocked.Add(3);
             }
         }
         SaveLoad.Save();

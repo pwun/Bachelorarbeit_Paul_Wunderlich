@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -11,8 +12,10 @@ public class Main : MonoBehaviour {
     Text xp_e_display;
     Text xp_m_display;
     Text life_display;
+    List<int> bossLevels = new List<int>();
 	// Use this for initialization
 	void Start () {
+        bossLevels.AddRange(new int[]{ 3,6,9,12});
         SaveLoad.Load();
         Game.current = SaveLoad.savedGames[SaveLoad.savedGames.Count - 1];
         initUiElements();
@@ -23,6 +26,17 @@ public class Main : MonoBehaviour {
             { //Wait
             }
             SaveLoad.Save(); SceneManager.LoadScene("Startmenu"); });
+        if (Game.current.hero.Xp == Game.current.hero.XpNeeded && bossLevels.Contains(Game.current.hero.Level))
+        {
+            //Unlock Boss Level
+            GameObject.Find("Boss_Button").GetComponent<Button>().interactable = true;
+            GameObject.Find("Boss_Button").GetComponent<UnityEngine.UI.Image>().color = Color.green;
+        }
+        else {
+            //Lock Boss Level
+            GameObject.Find("Boss_Button").GetComponent<UnityEngine.UI.Image>().color = Color.red;
+            GameObject.Find("Boss_Button").GetComponent<Button>().interactable = false;
+        }
         GameObject.Find("Train_Button").GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("TrainSetup"); });
         GameObject.Find("FreeTrain_Button").GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("FreeTrainSetup"); });
         GameObject.Find("Mini1_Button").GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("Mini1_Start"); });

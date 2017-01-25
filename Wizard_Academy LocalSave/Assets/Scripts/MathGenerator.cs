@@ -198,22 +198,77 @@ public class MathGenerator {
 				break;
 			case 2:
                 //typ 2: mini1
-                e.Add(Einmaleins('n'));
-                e.Add(Einmaleins('z'));
-                        e.Add(Feeling('z'));
-                        e.Add(Feeling('q'));
-                        e.Add(Maßeinheit(0));
-                        e.Add(Maßeinheit(4));
+                switch (Game.current.hero.Level) {
+                    case 1:
+                    case 2:
+                    case 3:
                         e.Add(AddSub('m'));
-                        e.Add(MulBruch());
-                        e.Add(DivBruch());
-                        e.Add(BinomVorwärts());
-                        e.Add(AddSubMulDivPotenz());
+                        e.Add(AddSub('m'));
+                        e.Add(Maßeinheit(0));
+                        e.Add(Maßeinheit(0));
+                        e.Add(Einmaleins('n'));
+                        e.Add(Einmaleins('n'));
+                        e.Add(Einmaleins('z'));
+                        e.Add(Feeling('z'));
                         break;
+                    case 4:
+                    case 5:
+                    case 6:
+                        e.Add(AddSub('m'));
+                        e.Add(AddSub('m'));
+                        e.Add(Maßeinheit(0));
+                        e.Add(Maßeinheit(0));
+                        e.Add(Einmaleins('n'));
+                        e.Add(Einmaleins('n'));
+                        e.Add(Einmaleins('z'));
+                        e.Add(Einmaleins('z'));
+                        e.Add(Feeling('z'));
+                        break;
+                    case 7:
+                    case 8:
+                    case 9:
+                        e.Add(AddSub('m'));
+                        e.Add(AddSub('m'));
+                        e.Add(AddSub('m'));
+                        e.Add(Maßeinheit(0));
+                        e.Add(Maßeinheit(0));
+                        e.Add(Einmaleins('n'));
+                        e.Add(Einmaleins('z'));
+                        e.Add(Einmaleins('z'));
+                        e.Add(Feeling('q'));
+                        e.Add(Feeling('q'));
+                        break;
+                    default://10+
+                        e.Add(AddSub('m'));
+                        e.Add(AddSub('m'));
+                        e.Add(AddSub('m'));
+                        e.Add(AddSub('m'));
+                        e.Add(Maßeinheit(0));
+                        e.Add(Maßeinheit(0));
+                        e.Add(Maßeinheit(0));
+                        e.Add(Einmaleins('z'));
+                        e.Add(Einmaleins('z'));
+                        e.Add(Einmaleins('z'));
+                        e.Add(Feeling('q'));
+                        break;
+                }break;
 			default:
                         //default type = boss
                         e.Add(Feeling('z'));
                         e.Add(Feeling('q'));
+                        e.Add(Feeling('z'));
+                        e.Add(Feeling('q'));
+                        e.Add(Feeling('z'));
+                        e.Add(Feeling('q'));
+                        e.Add(Feeling('z'));
+                        e.Add(Feeling('q'));
+                        e.Add(Feeling('z'));
+                        e.Add(Feeling('q'));
+                        e.Add(Feeling('z'));
+                        e.Add(Feeling('q'));
+                        e.Add(Feeling('z'));
+                        e.Add(Feeling('q'));
+                        e.Add(Feeling('z'));
                         break;
 			}
 			break;
@@ -310,22 +365,79 @@ public class MathGenerator {
 				}
 				break;
 			case 2:
-                        //typ 2: mini1
-                        e.Add(Einmaleins('z'));
-                        e.Add(Einmaleins('z'));
-                        e.Add(Einmaleins('z'));
-                        e.Add(Einmaleins('z'));
-                        e.Add(Einmaleins('z'));
-                        e.Add(Einmaleins('z'));
-                        e.Add(Einmaleins('z'));
-                        e.Add(Einmaleins('z'));
-                        e.Add(Einmaleins('z'));
-                        e.Add(Einmaleins('z'));
+                //typ 2: mini1
+                switch (Game.current.hero.Level)
+                {
+                    case 1:
+                    case 2:
+                    case 3:
+                                e.Add(MulBruch());
+                                e.Add(MulBruch());
+                                e.Add(AddSub('m'));
+                                e.Add(AddSub('m'));
+                                e.Add(AddSub('m'));
+                                e.Add(Maßeinheit(4));
+                                e.Add(Einmaleins('z'));
+                                e.Add(Einmaleins('z'));
                         break;
-			default:
+                    case 4:
+                    case 5:
+                    case 6:
+                                e.Add(DivBruch());
+                                e.Add(MulBruch());
+                                e.Add(MulBruch());
+                                e.Add(AddSub('m'));
+                                e.Add(AddSub('m'));
+                                e.Add(MulPotenz());
+                                e.Add(Maßeinheit(4));
+                                e.Add(Maßeinheit(4));
+                                e.Add(Einmaleins('z'));
+                                break;
+                    case 7:
+                    case 8:
+                    case 9:
+                                e.Add(BinomVorwärts());
+                                e.Add(BinomVorwärts());
+                                e.Add(DivBruch());
+                                e.Add(DivBruch());
+                                e.Add(MulBruch());
+                                e.Add(AddSub('m'));
+                                e.Add(MulPotenz());
+                                e.Add(MulPotenz());
+                                e.Add(Maßeinheit(4));
+                                e.Add(Einmaleins('z'));
+                                break;
+                    default://10+
+                                e.Add(BinomVorwärts());
+                                e.Add(BinomVorwärts());
+                                e.Add(BinomVorwärts());
+                                e.Add(DivBruch());
+                                e.Add(DivBruch());
+                                e.Add(MulBruch());
+                                e.Add(AddSub('m'));
+                                e.Add(MulPotenz());
+                                e.Add(MulPotenz());
+                                e.Add(Maßeinheit(4));
+                                e.Add(Einmaleins('z'));
+                                break;
+                }break;
+                    default:
                         //default type = boss
                         e.Add(Feeling('z'));
                         e.Add(Feeling('q'));
+                        e.Add(Feeling('z'));
+                        e.Add(Feeling('q'));
+                        e.Add(Feeling('z'));
+                        e.Add(Feeling('q'));
+                        e.Add(Feeling('z'));
+                        e.Add(Feeling('q'));
+                        e.Add(Feeling('z'));
+                        e.Add(Feeling('q'));
+                        e.Add(Feeling('z'));
+                        e.Add(Feeling('q'));
+                        e.Add(Feeling('z'));
+                        e.Add(Feeling('q'));
+                        e.Add(Feeling('z'));
                         break;
                 }
 			break;

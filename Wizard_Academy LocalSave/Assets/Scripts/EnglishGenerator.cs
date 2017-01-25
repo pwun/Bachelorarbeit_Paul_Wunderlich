@@ -74,7 +74,7 @@ public class EnglishGenerator {
                 break;
 			default:
                         //default type=boss
-                        e.AddRange(PickRandom(ReadFromDB("e", _class, _type, 1), 3));
+                        e.AddRange(PickRandom(ReadFromDB("e", _class, _type, 1), 15));
                         break;
 			}
 			break;
@@ -155,7 +155,7 @@ public class EnglishGenerator {
                 break;
 			default:
                         //default type=boss
-                        e.AddRange(PickRandom(ReadFromDB("e", _class, _type, 1), 3));
+                        e.AddRange(PickRandom(ReadFromDB("e", 8, _type, 1), 15));
                         break;
 			}
 			break;
@@ -210,6 +210,7 @@ public class EnglishGenerator {
 
 	List<Entry> PickRandom(Entry[] data, int nr)
 	{
+        Debug.Log("Pick Random of Length:" + data.Length);
 		List<Entry> result = new List<Entry>();
 		//if (nr > data.Length) return result;
 		List<int> indexes = new List<int>();

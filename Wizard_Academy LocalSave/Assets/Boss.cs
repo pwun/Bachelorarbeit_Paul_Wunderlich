@@ -6,11 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class Boss : MonoBehaviour
 {
-    Text ExerciseCounter;
     Text Question;
     Text Task;
     Text Result;
     InputField AnswerInput;
+    Text Timer;
 
     public AudioSource Audio_False;
     public AudioSource Audio_NextPage;
@@ -22,6 +22,19 @@ public class Boss : MonoBehaviour
     int IncorrectCounter;
     int eNr;
 
+    int bossHearts = 20;
+    int playerHearts = 10;
+
+    GameObject player;
+    GameObject boss;
+    GameObject bg;
+
+    string bossName ="BOSS";
+    string locationName = "NEUER ORT";
+    string itemName = "NEUES ITEM";
+
+    float time = 900.00f;
+
     bool running = false;
 
     Entry[] e1 = new Entry[0];
@@ -30,18 +43,49 @@ public class Boss : MonoBehaviour
 
     void Start()
     {
+        player = GameObject.Find("Player");
+        boss = GameObject.Find("Boss");
+        Timer = (Text)GameObject.Find("Timer").GetComponent<Text>();
         SaveLoad.Load();
+        chooseBg();
+        switch (Game.current.hero.Level)
+        {
+            case 3:
+                bossName = "Forstos - Waldmagier";
+                locationName = "die dunklen Sümpfe von Sumpfus";
+                itemName = "die Robe des Waldmönchs";
+                break;
+            case 6:
+                bossName = "Sumpfus - Giftmagier";
+                locationName = "die eisige Bergkette von Frostos";
+                itemName = "das Kettenhemd des Kriegers";
+                break;
+            case 9:
+                bossName = "Frostos - Eismagier";
+                locationName = "den kochenden Magmarkrater";
+                itemName = "die Plattenrüstung des Ritters";
+                break;
+            case 12:
+                bossName = "Magmarus - Lavadrache";
+                locationName = "alle Regionen";
+                itemName = "das verzierte Kettenhemd eines Helden";
+                break;
+            default:
+                bossName = "Forstos - Waldmagier";
+                locationName = "die dunklen Sümpfe von Sumpfus";
+                break;
+        }
+        GameObject.Find("Title").GetComponent<Text>().text = bossName;
         EnglishGenerator EnglishGen = new EnglishGenerator();
         MathGenerator MathGen = new MathGenerator();
         CorrectCounter = 0;
         IncorrectCounter = 0;
-        GameObject.Find("NameDisplay").GetComponent<Text>().text = Game.current.hero.Name;
+        GameObject.Find("Name_Display").GetComponent<Text>().text = Game.current.hero.Name;
         e1 = EnglishGen.GenerateList(Game.current.hero.ClassLevel, Game.current.hero.Level, 3);
         e2 = MathGen.GenerateList(Game.current.hero.ClassLevel, Game.current.hero.Level, 3);
         while (e1.Length < 2 || e2.Length < 2)
         {
             //Wait
-            Debug.Log("Loading...");
         }
         List<Entry> ePuffer = new List<Entry>();
         ePuffer.AddRange(e1);
@@ -50,6 +94,47 @@ public class Boss : MonoBehaviour
         Debug.Log("Done! " + e.Length + " Entries received");
         eNr = 0;
         initUi();
+    }
+
+    void chooseBg() {
+        switch (Game.current.hero.Level)
+        {
+            case 4:
+            case 5:
+            case 6:
+                GameObject.Find("background").SetActive(false);
+                GameObject.Find("background3").SetActive(false);
+                GameObject.Find("background4").SetActive(false);
+                GameObject.Find("background2").SetActive(true);
+                bg = GameObject.Find("background2");
+                break;
+            case 7:
+            case 8:
+            case 9:
+                GameObject.Find("background").SetActive(false);
+                GameObject.Find("background2").SetActive(false);
+                GameObject.Find("background4").SetActive(false);
+                GameObject.Find("background3").SetActive(true);
+                bg = GameObject.Find("background3");
+                break;
+            case 10:
+            case 11:
+            case 12:
+                GameObject.Find("background").SetActive(false);
+                GameObject.Find("background2").SetActive(false);
+                GameObject.Find("background3").SetActive(false);
+                GameObject.Find("background4").SetActive(true);
+                bg = GameObject.Find("background4");
+                break;
+            default:
+                GameObject.Find("background2").SetActive(false);
+                GameObject.Find("background3").SetActive(false);
+                GameObject.Find("background4").SetActive(false);
+                GameObject.Find("background").SetActive(true);
+                bg = GameObject.Find("background");
+                break;
+        }
+        bg.GetComponent<scroll>().speed = 0;
     }
 
     private Entry[] shuffle(Entry[] arr) {
@@ -66,7 +151,6 @@ public class Boss : MonoBehaviour
 
     void initUi()
     {
-        ExerciseCounter = GameObject.Find("ExerciseCounter").GetComponent<Text>();
         Question = GameObject.Find("Question").GetComponent<Text>();
         Task = GameObject.Find("Task").GetComponent<Text>();
         Result = GameObject.Find("Result").GetComponent<Text>();
@@ -80,14 +164,17 @@ public class Boss : MonoBehaviour
             NextQuestion();
         });
         AnswerInput.Select();
-        running = true;
-        Debug.Log("Game is running");
         Log.LogEntry("Boss start");
         refreshUi();
     }
     void refreshUi()
     {
-        ExerciseCounter.text = (eNr + 1) + "/" + e.Length;
+        time -= Time.deltaTime;
+        int min = (int)(time / 60);
+        Timer.text = min+":"+(int)(time-min*60) + "Min";
+        if (time <= 0) {
+            PlayerDie();
+        }
         Question.text = e[eNr].question;
         Task.text = e[eNr].task;
     }
@@ -96,8 +183,15 @@ public class Boss : MonoBehaviour
         if (running) { refreshUi(); }
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            if (GameObject.Find("Submit_Question").GetComponent<Button>().enabled) { AnswerQuestion(); }
-            else { NextQuestion(); }
+            if (running)
+            {
+                if (SubmitButton.enabled) { AnswerQuestion(); }
+                else { NextQuestion(); }
+            }
+            else {
+                if (CorrectCounter > 0 || IncorrectCounter > 0) { }
+                else { Begin(); }
+            }
         }
     }
     public void AnswerQuestion()
@@ -125,7 +219,6 @@ public class Boss : MonoBehaviour
         else
         {
             Result.text = "Falsch! Richtige Antwort: " + e[eNr].answer;
-            Audio_False.Play();
             IncorrectCounter++;
             PlayerHurt();
         }
@@ -140,17 +233,35 @@ public class Boss : MonoBehaviour
         //maximize ui
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
-    void BossHurt() { }
-    void PlayerHurt() { }
+    void BossHurt() {
+        if (bossHearts - CorrectCounter > 0) {
+            GameObject.Find("BossLife" + (bossHearts - CorrectCounter +1)).SetActive(false);
+        }
+        else { BossDie(); }
+    }
+    void PlayerHurt() {
+        if (playerHearts - IncorrectCounter > 0)
+        {
+            GameObject.Find("Life" + (playerHearts - IncorrectCounter +1)).SetActive(false);
+        }
+        else { PlayerDie(); }
+    }
+    void BossDie() {
+        //Play Die Animation
+        Close();
+    }
+    void PlayerDie() {
+        //Play Die Animation
+        Close();
+    }
     public void NextQuestion()
     {
-        Audio_NextPage.Play();
         SubmitButton.enabled = true;
         NextButton.enabled = false;
         Result.text = "";
         AnswerInput.text = "";
         AnswerInput.Select();
-        if (eNr + 1 >= e.Length)
+        if (eNr+1 >= e.Length)
         {
             //End of Test
             if (CorrectCounter + IncorrectCounter != e.Length)
@@ -167,34 +278,42 @@ public class Boss : MonoBehaviour
             eNr++;
             refreshUi();
         }
-        SubmitButton.transform.localScale = new Vector3(1, 1, 1);
+        SubmitButton.transform.localScale = new Vector3(0.2f, 0.3f, 1);
     }
     void Close()
     {
-        AnswerInput.transform.position = new Vector3(-500, -500, -20);
-        Destroy(Question);
-        Destroy(Task);
-        GameObject.Find("Endscreen").transform.position = new Vector3(0, 0, 1);
-        GameObject.Find("EndText").GetComponent<Text>().text = "Du hast den Boss besiegt und kannst nun in eine neue Region." + System.Environment.NewLine +
-            "Als Belohnung bekommst du ein Item";//GetItem//set text of item
-                                                 //Game.current.hero.AddXp(GetLeveledXp());
-        //Level up
+        running = false;
+        Destroy(GameObject.Find("QuestionPanel"));
+        GameObject.Find("Endscreen").transform.localScale = new Vector3(1, 1, 1);
+        if (playerHearts - IncorrectCounter > 0 && bossHearts - CorrectCounter <= 0) {
+            GameObject.Find("RewardText").GetComponent<Text>().text = "Du hast "+bossName+" besiegt und kannst nun in "+ locationName + System.Environment.NewLine +
+            "Als Belohnung bekommst du "+itemName;
+            Game.current.hero.LevelUp();
+        }
+        else {
+            GameObject.Find("RewardText").GetComponent<Text>().text = bossName+" hat dich besiegt! Übe weiter im Trainingsmodus, oder versuche es gleich nochmal. Du bekommst keine Erfahrung, bis "+bossName+" besiegt ist.";
+        }
+
         SaveLoad.Save();
         int answer = -1;
-        answer = Log.LogEntry("Train " + GetLeveledXp() + "xp, " + CorrectCounter + "/" + e.Length + " richtig");
+        answer = Log.LogEntry("Boss at Lvl " + Game.current.hero.Level + " " + CorrectCounter + "/" + e.Length + " richtig");
         while (answer < 0)
         { //Wait
         }
-        GameObject.Find("SaveQuit").GetComponent<Button>().onClick.AddListener(() => { Save(); });
+        GameObject.Find("SaveAndQuitButton").GetComponent<Button>().onClick.AddListener(() => { Save(); });
+        GameObject.Find("SaveAndQuitButton").GetComponent<Button>().interactable = true;
     }
     void Save()
     {
-        GameObject.Find("SaveQuit").GetComponent<Button>().interactable = false;
+        GameObject.Find("SaveAndQuitButton").GetComponent<Button>().interactable = false;
         SceneManager.LoadScene("Main");
     }
 
     public void Begin()
     {
         Destroy(GameObject.Find("Start"));
+        time = time += Time.deltaTime;
+        running = true;
+        Debug.Log("Game is running");
     }
 }

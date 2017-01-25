@@ -41,7 +41,7 @@ public class Boss_Player : MonoBehaviour
                 else game.Hurt();
                 break;*/
             case "Obstacle":
-                game.Hurt();
+                //game.Hurt();
                 break;
         }
     }

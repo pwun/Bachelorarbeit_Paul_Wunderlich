@@ -32,11 +32,24 @@ public class Character
         Xp += newXp;
         if (Xp >= XpNeeded)
         {
-            Level++;
-            Xp -= XpNeeded;
-            XpNeeded = XpList[Level];
-            Coins += 3;
+            if (Level == 3 || Level == 6 || Level == 9 || Level == 12) {
+                //BossKampf
+                Xp = XpNeeded;
+            }
+            else {
+                Level++;
+                Xp -= XpNeeded;
+                XpNeeded = XpList[Level];
+                Coins += 3;
+            }
         }
+    }
+
+    public void LevelUp() {
+        Level++;
+        Xp = 0;
+        XpNeeded = XpList[Level];
+        Coins += 3;
     }
 
     public void initItems()

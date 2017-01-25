@@ -57,6 +57,15 @@ public class Mini1 : MonoBehaviour
     {
         SaveLoad.Load();
         switch (Game.current.hero.Level) {
+            case 1:
+            case 2:
+            case 3:
+                GameObject.Find("background2").SetActive(false);
+                GameObject.Find("background3").SetActive(false);
+                GameObject.Find("background4").SetActive(false);
+                GameObject.Find("background").SetActive(true);
+                bg = GameObject.Find("background");
+                break;
             case 4:
             case 5:
             case 6:
@@ -84,13 +93,41 @@ public class Mini1 : MonoBehaviour
                 GameObject.Find("background4").SetActive(true);
                 bg = GameObject.Find("background4");
                 break;
-            default:
-                GameObject.Find("background2").SetActive(false);
-                GameObject.Find("background3").SetActive(false);
-                GameObject.Find("background4").SetActive(false);
-                GameObject.Find("background").SetActive(true);
-                bg = GameObject.Find("background");
+            default://over lvl 12 -> random bg
+                switch (Random.Range(0, 4)) {
+                    case 0:
+                        GameObject.Find("background2").SetActive(false);
+                        GameObject.Find("background3").SetActive(false);
+                        GameObject.Find("background4").SetActive(false);
+                        GameObject.Find("background").SetActive(true);
+                        bg = GameObject.Find("background");
+                        break;
+                        break;
+                    case 1:
+                        GameObject.Find("background").SetActive(false);
+                        GameObject.Find("background3").SetActive(false);
+                        GameObject.Find("background4").SetActive(false);
+                        GameObject.Find("background2").SetActive(true);
+                        bg = GameObject.Find("background2");
+                        break;
+                        break;
+                    case 2:
+                        GameObject.Find("background").SetActive(false);
+                        GameObject.Find("background2").SetActive(false);
+                        GameObject.Find("background4").SetActive(false);
+                        GameObject.Find("background3").SetActive(true);
+                        bg = GameObject.Find("background3");
+                        break;
+                    case 3:
+                        GameObject.Find("background").SetActive(false);
+                        GameObject.Find("background2").SetActive(false);
+                        GameObject.Find("background3").SetActive(false);
+                        GameObject.Find("background4").SetActive(true);
+                        bg = GameObject.Find("background4");
+                        break;
+                }
                 break;
+                
         }
         bg.GetComponent<scroll>().speed = 0;
         Question = GameObject.Find("Question").GetComponent<Text>();
