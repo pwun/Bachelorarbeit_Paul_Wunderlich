@@ -17,6 +17,7 @@ public class Character
     public int[] achievementCounter;
     public int[] achievementLevel;
     public int[] achievementMax;
+    public string lastLogin;
 
     public Character(string name, int classLevel, int _id)
     {
@@ -35,6 +36,8 @@ public class Character
         achievementCounter = new int[] { 0, 0, 0 };
         achievementLevel = new int[] { 0, 0, 0 };
         achievementMax = new int[] { 3, 5, 10, 15 };
+        lastLogin = System.DateTime.Now.ToShortDateString();
+        Debug.Log(lastLogin);
     }
 
     public void AddAchievement(int i) {

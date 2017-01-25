@@ -36,7 +36,7 @@
 	},
 	{
 		"id": 5,
-		"title": "Plattenrüstung",
+		"title": "Plattenruestung",
 		"value": 1,
 		"slug": "m_torso2",
 		"index": 2
@@ -71,7 +71,7 @@
 	},
 	{
 		"id": 10,
-		"title": "Schulterrüstung",
+		"title": "Schulterruestung",
 		"value": 3,
 		"slug": "m_arms2",
 		"index": 2
@@ -85,14 +85,14 @@
 	},
 	{
 		"id": 12,
-		"title": "Stoffgürtel",
+		"title": "Stoffguertel",
 		"value": 5,
 		"slug": "m_belt2",
 		"index": 2
 	},
 	{
 		"id": 13,
-		"title": "Ledergürtel",
+		"title": "Lederguertel",
 		"value": 5,
 		"slug": "m_belt1",
 		"index": 1
