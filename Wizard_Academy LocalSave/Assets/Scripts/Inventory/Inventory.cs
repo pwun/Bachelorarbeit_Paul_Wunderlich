@@ -26,6 +26,11 @@ public class Inventory : MonoBehaviour {
         slotAmount = 20;
         inventoryPanel = GameObject.Find("Inventory Panel");
         slotPanel = inventoryPanel.transform.FindChild("Slot Panel").gameObject;
+        string[] btnNames = new string[] { "Color_R1", "Color_R2", "Color_R3", "Color_R4", "Color_B1", "Color_B2", "Color_B3", "Color_B4", "Color_S1", "Color_S2", "Color_S3", "Color_S4", };
+        for (int i = 0; i < btnNames.Length; i++)
+        {
+            GameObject.Find(btnNames[i]).GetComponent<Image>().color = Invert(getColor(i));
+        }
         GameObject.Find("Color_Reset").GetComponent<Button>().onClick.AddListener(() => { Game.current.hero.color = 0; SaveLoad.Save(); GameObject.Find("Player").GetComponent<Player>().setColor(); });
         if (Game.current.hero.achievements.Contains(1)){
             GameObject.Find("Color_R1").GetComponent<Button>().onClick.AddListener(() => { Game.current.hero.color = 1; SaveLoad.Save(); GameObject.Find("Player").GetComponent<Player>().setColor(); });
@@ -89,8 +94,7 @@ public class Inventory : MonoBehaviour {
         {
             GameObject.Find("Color_S4").GetComponent<Button>().onClick.AddListener(() => { Game.current.hero.color = 12; SaveLoad.Save(); GameObject.Find("Player").GetComponent<Player>().setColor(); });
         }
-        else { Destroy(GameObject.Find("Color_S4")); }        
-
+        else { Destroy(GameObject.Find("Color_S4")); }
 
         for (int i = 0; i < slotAmount; i++)
         {
@@ -131,6 +135,38 @@ public class Inventory : MonoBehaviour {
         for (int i = 0; i < unlockedItems.Length; i++) {
             AddItem(unlockedItems[i]);
         }
+    }
+
+    public Color getColor(int _colNr)
+    {
+        Color c = Color.white;
+        switch (_colNr)
+        {
+            case 1: c = new Color(0.75f, 1f, 1f); break;
+            case 2: c = new Color(0.75f, 0.75f, 1f); break;
+            case 3: c = new Color(1f, 0.75f, 1f); break;
+            case 4: c = new Color(1f, 0.75f, 0.75f); break;
+            case 5: c = new Color(1f, 1f, 0.75f); break;
+            case 6: c = new Color(0.75f, 0.75f, 0.75f); break;
+            case 7: c = new Color(1f, 0.5f, 0.75f); break;
+            case 8: c = new Color(0.75f, 0.5f, 1f); break;
+            case 9: c = new Color(0.5f, 0.75f, 1f); break;
+            case 10: c = new Color(1f, 0.75f, 0.5f); break;
+            case 11: c = new Color(0.5f, 0.5f, 0.5f); break;
+            case 12: c = new Color(0.25f, 0.25f, 0.25f); break;
+        }
+        return c;
+    }
+
+    public Color Invert(Color color)
+    {
+        return color;
+        //return Color.white * color;
+        /*float r = 1f - color.r;
+        float g = 1f - color.g;
+        float b = 1f - color.b;
+        Color result = new Color(r,g,b);
+        return result;*/
     }
 
     public void AddItem(int id) {

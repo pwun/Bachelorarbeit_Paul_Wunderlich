@@ -254,21 +254,84 @@ public class MathGenerator {
                 }break;
 			default:
                         //default type = boss
-                        e.Add(Feeling('z'));
-                        e.Add(Feeling('q'));
-                        e.Add(Feeling('z'));
-                        e.Add(Feeling('q'));
-                        e.Add(Feeling('z'));
-                        e.Add(Feeling('q'));
-                        e.Add(Feeling('z'));
-                        e.Add(Feeling('q'));
-                        e.Add(Feeling('z'));
-                        e.Add(Feeling('q'));
-                        e.Add(Feeling('z'));
-                        e.Add(Feeling('q'));
-                        e.Add(Feeling('z'));
-                        e.Add(Feeling('q'));
-                        e.Add(Feeling('z'));
+                        switch (_lvl) {
+                            case 1:
+                            case 2:
+                            case 3:
+                                e.Add(AddSub('n'));
+                                e.Add(AddSub('n'));
+                                e.Add(AddSub('n'));
+                                e.Add(AddSub('n'));
+                                e.Add(Einmaleins('n'));
+                                e.Add(Einmaleins('n'));
+                                e.Add(Einmaleins('n'));
+                                e.Add(MulDiv('n'));
+                                e.Add(MulDiv('n'));
+                                e.Add(MulDiv('n'));
+                                e.Add(Maßeinheit(0));
+                                e.Add(MulDiv('n'));
+                                e.Add(Maßeinheit(0));
+                                e.Add(Maßeinheit(0));
+                                e.Add(Feeling('z'));
+                                break;
+                            case 4:
+                            case 5:
+                            case 6:
+                                e.Add(AddSub('z'));
+                                e.Add(AddSub('z'));
+                                e.Add(AddSub('z'));
+                                e.Add(Einmaleins('z'));
+                                e.Add(Einmaleins('z'));
+                                e.Add(Einmaleins('z'));
+                                e.Add(MulDiv('Q'));
+                                e.Add(MulDiv('Q'));
+                                e.Add(MulDiv('Q'));
+                                e.Add(MulDiv('Q'));
+                                e.Add(Runden());
+                                e.Add(Maßeinheit(1));
+                                e.Add(Maßeinheit(1));
+                                e.Add(Maßeinheit(1));
+                                e.Add(Feeling('q'));
+                                break;
+                            case 7:
+                            case 8:
+                            case 9:
+                                e.Add(AddSub('q'));
+                                e.Add(AddSub('q'));
+                                e.Add(Einmaleins('z'));
+                                e.Add(MulDiv('Q'));
+                                e.Add(MulDiv('Q'));
+                                e.Add(Runden());
+                                e.Add(Maßeinheit(4));
+                                e.Add(Maßeinheit(4));
+                                e.Add(Maßeinheit(4));
+                                e.Add(ErweiternKürzen());
+                                e.Add(ErweiternKürzen());
+                                e.Add(ErweiternKürzen());
+                                e.Add(Potenzen());
+                                e.Add(Potenzen());
+                                e.Add(Potenzen());
+                                break;
+                            case 10:
+                            case 11:
+                            case 12:
+                                e.Add(AddSub('q'));
+                                e.Add(MulDiv('Q'));
+                                e.Add(MulDiv('Q'));
+                                e.Add(Maßeinheit(4));
+                                e.Add(Maßeinheit(2));
+                                e.Add(ErweiternKürzen());
+                                e.Add(ErweiternKürzen());
+                                e.Add(Potenzen());
+                                e.Add(Potenzen());
+                                e.Add(BruchZuDezimal());
+                                e.Add(BruchZuDezimal());
+                                e.Add(BruchZuDezimal());
+                                e.Add(BruchteilVonZahl());
+                                e.Add(BruchteilVonZahl());
+                                e.Add(BruchteilVonZahl());
+                                break;
+                        }
                         break;
 			}
 			break;
