@@ -17,7 +17,7 @@ public class Character
     public int[] achievementCounter;
     public int[] achievementLevel;
     public int[] achievementMax;
-    public string lastLogin;
+    public int[] achievementMax2;
 
     public Character(string name, int classLevel, int _id)
     {
@@ -36,20 +36,40 @@ public class Character
         achievementCounter = new int[] { 0, 0, 0 };
         achievementLevel = new int[] { 0, 0, 0 };
         achievementMax = new int[] { 3, 5, 10, 15 };
-        lastLogin = System.DateTime.Now.ToShortDateString();
-        Debug.Log(lastLogin);
+        achievementMax2 = new int[] { 30, 50, 100, 150 };
     }
 
     public void AddAchievement(int i) {
-        if (achievementLevel[i] == achievementMax.Length - 1 && achievementCounter[i] >= achievementMax[achievementLevel[i]]) {/*Do nothing if max stats*/ }
-        else
-        {
-            achievementCounter[i]++;
-            if (achievementCounter[i] == achievementMax[achievementLevel[i]])
+        if (i == 2) {
+            if (achievementCounter[i] >= 150) {/*Do nothing if max stats*/ }
+            else
             {
-                UnlockAchievement(i,achievementLevel[i]);
-                achievementLevel[i]++;
-                achievementCounter[i] = 0;
+                achievementCounter[i]++;
+                if (achievementCounter[i] >= achievementMax2[achievementLevel[i]])
+                {
+                    UnlockAchievement(i, achievementLevel[i]);
+                    if (achievementLevel[i] < 3)
+                    {
+                        achievementLevel[i]++;
+                    }
+                    achievementCounter[i] = 0;
+                }
+            }
+        }
+        else {
+            if (achievementCounter[i] >= 15) {/*Do nothing if max stats*/ }
+            else
+            {
+                achievementCounter[i]++;
+                if (achievementCounter[i] >= achievementMax[achievementLevel[i]])
+                {
+                    UnlockAchievement(i, achievementLevel[i]);
+                    if (achievementLevel[i] < 3)
+                    {
+                        achievementLevel[i]++;
+                    }
+                    achievementCounter[i] = 0;
+                }
             }
         }
     }

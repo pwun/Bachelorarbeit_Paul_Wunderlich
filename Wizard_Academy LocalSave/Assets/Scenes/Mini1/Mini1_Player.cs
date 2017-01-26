@@ -91,7 +91,7 @@ public class Mini1_Player : MonoBehaviour {
                 game.Answer(rowNr);
                 break;
             case "Enemy":
-                if (attacking) Destroy(coll.gameObject);
+                if (attacking) { Game.current.hero.AddAchievement(2); Destroy(coll.gameObject); }
                 else game.Hurt();
                 break;
             case "Obstacle":

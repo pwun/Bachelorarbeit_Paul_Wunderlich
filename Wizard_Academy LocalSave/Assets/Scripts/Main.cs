@@ -18,27 +18,6 @@ public class Main : MonoBehaviour {
         bossLevels.AddRange(new int[]{ 3,6,9,12});
         SaveLoad.Load();
         Game.current = SaveLoad.savedGames[SaveLoad.savedGames.Count - 1];
-        System.DateTime lastDate = System.Convert.ToDateTime(Game.current.hero.lastLogin);
-        System.DateTime nowDate = System.DateTime.Now;
-        if (lastDate.CompareTo(nowDate.Date) < 0 && lastDate.CompareTo(nowDate.AddDays(-1).Date) > 0)
-        {
-            Debug.Log("LastDate(" + lastDate.ToShortTimeString() + "-" + lastDate.ToShortDateString() + " liegt vor heute früh 0Uhr(" + nowDate.Date.ToShortTimeString() + "-" + nowDate.Date.ToShortDateString() + " & nach gestern früh 0Uhr(" + nowDate.AddDays(-1).Date.ToShortTimeString() + "-" + nowDate.AddDays(-1).Date.ToShortDateString() +
-                " also wird das Achievement ERHÖHT");
-            //last zwischen gestern 23:59:59 && gestern 00:00:01 Uhr -> add
-            Game.current.hero.AddAchievement(2);
-        }
-        else if (lastDate.CompareTo(nowDate.AddDays(-1).Date) < 0)
-        {
-            Debug.Log("LastDate(" + lastDate.ToShortTimeString() + "-" + lastDate.ToShortDateString() + " liegt vor gestern früh 0Uhr(" + nowDate.AddDays(-1).Date.ToShortTimeString() + "-" + nowDate.AddDays(-1).Date.ToShortDateString() +
-                " also wird das Achievement ABGEBROCHEN");
-            //Vor gestern  -> reihe beenden
-            Game.current.hero.achievementCounter[2] = 0;
-        }
-        else {
-            Debug.Log("LastDate(" + lastDate.ToShortTimeString() + "-" + lastDate.ToShortDateString() + " liegt nach heute früh 0Uhr(" + nowDate.Date.ToShortTimeString() + "-" + nowDate.Date.ToShortDateString() +
-                " also passiert nichts");
-        }
-        Game.current.hero.lastLogin = nowDate.ToLongTimeString();
         initUiElements();
 		GameObject.Find("Save_Button").GetComponent<Button>().onClick.AddListener(() => {
             int answer = -1;
@@ -62,7 +41,13 @@ public class Main : MonoBehaviour {
         GameObject.Find("FreeTrain_Button").GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("FreeTrainSetup"); });
         GameObject.Find("Mini1_Button").GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("Mini1_Start"); });
         GameObject.Find("Boss_Button").GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("BossSettings"); });
-        GameObject.Find("Test_Cheat_Button").GetComponent<Button>().onClick.AddListener(() => {Game.current.hero.AddXp(2000); });
+        GameObject.Find("Test_Cheat_Button").GetComponent<Button>().onClick.AddListener(() => {
+                Game.current.hero.AddAchievement(0);
+                Game.current.hero.AddAchievement(1);
+                Game.current.hero.AddAchievement(2);
+             Game.current.hero.AddXp(2000); });
+
+
         GameObject.Find("Test_Reset_Button").GetComponent<Button>().onClick.AddListener(() => { resetStats(); });
         GameObject.Find("EditChar").GetComponent<Button>().onClick.AddListener(() => SceneManager.LoadScene("Inventory"));
         Log.LogEntry("Menu");

@@ -57,7 +57,7 @@ public class Boss_Player : MonoBehaviour
                 break;
             case "Startarea":
                 anim.Do("StopWalking");
-                GameObject.Find("QuestionPanel").transform.localScale = new Vector3(7, 5, 0);
+                GameObject.Find("QuestionPanel").transform.localScale = new Vector3(1, 1, 0);
                 game.animRunning = false;
                 Player.velocity = new Vector3(0, 0, 0);
                 foreach (SpriteRenderer r in renderer) { r.flipX = false; }

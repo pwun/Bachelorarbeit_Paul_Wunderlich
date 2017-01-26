@@ -19,7 +19,7 @@ public class Achievement3 : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         infoPanel = GameObject.Find("achievement3Info");
         infoPanel.transform.localScale = new Vector3(0, 0, 0);
-        GameObject.Find("achievement3Counter").GetComponent<Text>().text = Game.current.hero.achievementCounter[2] + " / " + Game.current.hero.achievementMax[Game.current.hero.achievementLevel[2]];
+        GameObject.Find("achievement3Counter").GetComponent<Text>().text = Game.current.hero.achievementCounter[2] + " / " + Game.current.hero.achievementMax2[Game.current.hero.achievementLevel[2]];
         switch (Game.current.hero.achievementLevel[2])
         {
             case 1:
