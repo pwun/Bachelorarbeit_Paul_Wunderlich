@@ -121,6 +121,7 @@
     <Compile Include="Assets\Scripts\Save\SaveLoad.cs" />
     <Compile Include="Assets\Scripts\Sound.cs" />
     <Compile Include="Assets\Scripts\UserData.cs" />
+    <Compile Include="Assets\StoryText.cs" />
     <Compile Include="Assets\loot.cs" />
     <Compile Include="Assets\scroll.cs" />
   </ItemGroup>

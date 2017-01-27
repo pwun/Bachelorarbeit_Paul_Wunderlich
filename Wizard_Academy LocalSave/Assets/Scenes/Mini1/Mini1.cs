@@ -17,6 +17,7 @@ public class Mini1 : MonoBehaviour
 
     public AudioSource Audio_Endscreen;
 
+    Text Task;
     Text Question;
     Text Answer1;
     Text Answer2;
@@ -132,6 +133,7 @@ public class Mini1 : MonoBehaviour
                 
         }
         bg.GetComponent<scroll>().speed = 0;
+        Task = GameObject.Find("Task").GetComponent<Text>();
         Question = GameObject.Find("Question").GetComponent<Text>();
         Answer1 = GameObject.Find("Answer1").GetComponent<Text>();
         Answer2 = GameObject.Find("Answer2").GetComponent<Text>();
@@ -272,7 +274,6 @@ public class Mini1 : MonoBehaviour
     //spawn_x answer_y
     void ResetAnswer()
     {
-        Debug.Log("AnswerY:" + Answers.transform.position.y);
         Answers.transform.position = new Vector3(spawn_x, answer_y, 0);
         Answer1.enabled = true;
         Answer2.enabled = true;
@@ -298,6 +299,7 @@ public class Mini1 : MonoBehaviour
     void EndGame()
     {
         Audio_Endscreen.Play();
+        Destroy(Task);
         Answers.velocity = Vector2.zero;
         //Bg.velocity = Vector2.zero;
         bg.GetComponent<scroll>().speed = 0;
@@ -312,7 +314,7 @@ public class Mini1 : MonoBehaviour
             GameObject.Destroy(enemy);
         Answer1.text = Answer2.text = Answer3.text = Question.text = "";
         int multiply = Lifes + 1;
-        xp = CorrectCounter * (multiply);
+        xp = (CorrectCounter*Game.current.hero.Level) * (multiply);
         GameObject.Find("RewardText").GetComponent<Text>().text = "Du hast " + CorrectCounter + " Antworten richtig beantwortet" + System.Environment.NewLine +
             "und " + (Lifes) + " Leben übrig." + System.Environment.NewLine + "Dafür erhältst du " + xp + "XP";
         GameObject.Find("SaveAndQuitButton").GetComponent<Button>().enabled = true;
@@ -330,6 +332,7 @@ public class Mini1 : MonoBehaviour
     {
         if (ready)
         {
+            Task.text = e[eNr].task;
             Question.text = e[eNr].question;
             Answer1.text = e[eNr].answerPos[0];
             Answer2.text = e[eNr].answerPos[1];
