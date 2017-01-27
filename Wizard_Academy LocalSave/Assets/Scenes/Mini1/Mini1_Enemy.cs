@@ -4,6 +4,7 @@ using System.Collections;
 public class Mini1_Enemy : MonoBehaviour {
 
     Rigidbody2D me;
+    public AudioSource Audio_Die;
 
     Vector3 left = new Vector3(-1,0,0);
     float speed = 120.0f;
@@ -17,16 +18,22 @@ public class Mini1_Enemy : MonoBehaviour {
 
     public void Kill()
     {
-        Destroy(GetComponent<Rigidbody2D>());
-        Destroy(gameObject);
-        Destroy(this);
+        Audio_Die.Play();
+        gameObject.transform.localScale = new Vector3(0, 0, 0);
     }
 	
 	// Update is called once per frame
 	void Update () {
 	    if (me.transform.position.x < -1800)
         {
-            Kill();
+            KillSilent();
         }
 	}
+
+    public void KillSilent()
+    {
+        Destroy(GetComponent<Rigidbody2D>());
+        Destroy(gameObject);
+        Destroy(this);
+    }
 }

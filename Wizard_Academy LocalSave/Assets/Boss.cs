@@ -12,8 +12,7 @@ public class Boss : MonoBehaviour
     InputField AnswerInput;
     Text Timer;
 
-    public AudioSource Audio_False;
-    public AudioSource Audio_NextPage;
+    public AudioSource Audio_Endscreen;
 
     Button SubmitButton;
     Button NextButton;
@@ -255,6 +254,7 @@ public class Boss : MonoBehaviour
         if (bossHearts - CorrectCounter > 0) {
             GameObject.Find("BossLife" + (bossHearts - CorrectCounter +1)).SetActive(false);
             GameObject.FindGameObjectWithTag("Boss").GetComponent<Animator>().SetTrigger("Hurt");
+            boss.GetComponent<BossEnemy>().Audio_Hurt.Play();
         }
         else {
             GameObject.Find("BossLife" + (bossHearts - CorrectCounter + 1)).SetActive(false);
@@ -271,6 +271,7 @@ public class Boss : MonoBehaviour
     }
     void BossDie() {
         //Play Die Animation
+        boss.GetComponent<BossEnemy>().Audio_Die.Play();
         GameObject.FindGameObjectWithTag("Boss").GetComponent<Animator>().SetBool("Idle", false);
         Close();
     }
@@ -303,11 +304,12 @@ public class Boss : MonoBehaviour
                 eNr++;
                 refreshUi();
             }
-            SubmitButton.transform.localScale = new Vector3(0.2f, 0.3f, 1);
+            SubmitButton.transform.localScale = new Vector3(1f, 1f, 1);
         }
     }
     void Close()
     {
+        Audio_Endscreen.Play();
         running = false;
         Destroy(GameObject.Find("QuestionPanel"));
         GameObject.Find("Endscreen").transform.localScale = new Vector3(1, 1, 1);

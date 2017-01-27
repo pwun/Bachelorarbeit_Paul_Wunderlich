@@ -15,6 +15,8 @@ public class Mini1 : MonoBehaviour
 
     float speed = 120.0f;
 
+    public AudioSource Audio_Endscreen;
+
     Text Question;
     Text Answer1;
     Text Answer2;
@@ -295,6 +297,7 @@ public class Mini1 : MonoBehaviour
 
     void EndGame()
     {
+        Audio_Endscreen.Play();
         Answers.velocity = Vector2.zero;
         //Bg.velocity = Vector2.zero;
         bg.GetComponent<scroll>().speed = 0;

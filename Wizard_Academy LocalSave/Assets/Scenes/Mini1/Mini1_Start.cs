@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Mini1_Start : MonoBehaviour {
     Text Coins;
+    public AudioSource Audio_Coin;
 	// Use this for initialization
 	void Start () {
         Coins = GameObject.Find("Coins").GetComponent<Text>();
@@ -20,6 +21,7 @@ public class Mini1_Start : MonoBehaviour {
 
     public void LoadGame()
     {
+        Audio_Coin.Play();
         Dropdown dd = (Dropdown)GameObject.Find("Dropdown").GetComponent<Dropdown>();
         if (dd.value == 0)
         {

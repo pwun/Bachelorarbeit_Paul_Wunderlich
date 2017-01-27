@@ -70,7 +70,47 @@ public class EnglishGenerator {
 				break;
 			case 2:
                         //typ 2: mini1
-                        e.AddRange(PickRandom(ReadFromDB("e", _class, _type, 1), 10));
+                        switch (_lvl) {
+                            case 1:
+                            case 2:
+                            case 3:
+                                e.AddRange(PickRandom(ReadFromDB("e", 6, 1, 20), 2));
+                                e.AddRange(PickRandom(ReadFromDB("e", 6, 1, 21), 2));
+                                e.AddRange(PickRandom(ReadFromDB("e", 6, 1, 23), 1));
+                                e.AddRange(PickRandom(ReadFromDB("e", 6, 1, 22), 1));
+                                e.AddRange(PickRandom(ReadFromDB("e", 6, 1, 1), 2));
+                                break;
+                            case 4:
+                            case 5:
+                            case 6:
+                                e.AddRange(PickRandom(ReadFromDB("e", 6, 1, 24), 2));
+                                e.AddRange(PickRandom(ReadFromDB("e", 6, 1, 20), 2));
+                                e.AddRange(PickRandom(ReadFromDB("e", 6, 1, 21), 1));
+                                e.AddRange(PickRandom(ReadFromDB("e", 6, 1, 23), 1));
+                                e.AddRange(PickRandom(ReadFromDB("e", 6, 1, 22), 1));
+                                e.AddRange(PickRandom(ReadFromDB("e", 6, 1, 1), 2));
+                                break;
+                            case 7:
+                            case 8:
+                            case 9:
+                                e.AddRange(PickRandom(ReadFromDB("e", 6, 1, 25), 2));
+                                e.AddRange(PickRandom(ReadFromDB("e", 6, 1, 26), 2));
+                                e.AddRange(PickRandom(ReadFromDB("e", 6, 1, 24), 2));
+                                e.AddRange(PickRandom(ReadFromDB("e", 6, 1, 20), 1));
+                                e.AddRange(PickRandom(ReadFromDB("e", 6, 1, 21), 1));
+                                e.AddRange(PickRandom(ReadFromDB("e", 6, 1, 1), 2));
+                                break;
+                            default://lvl 10+
+                                e.AddRange(PickRandom(ReadFromDB("e", 6, 1, 27), 2));
+                                e.AddRange(PickRandom(ReadFromDB("e", 6, 1, 25), 2));
+                                e.AddRange(PickRandom(ReadFromDB("e", 6, 1, 26), 2));
+                                e.AddRange(PickRandom(ReadFromDB("e", 6, 1, 24), 2));
+                                e.AddRange(PickRandom(ReadFromDB("e", 6, 1, 20), 1));
+                                e.AddRange(PickRandom(ReadFromDB("e", 6, 1, 21), 1));
+                                e.AddRange(PickRandom(ReadFromDB("e", 6, 1, 1), 1));
+                                break;
+                        }
+
                         break;
 			default:
                         //default type=boss
@@ -189,12 +229,73 @@ public class EnglishGenerator {
 			case 2:
                 //typ 2: mini1
                 e.AddRange(PickRandom(ReadFromDB("e", 8, _type, 1), 10));
-                break;
+                        switch (_lvl)
+                        {
+                            case 1:
+                            case 2:
+                            case 3:
+                                break;
+                            case 4:
+                            case 5:
+                            case 6:
+                                break;
+                            case 7:
+                            case 8:
+                            case 9:
+                                break;
+                            default://lvl 10+
+                                break;
+                        }
+                        break;
 			default:
                         //default type=boss
-                        e.AddRange(PickRandom(ReadFromDB("e", 8, _type, 1), 15));
+                        switch (_lvl)
+                        {
+                            case 1:
+                            case 2:
+                            case 3:
+                                e.AddRange(PickRandom(ReadFromDB("e", 8, 1, 2), 1));
+                                e.AddRange(PickRandom(ReadFromDB("e", 8, 1, 3), 2));
+                                e.AddRange(PickRandom(ReadFromDB("e", 8, 1, 4), 3));
+                                e.AddRange(PickRandom(ReadFromDB("e", 8, 1, 5), 3));
+                                e.AddRange(PickRandom(ReadFromDB("e", 8, 1, 6), 2));
+                                e.AddRange(PickRandom(ReadFromDB("e", 8, 1, 7), 3));
+                                e.AddRange(PickRandom(ReadFromDB("e", 8, 1, 14), 1));
+                                break;
+                            case 4:
+                            case 5:
+                            case 6:
+                                e.AddRange(PickRandom(ReadFromDB("e", 8, 1, 4), 2));
+                                e.AddRange(PickRandom(ReadFromDB("e", 8, 1, 7), 2));
+                                e.AddRange(PickRandom(ReadFromDB("e", 8, 1, 14), 1));
+                                e.AddRange(PickRandom(ReadFromDB("e", 8, 1, 8), 2));
+                                e.AddRange(PickRandom(ReadFromDB("e", 8, 1, 9), 2));
+                                e.AddRange(PickRandom(ReadFromDB("e", 8, 1, 10), 3));
+                                e.AddRange(PickRandom(ReadFromDB("e", 8, 1, 11), 3));
+                                break;
+                            case 7:
+                            case 8:
+                            case 9:
+                                e.AddRange(PickRandom(ReadFromDB("e", 8, 1, 4), 2));
+                                e.AddRange(PickRandom(ReadFromDB("e", 8, 1, 7), 2));
+                                e.AddRange(PickRandom(ReadFromDB("e", 8, 1, 10), 3));
+                                e.AddRange(PickRandom(ReadFromDB("e", 8, 1, 11), 3));
+                                e.AddRange(PickRandom(ReadFromDB("e", 8, 1, 15), 3));
+                                e.AddRange(PickRandom(ReadFromDB("e", 8, 1, 17), 2));
+                                break;
+                            case 10:
+                            case 11:
+                            case 12:
+                                e.AddRange(PickRandom(ReadFromDB("e", 8, 1, 4), 2));
+                                e.AddRange(PickRandom(ReadFromDB("e", 8, 1, 7), 2));
+                                e.AddRange(PickRandom(ReadFromDB("e", 8, 1, 10), 3));
+                                e.AddRange(PickRandom(ReadFromDB("e", 8, 1, 11), 3));
+                                e.AddRange(PickRandom(ReadFromDB("e", 8, 1, 16), 3));
+                                e.AddRange(PickRandom(ReadFromDB("e", 8, 1, 17), 2));
+                                break;
+                        }
                         break;
-			}
+                }
 			break;
 		default:
 			//default class

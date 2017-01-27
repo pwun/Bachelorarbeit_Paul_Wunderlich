@@ -53,20 +53,12 @@ public class Player : MonoBehaviour {
 
     public void setColor() {
         Color c = Color.white;
-        switch (Game.current.hero.color) {
-            case 1: c = new Color(0.75f,1f,1f);break;
-            case 2: c = new Color(0.75f, 0.75f, 1f); break;
-            case 3: c = new Color(1f, 0.75f, 1f); break;
-            case 4: c = new Color(1f, 0.75f, 0.75f); break;
-            case 5: c = new Color(1f, 1f, 0.75f); break;
-            case 6: c = new Color(0.75f, 0.75f, 0.75f); break;
-            case 7: c = new Color(1f, 0.5f, 0.75f); break;
-            case 8: c = new Color(0.75f, 0.5f, 1f); break;
-            case 9: c = new Color(0.5f, 0.75f, 1f); break;
-            case 10: c = new Color(1f, 0.75f, 0.5f); break;
-            case 11: c = new Color(0.5f, 0.5f, 0.5f); break;
-            case 12: c = new Color(0.25f, 0.25f, 0.25f); break;
-        }
+        int[,] colors = new int[,] { {255,255,255},
+        { 0,255,0},{ 0,255,128},{ 128,255,0},{ 255,255,0},
+        { 255,0,255},{ 255,0,128},{ 255,0,0},{ 255,128,0},
+        { 128,0,255},{ 0,0,255},{ 0,128,255},{ 0,255,255}
+        };
+        c = new Color(colors[Game.current.hero.color, 0] / 255f, colors[Game.current.hero.color, 1] / 255f, colors[Game.current.hero.color, 2] / 255f);
         foreach (SpriteRenderer s in go.GetComponentsInChildren<SpriteRenderer>())
         {
             s.color = c;

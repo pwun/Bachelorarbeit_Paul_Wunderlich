@@ -13,6 +13,8 @@ public class Train : MonoBehaviour
 
     public AudioSource Audio_False;
     public AudioSource Audio_NextPage;
+    public AudioSource Audio_Correct;
+    public AudioSource Audio_Endscreen;
 
     Button SubmitButton;
     Button NextButton;
@@ -108,6 +110,7 @@ public class Train : MonoBehaviour
         if (r1.Equals(r2))
         {
             Result.text = "Richtig!";
+            Audio_Correct.Play();
             CorrectCounter++;
         }
         else
@@ -151,6 +154,7 @@ public class Train : MonoBehaviour
     }
     void Close()
     {
+        Audio_Endscreen.Play();
         AnswerInput.transform.position = new Vector3(-500, -500, -20);
         Destroy(Question);
         Destroy(Task);

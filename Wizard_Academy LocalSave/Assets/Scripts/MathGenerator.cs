@@ -485,22 +485,84 @@ public class MathGenerator {
                                 break;
                 }break;
                     default:
-                        //default type = boss
-                        e.Add(Feeling('z'));
-                        e.Add(Feeling('q'));
-                        e.Add(Feeling('z'));
-                        e.Add(Feeling('q'));
-                        e.Add(Feeling('z'));
-                        e.Add(Feeling('q'));
-                        e.Add(Feeling('z'));
-                        e.Add(Feeling('q'));
-                        e.Add(Feeling('z'));
-                        e.Add(Feeling('q'));
-                        e.Add(Feeling('z'));
-                        e.Add(Feeling('q'));
-                        e.Add(Feeling('z'));
-                        e.Add(Feeling('q'));
-                        e.Add(Feeling('z'));
+                        //Type = boss
+                        switch (Game.current.hero.Level)
+                        {
+                            case 1:
+                            case 2:
+                            case 3:
+                                e.Add(AddSub('q'));
+                                e.Add(AddSub('q'));
+                                e.Add(AddSub('q'));
+                                e.Add(MulDiv('q'));
+                                e.Add(MulDiv('q'));
+                                e.Add(MulDiv('q'));
+                                e.Add(BruchZuDezimal());
+                                e.Add(BruchZuDezimal());
+                                e.Add(AddSubMulDivBruch());
+                                e.Add(AddSubMulDivBruch());
+                                e.Add(AddSubMulDivBruch());
+                                e.Add(AddSubMulDivPotenz());
+                                e.Add(AddSubMulDivPotenz());
+                                e.Add(Maßeinheit(2));
+                                e.Add(Maßeinheit(3));
+                                break;
+                            case 4:
+                            case 5:
+                            case 6:
+                                e.Add(BruchZuDezimal());
+                                e.Add(BruchZuDezimal());
+                                e.Add(AddSubMulDivBruch());
+                                e.Add(AddSubMulDivBruch());
+                                e.Add(AddSubMulDivBruch());
+                                e.Add(AddSubMulDivPotenz());
+                                e.Add(AddSubMulDivPotenz());
+                                e.Add(AddSubMulDivPotenz());
+                                e.Add(Gleichung());
+                                e.Add(Gleichung());
+                                e.Add(Gleichung());
+                                e.Add(Gleichung());
+                                e.Add(Binom());
+                                e.Add(Binom());
+                                e.Add(Binom());
+                                break;
+                            case 7:
+                            case 8:
+                            case 9:
+                                e.Add(AddSubMulDivBruch());
+                                e.Add(AddSubMulDivBruch());
+                                e.Add(AddSubMulDivPotenz());
+                                e.Add(AddSubMulDivPotenz());
+                                e.Add(Gleichung());
+                                e.Add(Gleichung());
+                                e.Add(Gleichung());
+                                e.Add(Binom());
+                                e.Add(Binom());
+                                e.Add(Extremwert());
+                                e.Add(Extremwert());
+                                e.Add(Extremwert());
+                                e.Add(Extremwert());
+                                e.Add(Trigonometrie());
+                                e.Add(Trigonometrie());
+                                break;
+                            default://10+
+                                e.Add(AddSubMulDivBruch());
+                                e.Add(AddSubMulDivBruch());
+                                e.Add(Gleichung());
+                                e.Add(Gleichung());
+                                e.Add(Gleichung());
+                                e.Add(Gleichung());
+                                e.Add(Binom());
+                                e.Add(Binom());
+                                e.Add(Extremwert());
+                                e.Add(Extremwert());
+                                e.Add(Extremwert());
+                                e.Add(Extremwert());
+                                e.Add(Extremwert());
+                                e.Add(Trigonometrie());
+                                e.Add(Trigonometrie());
+                                break;
+                        }
                         break;
                 }
 			break;

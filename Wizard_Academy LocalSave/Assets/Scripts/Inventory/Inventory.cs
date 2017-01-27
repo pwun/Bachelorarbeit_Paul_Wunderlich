@@ -12,8 +12,6 @@ public class Inventory : MonoBehaviour {
     public GameObject inventorySlot;
     public GameObject inventoryItem;
 
-    public Button colorR1;
-
     int slotAmount;
     public List<Item> items = new List<Item>();
     public List<GameObject> slots = new List<GameObject>();
@@ -29,7 +27,7 @@ public class Inventory : MonoBehaviour {
         string[] btnNames = new string[] { "Color_R1", "Color_R2", "Color_R3", "Color_R4", "Color_B1", "Color_B2", "Color_B3", "Color_B4", "Color_S1", "Color_S2", "Color_S3", "Color_S4", };
         for (int i = 0; i < btnNames.Length; i++)
         {
-            GameObject.Find(btnNames[i]).GetComponent<Image>().color = Invert(getColor(i));
+            GameObject.Find(btnNames[i]).GetComponent<Image>().color = Invert(getColor(i+1));
         }
         GameObject.Find("Color_Reset").GetComponent<Button>().onClick.AddListener(() => { Game.current.hero.color = 0; SaveLoad.Save(); GameObject.Find("Player").GetComponent<Player>().setColor(); });
         if (Game.current.hero.achievements.Contains(1)){
@@ -139,22 +137,13 @@ public class Inventory : MonoBehaviour {
 
     public Color getColor(int _colNr)
     {
+        int[,] colors = new int[,] { {255,255,255},
+        { 0,255,0},{ 0,255,128},{ 128,255,0},{ 255,255,0},
+        { 255,0,255},{ 255,0,128},{ 255,0,0},{ 255,128,0},
+        { 128,0,255},{ 0,0,255},{ 0,128,255},{ 0,255,255}
+        };
         Color c = Color.white;
-        switch (_colNr)
-        {
-            case 1: c = new Color(0.75f, 1f, 1f); break;
-            case 2: c = new Color(0.75f, 0.75f, 1f); break;
-            case 3: c = new Color(1f, 0.75f, 1f); break;
-            case 4: c = new Color(1f, 0.75f, 0.75f); break;
-            case 5: c = new Color(1f, 1f, 0.75f); break;
-            case 6: c = new Color(0.75f, 0.75f, 0.75f); break;
-            case 7: c = new Color(1f, 0.5f, 0.75f); break;
-            case 8: c = new Color(0.75f, 0.5f, 1f); break;
-            case 9: c = new Color(0.5f, 0.75f, 1f); break;
-            case 10: c = new Color(1f, 0.75f, 0.5f); break;
-            case 11: c = new Color(0.5f, 0.5f, 0.5f); break;
-            case 12: c = new Color(0.25f, 0.25f, 0.25f); break;
-        }
+        c = new Color(colors[_colNr,0]/255f, colors[_colNr,1] / 255f, colors[_colNr,2] / 255f);
         return c;
     }
 

@@ -10,6 +10,32 @@ public class BossSettings : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        string text;
+        string bossName;
+        switch (Game.current.hero.Level) {
+            case 3:
+                bossName = "Forstos - Waldmagier";
+                text = "Beschreibung des 1. Gegners";
+                break;
+            case 6:
+                bossName = "Sumpfus - Giftmagier";
+                text = "Beschreibung des 2. Gegners";
+                break;
+            case 9:
+                bossName = "Frostos - Eismagier";
+                text = "Beschreibung des 3. Gegners";
+                break;
+            case 12:
+                bossName = "Magmarus - Lavadrache";
+                text = "Beschreibung des 4. Gegners";
+                break;
+            default:
+                bossName = "Forstos - Waldmagier";
+                text = "Beschreibung des Gegners";
+                break;
+        }
+        GameObject.Find("Text").GetComponent<Text>().text = text;
+        GameObject.Find("Title").GetComponent<Text>().text = bossName;
     }
 
     // Update is called once per frame
