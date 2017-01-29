@@ -337,7 +337,7 @@ public class Mini1 : MonoBehaviour
             Answer1.text = e[eNr].answerPos[0];
             Answer2.text = e[eNr].answerPos[1];
             Answer3.text = e[eNr].answerPos[2];
-            ExerciseCounter.text = (eNr + 1) + "/" + e.Length;
+            ExerciseCounter.text = (eNr) + "/" + e.Length;
         }
     }
 

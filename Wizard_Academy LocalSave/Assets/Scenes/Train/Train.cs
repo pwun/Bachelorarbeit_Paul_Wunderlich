@@ -78,7 +78,7 @@ public class Train : MonoBehaviour
     }
     void refreshUi()
     {
-        ExerciseCounter.text = (eNr + 1) + "/" + e.Length;
+        ExerciseCounter.text = (eNr) + "/" + e.Length;
         Question.text = e[eNr].question;
         Task.text = e[eNr].task;
     }

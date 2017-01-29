@@ -32,7 +32,7 @@ public class Boss : MonoBehaviour
     string locationName = "NEUER ORT";
     string itemName = "NEUES ITEM";
 
-    float time = 600.00f;
+    float time = 900.00f;
 
     public bool rightAnswer = true;
 
@@ -57,32 +57,32 @@ public class Boss : MonoBehaviour
         switch (Game.current.hero.Level)
         {
             case 3:
-                bossName = "Forstos - Waldmagier";
-                locationName = "die dunklen Sümpfe von Sumpfus";
+                bossName = "Forstos der Sprößling";
+                locationName = "die Sümpfe von Thales";
                 itemName = "die Robe des Waldmönchs";
                 boss = Instantiate(boss1, new Vector3(960, -282, 90), new Quaternion(0, 0, 0,0));
                 break;
             case 6:
-                bossName = "Sumpfus - Giftmagier";
-                locationName = "die eisige Bergkette von Frostos";
+                bossName = "Swampus der Hinterlistige";
+                locationName = "die Gipfel von Euklid";
                 itemName = "das Kettenhemd des Kriegers";
                 boss = Instantiate(boss2, new Vector3(960, -282, 90), new Quaternion(0, 0, 0, 0));
                 break;
             case 9:
-                bossName = "Frostos - Eismagier";
-                locationName = "den kochenden Magmarkrater";
+                bossName = "Freezos der Kaltblütige";
+                locationName = "den Aschekamm";
                 itemName = "die Plattenrüstung des Ritters";
                 boss = Instantiate(boss3, new Vector3(960, -282, 90), new Quaternion(0, 0, 0, 0));
                 break;
             case 12:
-                bossName = "Magmarus - Lavadrache";
+                bossName = "Magmar der Weltenfresser";
                 locationName = "alle Regionen";
                 itemName = "das verzierte Kettenhemd eines Helden";
                 boss = Instantiate(boss4, new Vector3(960, -282, 90), new Quaternion(0, 0, 0, 0));
                 break;
             default:
-                bossName = "Forstos - Waldmagier";
-                locationName = "die dunklen Sümpfe von Sumpfus";
+                bossName = "Forstos der Sprößling";
+                locationName = "die Sümpfe von Thales";
                 itemName = "nichts";
                 boss = Instantiate(boss1, new Vector3(960, -282, 90), new Quaternion(0, 0, 0, 0));
                 break;
