@@ -104,6 +104,39 @@ public class Character
         Xp = 0;
         XpNeeded = XpList[Level];
         Coins += 3;
+        Debug.Log("Hero Level:" + Level);
+        if (Level > 3)
+        {
+            if (!Unlocked.Contains(4))
+            {
+                Unlocked.Add(4);
+                Debug.Log("Added ITEM 1 (id4)");
+            }
+        }
+        if (Level > 6)
+        {
+            if (!Unlocked.Contains(2))
+            {
+                Unlocked.Add(2);
+                Debug.Log("Added ITEM 2 (id2)");
+            }
+        }
+        if (Level > 9)
+        {
+            if (!Unlocked.Contains(5))
+            {
+                Unlocked.Add(5);
+                Debug.Log("Added ITEM 3 (id5)");
+            }
+        }
+        if (Level > 12)
+        {
+            if (!Unlocked.Contains(3))
+            {
+                Unlocked.Add(3);
+                Debug.Log("Added ITEM 4 (id3)");
+            }
+        }
     }
 
     public void initItems()

@@ -180,7 +180,7 @@ public class Train : MonoBehaviour
     {
         int xp = 0;
         if (Game.current.hero.Subject.Equals("f")) {
-            return CorrectCounter*2;
+            return CorrectCounter*5;
         }
         switch (Game.current.hero.Level)
         {

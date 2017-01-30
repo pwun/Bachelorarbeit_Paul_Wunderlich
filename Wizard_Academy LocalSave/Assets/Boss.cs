@@ -32,7 +32,7 @@ public class Boss : MonoBehaviour
     string locationName = "NEUER ORT";
     string itemName = "NEUES ITEM";
 
-    float time = 900.00f;
+    float time = 1200.00f;
 
     public bool rightAnswer = true;
 

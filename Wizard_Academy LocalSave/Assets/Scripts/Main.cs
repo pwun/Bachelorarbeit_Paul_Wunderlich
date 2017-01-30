@@ -42,13 +42,7 @@ public class Main : MonoBehaviour {
         GameObject.Find("Mini1_Button").GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("Mini1_Start"); });
         GameObject.Find("Boss_Button").GetComponent<Button>().onClick.AddListener(() => { SceneManager.LoadScene("BossSettings"); });
         GameObject.Find("Test_Cheat_Button").GetComponent<Button>().onClick.AddListener(() => {
-                Game.current.hero.AddAchievement(0);
-                Game.current.hero.AddAchievement(1);
-            for(int i = 0; i < 10; i++)
-            {
-                Game.current.hero.AddAchievement(2);
-            }
-            Game.current.hero.AddXp(2000);
+            Game.current.hero.AddXp(100);
         });
         GameObject.Find("Test_Cheat_Button2").GetComponent<Button>().onClick.AddListener(() => {
             Game.current.hero.LevelUp();

@@ -314,7 +314,7 @@ public class Mini1 : MonoBehaviour
             GameObject.Destroy(enemy);
         Answer1.text = Answer2.text = Answer3.text = Question.text = "";
         int multiply = Lifes + 1;
-        xp = (CorrectCounter*Game.current.hero.Level) * (multiply);
+        xp = (CorrectCounter*(Game.current.hero.Level*2)) * (multiply);
         GameObject.Find("RewardText").GetComponent<Text>().text = "Du hast " + CorrectCounter + " Antworten richtig beantwortet" + System.Environment.NewLine +
             "und " + (Lifes) + " Leben übrig." + System.Environment.NewLine + "Dafür erhältst du " + xp + "XP";
         GameObject.Find("SaveAndQuitButton").GetComponent<Button>().enabled = true;
@@ -322,7 +322,7 @@ public class Mini1 : MonoBehaviour
         GameObject.Find("SaveAndQuitButton").GetComponent<Button>().onClick.AddListener(() => { GameObject.Find("SaveAndQuitButton").GetComponent<Button>().interactable = false; });
         GameObject.Find("Endscreen").transform.localScale = new Vector3(1, 1, 1);
         int answer = -1;
-        answer = Log.LogEntry("Mini1 " + xp + "xp, " + CorrectCounter + "/" + e.Length + " richtig, Leben: "+Lifes);
+        answer = Log.LogEntry("Mini " + xp + "xp, " + CorrectCounter + "/" + e.Length + " richtig, Leben: "+Lifes);
         while (answer < 0)
         { //Wait
         }

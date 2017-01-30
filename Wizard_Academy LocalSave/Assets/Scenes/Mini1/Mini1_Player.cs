@@ -125,7 +125,7 @@ public class Mini1_Player : MonoBehaviour {
 
     IEnumerator wait()
     {
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.7f);
         attacking = false;
     }
 }

@@ -16,7 +16,7 @@ public class Boss_Player : MonoBehaviour
     Player anim;
     SpriteRenderer[] renderer;
 
-    float speed = 300.0f;
+    float speed = 400.0f;
     
     void Start()
     {
